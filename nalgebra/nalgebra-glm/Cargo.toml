@@ -1,0 +1,33 @@
+[package]
+name = "nalgebra-glm"
+version = "0.21.0"
+authors = ["sebcrozet <developer@crozet.re>"]
+
+description = "A computer-graphics oriented API for nalgebra, inspired by the C++ GLM library."
+documentation = "https://www.nalgebra.rs/docs"
+homepage = "https://nalgebra.rs"
+repository = "https://github.com/dimforge/nalgebra"
+readme = "../README.md"
+categories = ["science", "mathematics", "wasm", "no-std"]
+keywords = ["linear", "algebra", "matrix", "vector", "math"]
+license = "Apache-2.0"
+edition = "2024"
+
+[badges]
+maintenance = { status = "actively-developed" }
+
+[features]
+default = ["std"]
+std = ["nalgebra/std", "simba/std"]
+arbitrary = ["nalgebra/arbitrary"]
+serde-serialize = ["nalgebra/serde-serialize-no-std"]
+
+# Conversion
+convert-mint = ["nalgebra/mint"]
+convert-bytemuck = ["nalgebra/bytemuck"]
+
+[dependencies]
+num-traits = { version = "0.2", default-features = false }
+approx = { version = "0.5", default-features = false }
+simba = { version = "0.10", default-features = false }
+nalgebra = { path = "..", version = "0.35", default-features = false }

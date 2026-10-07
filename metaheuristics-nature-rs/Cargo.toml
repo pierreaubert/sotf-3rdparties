@@ -1,0 +1,51 @@
+[package]
+name = "metaheuristics-nature"
+description = "A collection of nature-inspired metaheuristic algorithms."
+version = "10.1.0"
+authors = ["KmolYuan <pyslvs@gmail.com>"]
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/KmolYuan/metaheuristics-nature-rs"
+keywords = ["metaheuristic", "algorithm", "optimization"]
+categories = ["algorithms", "no-std"]
+
+[features]
+default = ["std"]
+std = [
+    "num-traits/std",
+    "rand/std",
+    "rand_distr/std",
+    "rand_chacha/std",
+    "serde?/std",
+]
+clap = ["dep:clap", "std"]
+rayon = ["dep:rayon", "std"]
+serde = ["dep:serde"]
+
+[dependencies]
+num-traits = { version = "0.2", default-features = false, features = ["libm"] }
+rand_distr = { version = "0.6", default-features = false }
+rand_chacha = { version = "0.10", default-features = false }
+clap = { version = "4", features = ["derive"], optional = true }
+serde = { version = "1", features = ["derive"], optional = true }
+rayon = { version = "1", optional = true }
+
+[dependencies.rand]
+version = "0.10"
+default-features = false
+features = ["sys_rng", "alloc"]
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+getrandom = { version = "0.4", features = ["wasm_js"] }
+
+[lints.rust]
+missing-docs = "warn"
+unsafe-code = "deny"
+
+[workspace.lints.clippy]
+semicolon-if-nothing-returned = "warn"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "doc_cfg"]

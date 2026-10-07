@@ -1,0 +1,713 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		57AB5AF3252767460040DE8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AB5AF2252767460040DE8C /* AVFoundation.framework */; };
+		57AB5B07252769700040DE8C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5AFE252769700040DE8C /* ViewController.m */; };
+		57AB5B08252769700040DE8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AB5AFF252769700040DE8C /* LaunchScreen.storyboard */; };
+		57AB5B09252769700040DE8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AB5B01252769700040DE8C /* Main.storyboard */; };
+		57AB5B0A252769700040DE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5B03252769700040DE8C /* main.m */; };
+		57AB5B0B252769700040DE8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5B04252769700040DE8C /* AppDelegate.m */; };
+		968772A32EF5C86300CBB8F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5B03252769700040DE8C /* main.m */; };
+		968772A42EF5C86300CBB8F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5B04252769700040DE8C /* AppDelegate.m */; };
+		968772A52EF5C86300CBB8F2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5AFE252769700040DE8C /* ViewController.m */; };
+		968772A72EF5C86300CBB8F2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AB5AF2252767460040DE8C /* AVFoundation.framework */; };
+		968772A92EF5C86300CBB8F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AB5B01252769700040DE8C /* Main.storyboard */; };
+		968772AA2EF5C86300CBB8F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AB5AFF252769700040DE8C /* LaunchScreen.storyboard */; };
+		TVOS0001252767460040DE8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AB5AF2252767460040DE8C /* AVFoundation.framework */; };
+		TVOS0002252769700040DE8C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5AFE252769700040DE8C /* ViewController.m */; };
+		TVOS0003252769700040DE8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5B03252769700040DE8C /* main.m */; };
+		TVOS0004252769700040DE8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AB5B04252769700040DE8C /* AppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		968772B02EF5CD8600CBB8F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57AB5AC2252762C00040DE8C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57AB5AE9252766240040DE8C;
+			remoteInfo = cargo_apple;
+		};
+		968772B32EF5CECD00CBB8F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57AB5AC2252762C00040DE8C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57AB5AE9252766240040DE8C;
+			remoteInfo = cargo_apple;
+		};
+		968772B62EF5D15600CBB8F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57AB5AC2252762C00040DE8C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57AB5AE9252766240040DE8C;
+			remoteInfo = cargo_apple;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		57AB5ACA252762C10040DE8C /* coreaudio-ios-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coreaudio-ios-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57AB5AF2252767460040DE8C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		57AB5AFD252769700040DE8C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		57AB5AFE252769700040DE8C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		57AB5B00252769700040DE8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		57AB5B02252769700040DE8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		57AB5B03252769700040DE8C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		57AB5B04252769700040DE8C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		57AB5B05252769700040DE8C /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		57AB5B06252769700040DE8C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		968772AE2EF5C86300CBB8F2 /* coreaudio-visionos-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coreaudio-visionos-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		968772AF2EF5C86300CBB8F2 /* coreaudio-ios-example copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "coreaudio-ios-example copy-Info.plist"; path = "/Users/simlay/projects/rust-audio/coreaudio-rs/examples/apple/coreaudio-ios-example copy-Info.plist"; sourceTree = "<absolute>"; };
+		TVOS0020252762C10040DE8C /* coreaudio-tvos-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coreaudio-tvos-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		TVOS0030252769700040DE8C /* Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		57AB5AC7252762C10040DE8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57AB5AF3252767460040DE8C /* AVFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		968772A62EF5C86300CBB8F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				968772A72EF5C86300CBB8F2 /* AVFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TVOS0040252762C10040DE8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				TVOS0001252767460040DE8C /* AVFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		57AB5AC1252762C00040DE8C = {
+			isa = PBXGroup;
+			children = (
+				57AB5AFC252769700040DE8C /* apple-src */,
+				57AB5ACB252762C10040DE8C /* Products */,
+				57AB5AF1252767460040DE8C /* Frameworks */,
+				968772AF2EF5C86300CBB8F2 /* coreaudio-ios-example copy-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		57AB5ACB252762C10040DE8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57AB5ACA252762C10040DE8C /* coreaudio-ios-example.app */,
+				TVOS0020252762C10040DE8C /* coreaudio-tvos-example.app */,
+				968772AE2EF5C86300CBB8F2 /* coreaudio-visionos-example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		57AB5AF1252767460040DE8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				57AB5AF2252767460040DE8C /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		57AB5AFC252769700040DE8C /* apple-src */ = {
+			isa = PBXGroup;
+			children = (
+				57AB5AFD252769700040DE8C /* AppDelegate.h */,
+				57AB5B04252769700040DE8C /* AppDelegate.m */,
+				57AB5B06252769700040DE8C /* ViewController.h */,
+				57AB5AFE252769700040DE8C /* ViewController.m */,
+				57AB5AFF252769700040DE8C /* LaunchScreen.storyboard */,
+				57AB5B01252769700040DE8C /* Main.storyboard */,
+				57AB5B05252769700040DE8C /* Info-iOS.plist */,
+				TVOS0030252769700040DE8C /* Info-tvOS.plist */,
+				57AB5B03252769700040DE8C /* main.m */,
+			);
+			path = "apple-src";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		57AB5AE9252766240040DE8C /* cargo_apple */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = build_rust_deps.sh;
+			buildConfigurationList = 57AB5AEA252766240040DE8C /* Build configuration list for PBXLegacyTarget "cargo_apple" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/bash;
+			buildWorkingDirectory = .;
+			dependencies = (
+			);
+			name = cargo_apple;
+			passBuildSettingsInEnvironment = 1;
+			productName = cargo_apple;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		57AB5AC9252762C10040DE8C /* coreaudio-ios-example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57AB5AE3252762C30040DE8C /* Build configuration list for PBXNativeTarget "coreaudio-ios-example" */;
+			buildPhases = (
+				57AB5AC6252762C10040DE8C /* Sources */,
+				57AB5AC7252762C10040DE8C /* Frameworks */,
+				57AB5AC8252762C10040DE8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				968772B72EF5D15600CBB8F2 /* PBXTargetDependency */,
+			);
+			name = "coreaudio-ios-example";
+			productName = "coreaudio-ios-example";
+			productReference = 57AB5ACA252762C10040DE8C /* coreaudio-ios-example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9687729F2EF5C86300CBB8F2 /* coreaudio-visionos-example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 968772AB2EF5C86300CBB8F2 /* Build configuration list for PBXNativeTarget "coreaudio-visionos-example" */;
+			buildPhases = (
+				968772A22EF5C86300CBB8F2 /* Sources */,
+				968772A62EF5C86300CBB8F2 /* Frameworks */,
+				968772A82EF5C86300CBB8F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				968772B42EF5CECD00CBB8F2 /* PBXTargetDependency */,
+			);
+			name = "coreaudio-visionos-example";
+			productName = "coreaudio-ios-example";
+			productReference = 968772AE2EF5C86300CBB8F2 /* coreaudio-visionos-example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		TVOS0050252762C10040DE8C /* coreaudio-tvos-example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = TVOS0060252762C30040DE8C /* Build configuration list for PBXNativeTarget "coreaudio-tvos-example" */;
+			buildPhases = (
+				TVOS0070252762C10040DE8C /* Sources */,
+				TVOS0040252762C10040DE8C /* Frameworks */,
+				TVOS0080252762C10040DE8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				968772B12EF5CD8600CBB8F2 /* PBXTargetDependency */,
+			);
+			name = "coreaudio-tvos-example";
+			productName = "coreaudio-tvos-example";
+			productReference = TVOS0020252762C10040DE8C /* coreaudio-tvos-example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		57AB5AC2252762C00040DE8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					57AB5AC9252762C10040DE8C = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+					57AB5AE9252766240040DE8C = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+					TVOS0050252762C10040DE8C = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 57AB5AC5252762C00040DE8C /* Build configuration list for PBXProject "coreaudio-example" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 57AB5AC1252762C00040DE8C;
+			productRefGroup = 57AB5ACB252762C10040DE8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				57AB5AC9252762C10040DE8C /* coreaudio-ios-example */,
+				TVOS0050252762C10040DE8C /* coreaudio-tvos-example */,
+				57AB5AE9252766240040DE8C /* cargo_apple */,
+				9687729F2EF5C86300CBB8F2 /* coreaudio-visionos-example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		57AB5AC8252762C10040DE8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57AB5B09252769700040DE8C /* Main.storyboard in Resources */,
+				57AB5B08252769700040DE8C /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		968772A82EF5C86300CBB8F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				968772A92EF5C86300CBB8F2 /* Main.storyboard in Resources */,
+				968772AA2EF5C86300CBB8F2 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TVOS0080252762C10040DE8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		57AB5AC6252762C10040DE8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57AB5B0A252769700040DE8C /* main.m in Sources */,
+				57AB5B0B252769700040DE8C /* AppDelegate.m in Sources */,
+				57AB5B07252769700040DE8C /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		968772A22EF5C86300CBB8F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				968772A32EF5C86300CBB8F2 /* main.m in Sources */,
+				968772A42EF5C86300CBB8F2 /* AppDelegate.m in Sources */,
+				968772A52EF5C86300CBB8F2 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TVOS0070252762C10040DE8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				TVOS0003252769700040DE8C /* main.m in Sources */,
+				TVOS0004252769700040DE8C /* AppDelegate.m in Sources */,
+				TVOS0002252769700040DE8C /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		968772B12EF5CD8600CBB8F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57AB5AE9252766240040DE8C /* cargo_apple */;
+			targetProxy = 968772B02EF5CD8600CBB8F2 /* PBXContainerItemProxy */;
+		};
+		968772B42EF5CECD00CBB8F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57AB5AE9252766240040DE8C /* cargo_apple */;
+			targetProxy = 968772B32EF5CECD00CBB8F2 /* PBXContainerItemProxy */;
+		};
+		968772B72EF5D15600CBB8F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 57AB5AE9252766240040DE8C /* cargo_apple */;
+			targetProxy = 968772B62EF5D15600CBB8F2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		57AB5AFF252769700040DE8C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57AB5B00252769700040DE8C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		57AB5B01252769700040DE8C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57AB5B02252769700040DE8C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		57AB5AE1252762C30040DE8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
+				XROS_DEPLOYMENT_TARGET = 1.3;
+			};
+			name = Debug;
+		};
+		57AB5AE2252762C30040DE8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
+				VALIDATE_PRODUCT = YES;
+				XROS_DEPLOYMENT_TARGET = 1.3;
+			};
+			name = Release;
+		};
+		57AB5AE4252762C30040DE8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "apple-src/Info-iOS.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/target/aarch64-apple-ios/release";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/target/aarch64-apple-ios-sim/release";
+				"LIBRARY_SEARCH_PATHS[sdk=xros*]" = "$(SRCROOT)/target/aarch64-apple-visionos/release";
+				"LIBRARY_SEARCH_PATHS[sdk=xrsimulator*]" = "$(SRCROOT)/target/aarch64-apple-visionos-sim/release";
+				OTHER_LDFLAGS = "-lcoreaudio_apple_example";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "coreaudio-rs.coreaudio-ios-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		57AB5AE5252762C30040DE8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "apple-src/Info-iOS.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(SRCROOT)/target/aarch64-apple-ios/release",
+					"$(SRCROOT)/target/aarch64-apple-visionos/release",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(SRCROOT)/target/aarch64-apple-ios-sim/release",
+					"$(SRCROOT)/target/aarch64-apple-visionos-sim/release",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=xros*]" = "$(SRCROOT)/target/aarch64-apple-visionos/release";
+				"LIBRARY_SEARCH_PATHS[sdk=xrsimulator*]" = "$(SRCROOT)/target/aarch64-apple-visionos-sim/release";
+				OTHER_LDFLAGS = "-lcoreaudio_apple_example";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "coreaudio-rs.coreaudio-ios-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		57AB5AEB252766240040DE8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		57AB5AEC252766240040DE8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		968772AC2EF5C86300CBB8F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "coreaudio-ios-example copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/target/aarch64-apple-ios/release";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/target/aarch64-apple-ios-sim/release";
+				"LIBRARY_SEARCH_PATHS[sdk=xros*]" = "$(SRCROOT)/target/aarch64-apple-visionos/release";
+				"LIBRARY_SEARCH_PATHS[sdk=xrsimulator*]" = "$(SRCROOT)/target/aarch64-apple-visionos-sim/release";
+				OTHER_LDFLAGS = "-lcoreaudio_apple_example";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "coreaudio-rs.coreaudio-ios-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 7;
+			};
+			name = Debug;
+		};
+		968772AD2EF5C86300CBB8F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "coreaudio-ios-example copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(SRCROOT)/target/aarch64-apple-ios/release",
+					"$(SRCROOT)/target/aarch64-apple-visionos/release",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(SRCROOT)/target/aarch64-apple-ios-sim/release",
+					"$(SRCROOT)/target/aarch64-apple-visionos-sim/release",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=xros*]" = "$(SRCROOT)/target/aarch64-apple-visionos/release";
+				"LIBRARY_SEARCH_PATHS[sdk=xrsimulator*]" = "$(SRCROOT)/target/aarch64-apple-visionos-sim/release";
+				OTHER_LDFLAGS = "-lcoreaudio_apple_example";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "coreaudio-rs.coreaudio-ios-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 7;
+			};
+			name = Release;
+		};
+		TVOS0090252762C30040DE8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "apple-src/Info-tvOS.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=appletvos*]" = "$(SRCROOT)/target/aarch64-apple-tvos/release";
+				"LIBRARY_SEARCH_PATHS[sdk=appletvsimulator*]" = "$(SRCROOT)/target/aarch64-apple-tvos-sim/release";
+				OTHER_LDFLAGS = "-lcoreaudio_apple_example";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "coreaudio-rs.coreaudio-tvos-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = Debug;
+		};
+		TVOS0091252762C30040DE8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "apple-src/Info-tvOS.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=appletvos*]" = "$(SRCROOT)/target/aarch64-apple-tvos/release";
+				"LIBRARY_SEARCH_PATHS[sdk=appletvsimulator*]" = "$(SRCROOT)/target/aarch64-apple-tvos-sim/release";
+				OTHER_LDFLAGS = "-lcoreaudio_apple_example";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "coreaudio-rs.coreaudio-tvos-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		57AB5AC5252762C00040DE8C /* Build configuration list for PBXProject "coreaudio-example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57AB5AE1252762C30040DE8C /* Debug */,
+				57AB5AE2252762C30040DE8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57AB5AE3252762C30040DE8C /* Build configuration list for PBXNativeTarget "coreaudio-ios-example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57AB5AE4252762C30040DE8C /* Debug */,
+				57AB5AE5252762C30040DE8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57AB5AEA252766240040DE8C /* Build configuration list for PBXLegacyTarget "cargo_apple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57AB5AEB252766240040DE8C /* Debug */,
+				57AB5AEC252766240040DE8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		968772AB2EF5C86300CBB8F2 /* Build configuration list for PBXNativeTarget "coreaudio-visionos-example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				968772AC2EF5C86300CBB8F2 /* Debug */,
+				968772AD2EF5C86300CBB8F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		TVOS0060252762C30040DE8C /* Build configuration list for PBXNativeTarget "coreaudio-tvos-example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				TVOS0090252762C30040DE8C /* Debug */,
+				TVOS0091252762C30040DE8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 57AB5AC2252762C00040DE8C /* Project object */;
+}

@@ -1,2 +1,15 @@
 **/target/
 **/Cargo.lock
+
+# Preserve imported upstream/fork lock snapshots.
+!/oo7/Cargo.lock
+!/block/Cargo.lock
+!/objc/Cargo.lock
+!/zed-font-kit/Cargo.lock
+!/rdsd2pcm/Cargo.lock
+!/rdsd2pcm/src/dsd_reader/Cargo.lock
+!/rfd/Cargo.lock
+!/rfd/examples/web-trunk/Cargo.lock
+!/rfd/examples/winit-example/Cargo.lock
+!/wgpu/Cargo.lock
+!/scap/Cargo.lock
