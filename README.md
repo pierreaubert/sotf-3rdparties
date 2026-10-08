@@ -46,6 +46,7 @@ and existing `VENDORING.md` / `SOTF_FORK_PROVENANCE.json` records, which are pre
 | [stacker](forks/stacker.md) | Retain psm assembly compatibility for watchOS and visionOS Mach-O targets. |
 | [tflitec](forks/tflitec.md) | Supply the pinned tflitec revision required by the tract test harness without git dependencies. |
 | [tract](forks/tract.md) | Keep ONNX random operators compatible with rand 0.10 and deterministic replay tests. |
+| [vello](forks/vello.md) | Keep Vello GPU types on the same renamed local wgpu package as GPUI. |
 | [vst3-sys](forks/vst3-sys.md) | Retain the VST3 bindings drop fix used by NIH and the external plugin host. |
 | [wgpu](forks/wgpu.md) | Keep Vello and GPUI on one Zed WGPU 29 dependency family including its EGL fix. |
 | [xim-rs](forks/xim-rs.md) | Retain the Zed XIM fork used by the Linux GPUI backend. |

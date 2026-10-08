@@ -142,7 +142,7 @@ def main():
     # index collection: dir -> (new_name, version); oldname -> (dir, new, ver)
     col, oldmap = {}, {}
     for p in sorted(collection.rglob("Cargo.toml")):
-        if "target/" in p.parts:
+        if "target" in p.parts:
             continue
         d = tomllib.loads(p.read_text())
         n = d.get("package", {}).get("name")

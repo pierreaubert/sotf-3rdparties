@@ -3,18 +3,18 @@
 ## Upstream
 
 - Source: `https://github.com/SSheldon/rust-objc`
-- Local package: `objc 0.2.7`
-- Last reviewed: 2026-07-07
+- Local package: `sotf-objc 0.2.7` (lib target keeps the `objc` name)
+- Last reviewed: 2026-10-08
 
 ## Build Status
 
-This directory is active. The root `Cargo.toml` patches crates.io so `objc`
-resolves to this local directory.
+This directory is active. The workspace declares it as a direct path
+dependency (`package = "sotf-objc"`) so `objc` resolves to this local directory.
 
 Confirm with:
 
 ```sh
-cargo tree -i objc
+cargo tree -i sotf-objc
 ```
 
 ## Why Vendored
@@ -38,6 +38,9 @@ upstream crate remains old and mostly stable.
   `CustomStruct` test return type `#[repr(C)]`.
 - `msg_send!` uses `addr_of!(*obj)` so nil raw pointers can reach Objective-C
   nil-message dispatch without first creating a null Rust reference.
+- Renamed the Cargo package to `sotf-objc` (lib name stays `objc`) with
+  sotf-3rdparties repository metadata so the fork is publishable; dependents
+  use `package = "sotf-objc"`.
 - `gpui_toolkit::vendored_patch_manifest()` records this crate as an active
   patch and repeats the retained-change list for release QA.
 
@@ -47,7 +50,7 @@ upstream crate remains old and mostly stable.
 2. Preserve only compatibility changes still required by Apple platform builds.
 3. Re-run cfg/lint-sensitive builds and update the retained-change inventory
    above.
-4. Confirm the root `[patch.crates-io]` still points to this directory.
+4. Confirm the workspace `objc` dependency still points at this directory with `package = "sotf-objc"`.
 5. Update `gpui_toolkit::vendored_patch_manifest()` with the new upstream base,
    retained changes, and verification gate.
 
@@ -56,8 +59,8 @@ upstream crate remains old and mostly stable.
 Recommended checks:
 
 ```sh
-cargo check -p objc
-cargo test -p objc
+cargo check -p sotf-objc
+cargo test -p sotf-objc
 cargo check -p gpui-au --all-targets
 cargo check -p gpui-toolkit --all-features
 ```

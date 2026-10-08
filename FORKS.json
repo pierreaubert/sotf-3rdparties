@@ -878,6 +878,31 @@
       "maintenance_document": "forks/tract.md"
     },
     {
+      "directory": "vello",
+      "upstream_url": "https://github.com/linebender/vello",
+      "upstream_revision": "fc0baddd06c63287ef516180d276333aa2401e6e",
+      "source_kind": "crates-io-snapshot",
+      "snapshot_archive_sha256": "af76ceb17b2869be23598baef40a9c8db4de86b87c60510c3bc245559275a617",
+      "upstream_base": "0.10.0",
+      "license": "Apache-2.0 OR MIT",
+      "license_files": [
+        "LICENSE-APACHE",
+        "LICENSE-MIT"
+      ],
+      "license_status": "preserved",
+      "upstream_revision_status": "recorded in the cached crate's .cargo_vcs_info.json",
+      "reason": "Keep Vello's GPU types identical to the renamed local wgpu fork used by GPUI.",
+      "retained_changes": "Manifest-only: package renamed sotf-vello and the wgpu dependency aliases sotf-wgpu at ../wgpu/wgpu. Rust source is byte-identical to the cached 0.10.0 release.",
+      "detail_document": "vello/Cargo.toml",
+      "owner": "SOTF dependency maintainers",
+      "last_inventory_review": "2026-10-08",
+      "review_cadence_days": 90,
+      "verification_command": "cargo check --manifest-path sotf/Cargo.toml -p sotf-gpui --features dev-api",
+      "verification_status": "passed current-source offline sotf-gpui dev-api Cargo check on macOS; native UI checks pending",
+      "removal_condition": "Remove when upstream Vello can share the selected GPUI GPU package identity without this local manifest adapter.",
+      "maintenance_document": "forks/vello.md"
+    },
+    {
       "directory": "vst3-sys",
       "upstream_url": "https://github.com/robbert-vdh/vst3-sys.git",
       "upstream_revision": "b3ff4d775940f5b476b9d1cca02a90e07e1922a2",
