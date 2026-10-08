@@ -1,5 +1,5 @@
 [package]
-name = "naga-xtask"
+name = "sotf-naga-xtask"
 version = "0.1.0"
 edition = "2021"
 publish = false
@@ -17,3 +17,7 @@ num_cpus.workspace = true
 pico-args.workspace = true
 shell-words.workspace = true
 which.workspace = true
+
+[[bin]]
+name = "naga-xtask"
+path = "src/main.rs"

@@ -1,5 +1,5 @@
 [package]
-name = "tract-gpu"
+name = "sotf-tract-gpu"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = [
@@ -8,12 +8,15 @@ authors = [
 	"Louis Chouraki <louis.chouraki@sonos.com>",
 ]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks", "GPU" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
 rust-version = "1.85"
+
+[lib]
+name = "tract_gpu"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -25,3 +28,6 @@ downcast-rs.workspace = true
 num-traits.workspace = true
 tract-core.workspace = true
 dyn-hash.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

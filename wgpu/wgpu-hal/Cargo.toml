@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-hal"
+name = "sotf-wgpu-hal"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -40,6 +40,7 @@ unexpected_cfgs = { level = "warn", check-cfg = [
 ] }
 
 [lib]
+name = "wgpu_hal"
 
 [features]
 
@@ -353,3 +354,6 @@ winit.workspace = true                                           # for "halmark"
 [target.'cfg(not(any(target_arch = "wasm32", target_os = "ios", target_os = "visionos", target_env = "ohos")))'.dev-dependencies]
 glutin-winit = { workspace = true, features = ["egl", "wgl", "wayland", "x11"] }
 glutin = { workspace = true, features = ["egl", "wgl", "wayland", "x11"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

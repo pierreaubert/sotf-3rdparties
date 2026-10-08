@@ -1,5 +1,5 @@
 [package]
-name = "gpui-toolkit-gpui-windows"
+name = "sotf-gpui-toolkit-gpui-windows"
 version = "0.1.2"
 edition.workspace = true
 description.workspace = true
@@ -49,3 +49,6 @@ optional = true
 
 [target.'cfg(target_os = "windows")'.build-dependencies]
 windows-registry = "0.6"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

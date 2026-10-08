@@ -1,5 +1,5 @@
 [package]
-name = "gpui-toolkit-gpui-wgpu"
+name = "sotf-gpui-toolkit-gpui-wgpu"
 version = "0.1.2"
 edition = "2024"
 description.workspace = true
@@ -24,7 +24,7 @@ gpui = { workspace = true, default-features = false }
 anyhow = "1.0"
 bytemuck = "1"
 collections = { workspace = true }
-cosmic-text = { path = "../../../cosmic-text" }
+cosmic-text = { version = "0.19.0", package = "sotf-cosmic-text", path = "../../../cosmic-text" }
 etagere = "0.2"
 itertools = "0.15.0"
 log = "0.4"
@@ -34,12 +34,12 @@ raw-window-handle = "0.6"
 smallvec = { version = "1.6", features = ["union", "const_new"] }
 swash = "0.2.6"
 gpui_util = { workspace = true }
-wgpu = { path = "../../../wgpu/wgpu", version = "29.0.0" }
+wgpu = { package = "sotf-wgpu", path = "../../../wgpu/wgpu", version = "29.0.0" }
 image = { workspace = true, optional = true }
 
 # Optional: only needed on platforms with multiple font sources (e.g. Linux)
 # WARNING: If you change this, you must also publish a new version of zed-font-kit to crates.io
-font-kit = { path = "../../../zed-font-kit", package = "zed-font-kit", version = "0.14.1-zed", optional = true }
+font-kit = { path = "../../../zed-font-kit", package = "sotf-zed-font-kit", version = "0.14.1-zed", optional = true }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 pollster = "1"
@@ -49,3 +49,6 @@ wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 web-sys = { version = "0.3", features = ["HtmlCanvasElement"] }
 js-sys = "0.3"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

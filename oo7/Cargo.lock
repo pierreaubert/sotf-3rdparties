@@ -5,6 +5,8 @@ version = 4
 [[package]]
 name = "aes"
 version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "35f0f96ce78e38c3dc6d8948aa8163d06385be74000f3c7a95bf1eef35d3ea32"
 dependencies = [
  "cipher",
  "cpubits",
@@ -209,6 +211,8 @@ dependencies = [
 [[package]]
 name = "block-padding"
 version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "710f1dd022ef4e93f8a438b4ba958de7f64308434fa6a87104481645cc30068b"
 dependencies = [
  "hybrid-array",
 ]
@@ -241,6 +245,8 @@ checksum = "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04"
 [[package]]
 name = "cbc"
 version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce2dc9ee5f88d11e0beb842c88b33c8a5cf0d1329c4b19494af42b07dbfe8896"
 dependencies = [
  "cipher",
 ]
@@ -547,6 +553,8 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 [[package]]
 name = "hkdf"
 version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4aaa26c720c68b866f2c96ef5c1264b3e6f473fe5d4ce61cd44bbe913e553018"
 dependencies = [
  "hmac",
 ]
@@ -652,6 +660,8 @@ dependencies = [
 [[package]]
 name = "md-5"
 version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "69b6441f590336821bb897fb28fc622898ccceb1d6cea3fde5ea86b090c4de98"
 dependencies = [
  "cfg-if",
  "digest",
@@ -788,48 +798,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
 
 [[package]]
-name = "oo7"
-version = "0.7.0"
-dependencies = [
- "aes",
- "ashpd",
- "async-fs",
- "async-io",
- "async-lock",
- "blocking",
- "cbc",
- "cipher",
- "digest",
- "endi",
- "futures-lite",
- "futures-util",
- "getrandom 0.4.3",
- "hkdf",
- "hmac",
- "md-5",
- "num",
- "num-bigint-dig",
- "oo7-macros",
- "openssl",
- "pbkdf2",
- "serde",
- "serde_bytes",
- "serial_test",
- "sha2",
- "subtle",
- "tempfile",
- "tokio",
- "tracing",
- "tracing-subscriber",
- "zbus",
- "zbus_macros",
- "zeroize",
- "zvariant",
-]
-
-[[package]]
 name = "oo7-macros"
 version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8d83ee5bac1261a1b79c52607c5a8285473fb9f75584e93f74ba232c3c18ef01"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1219,6 +1191,46 @@ checksum = "c3d1e2c7f27f8d4cb10542a02c49005dbd6e93095799d6f3be745fae9f8fedd4"
 dependencies = [
  "libc",
  "windows-sys",
+]
+
+[[package]]
+name = "sotf-oo7"
+version = "0.7.0"
+dependencies = [
+ "aes",
+ "ashpd",
+ "async-fs",
+ "async-io",
+ "async-lock",
+ "blocking",
+ "cbc",
+ "cipher",
+ "digest",
+ "endi",
+ "futures-lite",
+ "futures-util",
+ "getrandom 0.4.3",
+ "hkdf",
+ "hmac",
+ "md-5",
+ "num",
+ "num-bigint-dig",
+ "oo7-macros",
+ "openssl",
+ "pbkdf2",
+ "serde",
+ "serde_bytes",
+ "serial_test",
+ "sha2",
+ "subtle",
+ "tempfile",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "zbus",
+ "zbus_macros",
+ "zeroize",
+ "zvariant",
 ]
 
 [[package]]
@@ -1678,11 +1690,3 @@ dependencies = [
  "syn 3.0.6",
  "winnow",
 ]
-
-[[patch.unused]]
-name = "blobby"
-version = "0.4.0"
-
-[[patch.unused]]
-name = "kdf"
-version = "0.1.0"

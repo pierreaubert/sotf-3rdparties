@@ -1,5 +1,6 @@
 [package]
-name = "tract-ci-minion"
+name = "sotf-tract-ci-minion"
+publish = false
 version = "0.20.7-pre"
 edition = "2024"
 
@@ -23,3 +24,7 @@ libc = "0.2.119"
 wait-timeout = "0.2.0"
 lazy_static = "1.4.0"
 simple-signal = "1"
+
+[[bin]]
+name = "tract-ci-minion"
+path = "src/main.rs"

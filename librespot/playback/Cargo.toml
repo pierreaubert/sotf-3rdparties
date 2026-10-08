@@ -1,5 +1,5 @@
 [package]
-name = "librespot-playback"
+name = "sotf-librespot-playback"
 version = "0.8.0"
 rust-version.workspace = true
 authors = ["Sasha Hilton <sashahilton00@gmail.com>"]
@@ -7,6 +7,9 @@ license.workspace = true
 description = "The audio playback logic for librespot"
 repository.workspace = true
 edition.workspace = true
+
+[lib]
+name = "librespot_playback"
 
 [features]
 # Refer to the workspace Cargo.toml for the list of features
@@ -47,9 +50,9 @@ rustls-tls-webpki-roots = [
 ]
 
 [dependencies]
-librespot-audio = { version = "0.8.0", path = "../audio", default-features = false }
-librespot-core = { version = "0.8.0", path = "../core", default-features = false }
-librespot-metadata = { version = "0.8.0", path = "../metadata", default-features = false }
+librespot-audio = { package = "sotf-librespot-audio", version = "0.8.0", path = "../audio", default-features = false }
+librespot-core = { package = "sotf-librespot-core", version = "0.8.0", path = "../core", default-features = false }
+librespot-metadata = { package = "sotf-librespot-metadata", version = "0.8.0", path = "../metadata", default-features = false }
 
 futures-util = { version = "0.3", default-features = false, features = ["std"] }
 log = "0.4"
@@ -101,3 +104,6 @@ form_urlencoded = "1.2.2"
 [dev-dependencies]
 # Exercise the Symphonia 0.6 decoder with a tiny in-memory PCM container.
 symphonia = { version = "0.6", default-features = false, features = ["wav", "pcm"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

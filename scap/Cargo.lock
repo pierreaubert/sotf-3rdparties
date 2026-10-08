@@ -1022,6 +1022,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7fcf8323ef1faaee30a44a340193b1ac6814fd9b7b4e88e9d4519a3e4abe1cfd"
 
 [[package]]
+name = "sotf-zed-scap"
+version = "0.0.8-zed"
+dependencies = [
+ "anyhow",
+ "cocoa",
+ "core-graphics-helmer-fork",
+ "dbus",
+ "log",
+ "objc",
+ "pipewire",
+ "rand",
+ "screencapturekit",
+ "screencapturekit-sys",
+ "sysinfo",
+ "tao-core-video-sys",
+ "windows 0.61.1",
+ "windows-capture",
+ "x11",
+ "xcb",
+]
+
+[[package]]
 name = "strsim"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1538,28 +1560,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fe5c30ade05e61656247b2e334a031dfd0cc466fadef865bdcdea8d537951bf1"
 dependencies = [
  "winapi",
-]
-
-[[package]]
-name = "zed-scap"
-version = "0.0.8-zed"
-dependencies = [
- "anyhow",
- "cocoa",
- "core-graphics-helmer-fork",
- "dbus",
- "log",
- "objc",
- "pipewire",
- "rand",
- "screencapturekit",
- "screencapturekit-sys",
- "sysinfo",
- "tao-core-video-sys",
- "windows 0.61.1",
- "windows-capture",
- "x11",
- "xcb",
 ]
 
 [[package]]

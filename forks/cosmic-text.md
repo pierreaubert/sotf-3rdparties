@@ -12,7 +12,7 @@ Retain the GPUI text renderer snapshot compatible with fontdb 0.24 and its selec
 
 ## Retained changes
 
-Exact upstream snapshot; no new SOTF Rust patch during consolidation. Upstream LFS test fonts remain committed pointers; SOTF embedded fonts are separately preserved under gpui/assets.
+Exact upstream snapshot; no new SOTF Rust patch during consolidation. Upstream LFS test fonts and images are fully fetched at the pinned revision and stored in this repository's LFS storage. SOTF embedded fonts are separately preserved under gpui/assets.
 Read [the existing detail record](../cosmic-text/Cargo.toml) before updating.
 This inventory review does not claim a fresh upstream parity or security audit.
 

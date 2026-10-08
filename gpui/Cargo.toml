@@ -9,7 +9,7 @@
 "edition" = "2024"
 "documentation" = "https://docs.rs/gpui-toolkit"
 "license" = "ISC"
-"repository" = "https://github.com/pierreaubert/gpui-toolkit"
+"repository" = "https://github.com/pierreaubert/sotf-3rdparties"
 "keywords" = ["gpui", "ui", "visualization"]
 "categories" = ["gui", "visualization"]
 "readme" = "README.md"
@@ -24,35 +24,38 @@
 "windows-core" = "0.62"
 
 ["workspace"."dependencies"."collections"]
+"package" = "sotf-collections"
 "path" = "crates/collections"
 "version" = "0.1.0"
 
 ["workspace"."dependencies"."gpui"]
-"package" = "gpui-toolkit-gpui"
+"package" = "sotf-gpui-toolkit-gpui"
 "path" = "crates/gpui"
 "version" = "0.2.3"
 "default-features" = false
 
 ["workspace"."dependencies"."gpui_macros"]
-"package" = "gpui-toolkit-gpui-macros"
+"package" = "sotf-gpui-toolkit-gpui-macros"
 "path" = "crates/gpui_macros"
 "version" = "0.1.0"
 
 ["workspace"."dependencies"."gpui_shared_string"]
+"package" = "sotf-gpui_shared_string"
 "path" = "crates/gpui_shared_string"
 "version" = "0.1.0"
 
 ["workspace"."dependencies"."gpui_util"]
+"package" = "sotf-gpui_util"
 "path" = "crates/gpui_util"
 "version" = "0.1.0"
 
 ["workspace"."dependencies"."gpui_wgpu"]
-"package" = "gpui-toolkit-gpui-wgpu"
+"package" = "sotf-gpui-toolkit-gpui-wgpu"
 "path" = "crates/gpui_wgpu"
 "version" = "0.1.2"
 
 ["workspace"."dependencies"."http_client"]
-"package" = "gpui-toolkit-http-client"
+"package" = "sotf-gpui-toolkit-http-client"
 "path" = "crates/http_client"
 "version" = "0.1.0"
 
@@ -62,6 +65,7 @@
 "features" = ["bmp", "gif", "ico", "jpeg", "png", "pnm", "tiff", "webp"]
 
 ["workspace"."dependencies"."media"]
+"package" = "sotf-media"
 "path" = "crates/media"
 "version" = "0.1.0"
 
@@ -70,22 +74,23 @@
 "features" = ["deadlock_detection"]
 
 ["workspace"."dependencies"."perf"]
-"package" = "gpui-toolkit-perf"
+"package" = "sotf-gpui-toolkit-perf"
 "path" = "crates/perf"
 "version" = "0.1.0"
 
 ["workspace"."dependencies"."refineable"]
+"package" = "sotf-refineable"
 "path" = "crates/refineable"
 "version" = "0.1.0"
 
 ["workspace"."dependencies"."scap"]
 "path" = "../scap"
 "default-features" = false
-"package" = "zed-scap"
+"package" = "sotf-zed-scap"
 "version" = "0.0.8-zed"
 
 ["workspace"."dependencies"."scheduler"]
-"package" = "gpui-toolkit-scheduler"
+"package" = "sotf-gpui-toolkit-scheduler"
 "path" = "crates/scheduler"
 "version" = "0.1.0"
 
@@ -94,17 +99,17 @@
 "features" = ["union", "const_new"]
 
 ["workspace"."dependencies"."sum_tree"]
-"package" = "gpui-toolkit-sum-tree"
+"package" = "sotf-gpui-toolkit-sum-tree"
 "path" = "crates/sum_tree"
 "version" = "0.1.0"
 
 ["workspace"."dependencies"."util"]
-"package" = "gpui-toolkit-util"
+"package" = "sotf-gpui-toolkit-util"
 "path" = "crates/util"
 "version" = "0.1.1"
 
 ["workspace"."dependencies"."util_macros"]
-"package" = "gpui-toolkit-util-macros"
+"package" = "sotf-gpui-toolkit-util-macros"
 "path" = "crates/util_macros"
 "version" = "0.1.0"
 
@@ -205,53 +210,8 @@
 "level" = "warn"
 "priority" = -1
 
-["patch"]
 
-["patch"."https://github.com/zed-industries/font-kit"]
 
-["patch"."https://github.com/zed-industries/font-kit"."zed-font-kit"]
-"path" = "../zed-font-kit"
 
-["patch"."crates-io"]
-
-["patch"."crates-io"."derive_more"]
-"path" = "../derive_more"
-
-["patch"."crates-io"."derive_more-impl"]
-"path" = "../derive_more-impl"
-
-["patch"."crates-io"."oo7"]
-"path" = "../oo7"
-
-["patch"."crates-io"."rusty-fork"]
-"path" = "../rusty-fork"
-
-["patch"."crates-io"."fontconfig-parser"]
-"path" = "../fontconfig-parser"
-
-["patch"."crates-io"."psm"]
-"path" = "../stacker/psm"
-
-["patch"."crates-io"."block"]
-"path" = "../block"
-
-["patch"."crates-io"."objc"]
-"path" = "../objc"
-
-["patch"."crates-io"."async-task"]
-"path" = "../async-task"
-
-["patch"."crates-io"."wgpu"]
-"path" = "../wgpu/wgpu"
-
-["patch"."crates-io"."wgpu-core"]
-"path" = "../wgpu/wgpu-core"
-
-["patch"."crates-io"."wgpu-hal"]
-"path" = "../wgpu/wgpu-hal"
-
-["patch"."crates-io"."wgpu-types"]
-"path" = "../wgpu/wgpu-types"
-
-["patch"."crates-io"."naga"]
-"path" = "../wgpu/naga"
+[workspace.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

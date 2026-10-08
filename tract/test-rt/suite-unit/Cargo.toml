@@ -1,14 +1,18 @@
 [package]
-name = "suite-unit"
+name = "sotf-suite-unit"
+publish = false
 version = "0.1.0"
 edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+name = "suite_unit"
+
 [dependencies]
 tract-core.workspace = true
 tract-transformers.workspace = true
-infra = { path = "../infra" }
+infra = { version = "0.1.0", package = "sotf-infra", path = "../infra" }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 proptest.workspace = true

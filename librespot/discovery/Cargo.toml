@@ -1,5 +1,5 @@
 [package]
-name = "librespot-discovery"
+name = "sotf-librespot-discovery"
 version = "0.8.0"
 rust-version.workspace = true
 authors = ["Paul Lietar <paul@lietar.net>"]
@@ -7,6 +7,9 @@ license.workspace = true
 description = "The discovery logic for librespot"
 repository.workspace = true
 edition.workspace = true
+
+[lib]
+name = "librespot_discovery"
 
 [features]
 # Refer to the workspace Cargo.toml for the list of features
@@ -23,7 +26,7 @@ rustls-tls-native-roots = ["librespot-core/rustls-tls-native-roots"]
 rustls-tls-webpki-roots = ["librespot-core/rustls-tls-webpki-roots"]
 
 [dependencies]
-librespot-core = { version = "0.8.0", path = "../core", default-features = false }
+librespot-core = { package = "sotf-librespot-core", version = "0.8.0", path = "../core", default-features = false }
 
 aes = "0.8"
 base64 = "0.22"
@@ -60,3 +63,6 @@ zbus = { version = "5", default-features = false, features = [
 futures = "0.3"
 hex = "0.4"
 tokio = { version = "1", features = ["macros", "rt"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

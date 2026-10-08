@@ -1,12 +1,12 @@
 [package]
-name = "gpui-toolkit-gpui"
+name = "sotf-gpui-toolkit-gpui"
 version = "0.2.3"
 edition = "2024"
 description = "Zed's GPU-accelerated UI framework"
 license = "Apache-2.0"
 authors = ["Nathan Sobo <nathan@zed.dev>"]
 homepage = "https://gpui.rs"
-repository = "https://github.com/zed-industries/zed"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = ["desktop", "gui", "immediate"]
 categories = ["gui"]
 readme = "README.md"
@@ -38,7 +38,7 @@ bitflags = { version = "2.6.0", optional = true }
 collections = { workspace = true }
 criterion = { version = "0.8", features = ["html_reports"], optional = true }
 ctor = "1.0.6"
-derive_more = { version = "2.1.1", features = ["add", "add_assign", "deref", "deref_mut", "display", "from_str", "mul", "mul_assign", "not"] }
+derive_more = { package = "sotf-derive_more", path = "../../../derive_more", version = "2.1.1", features = ["add", "add_assign", "deref", "deref_mut", "display", "from_str", "mul", "mul_assign", "not"] }
 etagere = "0.2"
 futures = "0.3.32"
 futures-concurrency = "7.7.1"
@@ -94,7 +94,7 @@ env_logger = "0.11"
 gpui_util = { workspace = true }
 lyon = { version = "1.0", features = ["extra"] }
 rand = "0.9"
-scheduler = { package = "gpui-toolkit-scheduler", path = "../scheduler", features = ["test-support"] }
+scheduler = { version = "0.1.0", package = "sotf-gpui-toolkit-scheduler", path = "../scheduler", features = ["test-support"] }
 unicode-segmentation = "1.10"
 
 [build-dependencies]
@@ -116,7 +116,7 @@ core-foundation-sys = "0.8.6"
 core-graphics = "0.24"
 core-video = { version = "0.5.2", features = ["metal"] }
 core-text = "21"
-font-kit = { package = "zed-font-kit", version = "0.14.1-zed", path = "../../../zed-font-kit", optional = true }
+font-kit = { package = "sotf-zed-font-kit", version = "0.14.1-zed", path = "../../../zed-font-kit", optional = true }
 foreign-types = "0.5"
 log = { version = "0.4.16", features = ["kv_unstable_serde", "serde"] }
 media = { workspace = true }
@@ -133,7 +133,7 @@ cbindgen = { version = "0.28.0", default-features = false }
 pathfinder_geometry = "0.5"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd", target_os = "windows"))'.dependencies]
-scap = { package = "zed-scap", version = "0.0.8-zed", path = "../../../scap", default-features = false, optional = true }
+scap = { package = "sotf-zed-scap", version = "0.0.8-zed", path = "../../../scap", default-features = false, optional = true }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 windows = { version = "0.62", features = ["Win32_Foundation"] }
@@ -141,3 +141,6 @@ windows = { version = "0.62", features = ["Win32_Foundation"] }
 [target.'cfg(not(target_family = "wasm"))'.dev-dependencies]
 http_client = { workspace = true, features = ["test-support"] }
 proptest = { workspace = true, features = ["attr-macro"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

@@ -1,5 +1,5 @@
 [package]
-name = "librespot-audio"
+name = "sotf-librespot-audio"
 version = "0.8.0"
 rust-version.workspace = true
 authors = ["Paul Lietar <paul@lietar.net>"]
@@ -7,6 +7,9 @@ license.workspace = true
 description = "The audio fetching logic for librespot"
 repository.workspace = true
 edition.workspace = true
+
+[lib]
+name = "librespot_audio"
 
 [features]
 # Refer to the workspace Cargo.toml for the list of features
@@ -18,7 +21,7 @@ rustls-tls-native-roots = ["librespot-core/rustls-tls-native-roots"]
 rustls-tls-webpki-roots = ["librespot-core/rustls-tls-webpki-roots"]
 
 [dependencies]
-librespot-core = { version = "0.8.0", path = "../core", default-features = false }
+librespot-core = { package = "sotf-librespot-core", version = "0.8.0", path = "../core", default-features = false }
 
 aes = "0.9"
 bytes = "1"
@@ -31,3 +34,6 @@ log = "0.4"
 tempfile = "3"
 thiserror = "2"
 tokio = { version = "1", features = ["macros", "sync"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

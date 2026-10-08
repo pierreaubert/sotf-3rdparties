@@ -12,9 +12,10 @@
 [package]
 edition = "2018"
 rust-version = "1.85"
-name = "headers"
+name = "sotf-headers"
 version = "0.4.3"
 authors = ["Sean McArthur <sean@seanmonstar.com>"]
+exclude = ["Cargo.toml.orig"]
 build = false
 autolib = false
 autobins = false
@@ -32,7 +33,7 @@ keywords = [
 ]
 categories = ["web-programming"]
 license = "MIT"
-repository = "https://github.com/hyperium/headers"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 
 [features]
 nightly = []
@@ -61,3 +62,6 @@ version = "0.3.14"
 
 [dependencies.sha1]
 version = "0.11"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

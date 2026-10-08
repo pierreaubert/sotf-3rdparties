@@ -1,5 +1,6 @@
 **/target/
 **/Cargo.lock
+**/.cargo_vcs_info.json
 
 # Preserve imported upstream/fork lock snapshots.
 !/oo7/Cargo.lock

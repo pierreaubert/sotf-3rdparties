@@ -1,15 +1,18 @@
 [package]
-name = "assert_no_alloc"
+name = "sotf-assert_no_alloc"
 version = "1.1.2"
 authors = ["Florian Jung <flo@windfis.ch>"]
 edition = "2018"
 license = "BSD-1-Clause"
 description = "Custom Rust allocator allowing to temporarily disable memory (de)allocations for a thread. Aborts or prints a warning if allocating although forbidden."
 homepage = "https://github.com/Windfisch/rust-assert-no-alloc"
-repository = "https://github.com/Windfisch/rust-assert-no-alloc"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 readme = "README.md"
 keywords = ["allocator", "real-time", "debug", "audio"]
 categories = ["development-tools::debugging"]
+
+[lib]
+name = "assert_no_alloc"
 
 [features]
 default = ["disable_release"]
@@ -30,3 +33,6 @@ log = { version = "0.4", optional = true }
 
 [package.metadata.docs.rs]
 features = ["warn_debug"]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

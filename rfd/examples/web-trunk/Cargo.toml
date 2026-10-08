@@ -1,10 +1,15 @@
 [package]
-name = "rfd-example-web-trunk"
+name = "sotf-rfd-example-web-trunk"
+publish = false
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 wasm-bindgen-futures = "0.4.50"
-rfd = { path = "../../" }
+rfd = { version = "0.17.2", package = "sotf-rfd", path = "../../" }
 web-sys = "0.3.77"
 wasm-bindgen = "0.2.100"
+
+[[bin]]
+name = "rfd-example-web-trunk"
+path = "src/main.rs"

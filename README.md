@@ -17,12 +17,14 @@ and existing `VENDORING.md` / `SOTF_FORK_PROVENANCE.json` records, which are pre
 | Source | Why retained |
 | --- | --- |
 | [async-task](forks/async-task.md) | Pin the compatible upstream async task implementation used by the GPUI dependency closure. |
+| [baseview](forks/baseview.md) | Supply the pinned baseview revision required by NIH-plug standalone and egui-baseview without git dependencies. |
 | [block](forks/block.md) | Avoid the uninhabited extern-static future incompatibility in Apple Objective-C blocks. |
 | [coreaudio-rs](forks/coreaudio-rs.md) | Preserve CoreAudio input buffer allocation capacity and initialize WatchOS callback buffers correctly. |
 | [cosmic-text](forks/cosmic-text.md) | Retain the GPUI text renderer snapshot compatible with fontdb 0.24 and its selected bidi behavior. |
 | [derive_more](forks/derive_more.md) | Keep the macro facade aligned with the maintained implementation and case-conversion dependency. |
 | [derive_more-impl](forks/derive_more-impl.md) | Maintain convert_case 0.11 compatibility without changing the public derive behavior. |
 | [dst-decoder](forks/dst-decoder.md) | Supply DST decoding for SOTF SACD integration with retained fixture and lint fixes. |
+| [egui-baseview](forks/egui-baseview.md) | Supply the pinned egui-baseview revision required by nih-plug-egui without git dependencies. |
 | [fontconfig-parser](forks/fontconfig-parser.md) | Accept roxmltree 0.21 in the Linux font discovery dependency closure. |
 | [gpui](forks/gpui.md) | Own the patched GPUI framework, renderer, platform backends and Zed support sources in one self-contained group. |
 | [headers](forks/headers.md) | Keep the HTTP header dependency on the SHA-1 0.11 crypto family used by the maintained streaming sources. |
@@ -42,6 +44,7 @@ and existing `VENDORING.md` / `SOTF_FORK_PROVENANCE.json` records, which are pre
 | [rusty-fork](forks/rusty-fork.md) | Align quick-error to version 2 for the test dependency closure. |
 | [scap](forks/scap.md) | Retain the Zed screen capture fork used by GPUI platform backends. |
 | [stacker](forks/stacker.md) | Retain psm assembly compatibility for watchOS and visionOS Mach-O targets. |
+| [tflitec](forks/tflitec.md) | Supply the pinned tflitec revision required by the tract test harness without git dependencies. |
 | [tract](forks/tract.md) | Keep ONNX random operators compatible with rand 0.10 and deterministic replay tests. |
 | [vst3-sys](forks/vst3-sys.md) | Retain the VST3 bindings drop fix used by NIH and the external plugin host. |
 | [wgpu](forks/wgpu.md) | Keep Vello and GPUI on one Zed WGPU 29 dependency family including its EGL fix. |
@@ -88,3 +91,24 @@ inherited edition/anyhow and `nnnoiseless`'s inherited criterion were made expli
 so those crates no longer rely on their former workspace parents.
 Migration integrity and consumer acceptance are recorded in
 [`VALIDATION.md`](VALIDATION.md).
+
+## Lint output in SOTF builds
+
+SOTF's `just` build/check/clippy/run/test recipes (including `just gpui`) use
+`../scripts/cargo/quiet-thirdparty-lints.py` on macOS and Linux. It reads Cargo's
+JSON diagnostics and hides warnings only when every primary source span resolves
+beneath this collection. This also filters warnings replayed from Cargo's cache;
+no clean or rebuild is needed. First-party warnings, all errors, build-script
+messages, and application/test output remain visible. Compiler lint levels and
+imported sources are unchanged. The script requires Python 3.9 or newer.
+
+Direct Cargo commands retain full diagnostics for fork maintenance. To apply
+the same filtering manually from `sotf`, use:
+
+```sh
+python3 ../scripts/cargo/quiet-thirdparty-lints.py cargo check
+```
+
+Existing `RUSTC_WRAPPER`/sccache settings are untouched. An explicit
+`--message-format` is respected and bypasses filtering. Cargo subcommands without
+compiler diagnostics and Windows recipes retain their existing behavior.

@@ -1,5 +1,5 @@
 [package]
-name = "gpui-toolkit-gpui-macros"
+name = "sotf-gpui-toolkit-gpui-macros"
 version = "0.1.0"
 edition = "2024"
 description = "Macros used by gpui"
@@ -25,4 +25,7 @@ quote = "1.0.9"
 syn = { version = "3.0.4", features = ["full", "extra-traits", "visit-mut"] }
 
 [dev-dependencies]
-gpui = { package = "gpui-toolkit-gpui", path = "../gpui", features = ["inspector"] }
+gpui = { version = "0.2.3", package = "sotf-gpui-toolkit-gpui", path = "../gpui", features = ["inspector"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

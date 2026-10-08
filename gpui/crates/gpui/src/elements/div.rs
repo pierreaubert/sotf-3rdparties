@@ -1868,6 +1868,7 @@ impl Element for Div {
         let mut child_max = Point::default();
         if let Some(handle) = self.interactivity.scroll_anchor.as_ref() {
             *handle.last_origin.borrow_mut() = bounds.origin - window.element_offset();
+            *handle.last_size.borrow_mut() = bounds.size;
         }
         let content_size = if request_layout.child_layout_ids.is_empty() {
             bounds.size
@@ -3953,6 +3954,7 @@ where
 pub struct ScrollAnchor {
     handle: ScrollHandle,
     last_origin: Rc<RefCell<Point<Pixels>>>,
+    last_size: Rc<RefCell<Size<Pixels>>>,
 }
 
 impl ScrollAnchor {
@@ -3961,6 +3963,7 @@ impl ScrollAnchor {
         Self {
             handle,
             last_origin: Default::default(),
+            last_size: Default::default(),
         }
     }
     /// Request scroll to this item on the next frame.
@@ -3972,6 +3975,24 @@ impl ScrollAnchor {
             let self_bounds = *this.last_origin.borrow();
             this.handle.set_offset(viewport_bounds.origin - self_bounds);
         });
+    }
+
+
+    /// Scroll just enough to show this descendant inside its tracked viewport.
+    pub fn scroll_into_view(&self, window: &mut Window, _cx: &mut App) {
+        let viewport = self.handle.bounds();
+        let origin = *self.last_origin.borrow();
+        let size = *self.last_size.borrow();
+        let mut offset = self.handle.offset();
+        let top = origin.y + offset.y;
+        let bottom = top + size.height;
+        if top < viewport.top() {
+            offset.y += viewport.top() - top;
+        } else if bottom > viewport.bottom() {
+            offset.y -= bottom - viewport.bottom();
+        }
+        self.handle.set_offset(offset);
+        window.refresh();
     }
 }
 

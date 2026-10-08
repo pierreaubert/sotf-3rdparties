@@ -1,10 +1,12 @@
 ["package"]
-"name" = "gpui_shared_string"
+"name" = "sotf-gpui_shared_string"
 "version" = "0.1.0"
-"publish" = false
+"license" = "Apache-2.0"
+"description" = "Cheaply-cloned immutable string type used by Zed and GPUI"
 "edition" = "2024"
 
 ["lib"]
+"name" = "gpui_shared_string"
 "path" = "gpui_shared_string.rs"
 
 ["dependencies"]
@@ -42,3 +44,5 @@
 "level" = "allow"
 "priority" = -1
 
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

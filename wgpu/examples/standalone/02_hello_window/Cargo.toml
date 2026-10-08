@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-example-02-hello-window"
+name = "sotf-wgpu-example-02-hello-window"
 edition = "2021"
 rust-version = "1.87"
 publish = false
@@ -7,5 +7,9 @@ publish = false
 [dependencies]
 env_logger = "0.11"
 pollster = "0.4"
-wgpu = "29.0.0"
+wgpu = { version = "29.0.0", package = "sotf-wgpu", path = "../../../wgpu" }
 winit = { version = "0.30.8", features = ["android-native-activity"] }
+
+[[bin]]
+name = "wgpu-example-02-hello-window"
+path = "src/main.rs"

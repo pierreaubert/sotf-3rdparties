@@ -1,5 +1,6 @@
 [package]
-name = "again"
+name = "sotf-again"
+publish = false
 version = "0.1.0"
 authors = ["Mirko Covizzi <mrkcvzz@gmail.com>"]
 edition = "2018"
@@ -9,11 +10,12 @@ how the APIs are intended to be used without macros.
 """
 
 [lib]
+name = "again"
 crate-type = ["cdylib"]
 
 [dependencies]
 log = "0.4.8"
 flexi_logger = "0.15.2"
 widestring = "0.4.0"
-vst3-sys = { path = "../../"}
-vst3-com = { path = "../../com" }
+vst3-sys = { version = "0.1.0", package = "sotf-vst3-sys", path = "../../"}
+vst3-com = { version = "0.1.0", package = "sotf-vst3-com", path = "../../com" }

@@ -12,7 +12,7 @@
 [package]
 edition = "2021"
 rust-version = "1.85.0"
-name = "derive_more"
+name = "sotf-derive_more"
 version = "2.1.2"
 authors = ["Jelte Fennema <github-tech@jeltef.nl>"]
 build = false
@@ -31,7 +31,7 @@ autoexamples = false
 autotests = false
 autobenches = false
 description = "Adds #[derive(x)] macros for more traits"
-documentation = "https://docs.rs/derive_more"
+documentation = "https://docs.rs/sotf-derive_more"
 readme = "README.md"
 keywords = [
     "derive",
@@ -47,7 +47,7 @@ categories = [
     "rust-patterns",
 ]
 license = "MIT"
-repository = "https://github.com/JelteF/derive_more"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 
 [package.metadata.docs.rs]
 features = ["full"]
@@ -305,6 +305,7 @@ path = "tests/unwrap.rs"
 required-features = ["unwrap"]
 
 [dependencies.derive_more-impl]
+package = "sotf-derive_more-impl"
 version = "=2.1.2"
 path = "../derive_more-impl"
 
@@ -336,3 +337,6 @@ published-upstream-release = false
 change = "Private built-in case conversion uses convert_case 0.11; Rust source unchanged"
 
 [workspace]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

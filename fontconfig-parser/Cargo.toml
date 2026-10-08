@@ -1,15 +1,18 @@
 [package]
-name = "fontconfig-parser"
+name = "sotf-fontconfig-parser"
 version = "0.5.8"
 edition = "2018"
 license = "MIT"
-documentation = "https://docs.rs/fontconfig-parser"
+documentation = "https://docs.rs/sotf-fontconfig-parser"
 description = "fontconfig file parser in pure Rust"
-repository = "https://github.com/Riey/fontconfig-parser"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 homepage = "https://github.com/Riey/fontconfig-parser"
 readme = "README.md"
 categories = ["parser-implementations"]
 keywords = ["fontconfig"]
+
+[lib]
+name = "fontconfig_parser"
 
 [features]
 serialize = ["serde"]
@@ -34,3 +37,6 @@ lto = "thin"
 
 [profile.release]
 lto = "thin"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

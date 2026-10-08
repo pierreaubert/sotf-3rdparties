@@ -1,10 +1,11 @@
 [package]
-name = "example-using-nalgebra"
+name = "sotf-example-using-nalgebra"
+publish = false
 version = "0.0.0"
 authors = ["You"]
 
 [dependencies]
-nalgebra = "0.35.0"
+nalgebra = { version = "0.35.0", package = "sotf-nalgebra", path = "../.." }
 
 [[bin]]
 name = "example"

@@ -11,16 +11,20 @@
 # will likely look very different (and much more reasonable)
 
 [package]
-name = "objc"
+name = "sotf-objc"
 version = "0.2.7"
 authors = ["Steven Sheldon"]
-exclude = [".gitignore", ".travis.yml", "doc.sh", "travis_install.sh", "travis_test.sh", "tests-ios/**"]
+exclude = [".gitignore", ".travis.yml", "doc.sh", "travis_install.sh", "travis_test.sh", "tests-ios/**", "Cargo.toml.orig"]
 description = "Objective-C Runtime bindings and wrapper for Rust."
 documentation = "http://ssheldon.github.io/rust-objc/objc/"
 readme = "README.md"
 keywords = ["objective-c", "osx", "ios", "cocoa", "uikit"]
 license = "MIT"
-repository = "http://github.com/SSheldon/rust-objc"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
+
+[lib]
+name = "objc"
+
 [dependencies.malloc_buf]
 version = "0.0"
 
@@ -31,3 +35,6 @@ optional = true
 [features]
 exception = ["objc_exception"]
 verify_message = []
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

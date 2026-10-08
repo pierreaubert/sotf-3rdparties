@@ -7,11 +7,11 @@ members = [
 ]
 
 [package]
-name = "zed-xim"
+name = "sotf-zed-xim"
 description = "XIM protocol parser, handler"
 version = "0.4.0-zed"
 authors = ["Riey <creeper844@gmail.com>"]
-repository = "https://github.com/Riey/xim-rs"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 documentation = "https://docs.rs/xim"
 categories = ["no-std", "parser-implementations"]
 readme = "README.md"
@@ -19,6 +19,9 @@ keywords = ["x11", "xim", "x11rb", "no-std"]
 edition = "2018"
 license = "MIT"
 rust-version = "1.64"
+
+[lib]
+name = "zed_xim"
 
 [features]
 default = ["std"]
@@ -39,8 +42,8 @@ client = []
 server = []
 
 [dependencies]
-xim-parser = { path = "./xim-parser", version = "0.2.0", default-features = false }
-xim-ctext = { path = "./xim-ctext", version = "0.3.0", default-features = false }
+xim-parser = { package = "sotf-xim-parser", path = "./xim-parser", version = "0.2.0", default-features = false }
+xim-ctext = { package = "sotf-xim-ctext", path = "./xim-ctext", version = "0.3.0", default-features = false }
 log = { version = "0.4", default-features = false }
 ahash = { version = "0.8", default-features = false, features = ["compile-time-rng"] }
 
@@ -73,3 +76,6 @@ harness = false
 
 [package.metadata.docs.rs]
 features = ["x11rb-client", "x11rb-server", "x11rb-xcb", "xlib-client"]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

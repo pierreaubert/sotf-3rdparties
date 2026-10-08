@@ -1,16 +1,19 @@
 [package]
-name = "nalgebra-sparse"
+name = "sotf-nalgebra-sparse"
 version = "0.12.0"
 authors = ["Andreas Longva", "Sébastien Crozet <developer@crozet.re>"]
 edition = "2024"
 description = "Sparse matrix computation based on nalgebra."
 documentation = "https://www.nalgebra.rs/docs"
 homepage = "https://nalgebra.rs"
-repository = "https://github.com/dimforge/nalgebra"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 readme = "../README.md"
 categories = ["science", "mathematics", "wasm", "no-std"]
 keywords = ["linear", "algebra", "matrix", "vector", "math"]
 license = "Apache-2.0"
+
+[lib]
+name = "nalgebra_sparse"
 
 [features]
 proptest-support = ["proptest", "nalgebra/proptest-support"]
@@ -24,7 +27,7 @@ io = ["pest", "pest_derive"]
 slow-tests = []
 
 [dependencies]
-nalgebra = { version = "0.35", path = "../" }
+nalgebra = { package = "sotf-nalgebra", version = "0.35", path = "../" }
 num-traits = { version = "0.2", default-features = false }
 proptest = { version = "1.0", optional = true }
 matrixcompare-core = { version = "0.1.0", optional = true }
@@ -35,10 +38,13 @@ serde = { version = "1.0", default-features = false, features = ["derive"], opti
 [dev-dependencies]
 itertools = "0.13"
 matrixcompare = { version = "0.3.0", features = ["proptest-support"] }
-nalgebra = { version = "0.35", path = "../", features = ["compare"] }
+nalgebra = { package = "sotf-nalgebra", version = "0.35", path = "../", features = ["compare"] }
 tempfile = "3.3"
 serde_json = "1.0"
 
 [package.metadata.docs.rs]
 # Enable certain features when building docs for docs.rs
 features = ["proptest-support", "compare", "io"]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

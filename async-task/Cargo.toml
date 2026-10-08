@@ -1,5 +1,5 @@
 [package]
-name = "async-task"
+name = "sotf-async-task"
 # When publishing a new version:
 # - Update CHANGELOG.md
 # - Create "v4.x.y" git tag
@@ -8,11 +8,14 @@ authors = ["Stjepan Glavina <stjepang@gmail.com>"]
 edition = "2021"
 rust-version = "1.57"
 license = "Apache-2.0 OR MIT"
-repository = "https://github.com/smol-rs/async-task"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 description = "Task abstraction for building executors"
 keywords = ["futures", "task", "executor", "spawn"]
 categories = ["asynchronous", "concurrency", "no-std"]
 exclude = ["/.*"]
+
+[lib]
+name = "async_task"
 
 [features]
 default = ["std"]
@@ -32,6 +35,5 @@ once_cell = "1"
 pin-project-lite = "0.2.10"
 smol = "2"
 
-# rewrite dependencies to use this version of async-task when running tests
-[patch.crates-io]
-async-task = { path = "." }
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

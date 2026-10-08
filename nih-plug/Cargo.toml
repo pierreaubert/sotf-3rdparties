@@ -1,5 +1,5 @@
 [package]
-name = "nih_plug"
+name = "sotf-nih_plug"
 version = "0.0.0"
 edition = "2021"
 rust-version = "1.80"
@@ -8,11 +8,14 @@ license = "ISC"
 
 keywords = ["audio", "plugin", "vst", "vst3"]
 description = "A simple but modern API-agnostic audio plugin framework"
-repository = "https://github.com/robbert-vdh/nih-plug"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
+
+[lib]
+name = "nih_plug"
 
 [workspace]
 resolver = "2"
-members = []
+members = ["nih_plug_derive"]
 
 [features]
 default = ["vst3"]
@@ -44,7 +47,7 @@ zstd = ["dep:zstd"]
 docs = []
 
 [dependencies]
-nih_plug_derive = { git = "https://github.com/robbert-vdh/nih-plug.git", rev = "de421011f41a6d10fc8c7a6084e4f4dee0143683" }
+nih_plug_derive = { package = "sotf-nih_plug_derive", version = "0.1", path = "nih_plug_derive" }
 
 anyhow = "1.0"
 anymap3 = "1.0.1"
@@ -54,7 +57,7 @@ backtrace = "0.3.65"
 bitflags = "1.3"
 cfg-if = "1.0"
 # This supports CLAP 1.2.2
-clap-sys = {  git = "https://github.com/micahrj/clap-sys.git", rev = "25d7f53fdb6363ad63fbd80049cb7a42a97ac156" }
+clap-sys = "0.5"
 crossbeam = "0.8"
 log = { version = "0.4", features = ["std", "release_max_level_info"] }
 midi-consts = "0.1"
@@ -66,12 +69,12 @@ serde_json = "1.0"
 widestring = "1.0.0-beta.1"
 
 # Used for the `assert_process_allocs` feature
-assert_no_alloc = { path = "../rust-assert-no-alloc", features = ["backtrace", "log"], optional = true }
+assert_no_alloc = { version = "1.1.2", package = "sotf-assert_no_alloc", path = "../rust-assert-no-alloc", features = ["backtrace", "log"], optional = true }
 
 # Used for the `standalone` feature
 # NOTE: OpenGL support is not needed here, but rust-analyzer gets confused when
 #       some crates do use it and others don't
-baseview = { git = "https://github.com/RustAudio/baseview.git", rev = "579130ecb4f9f315ae52190af42f0ea46aeaa4a2", features = ["opengl"], optional = true }
+baseview = { package = "sotf-baseview", version = "0.1", path = "../baseview", features = ["opengl"], optional = true }
 # All the claps!
 clap = { version = "4.1.8", features = ["derive", "wrap_help"], optional = true }
 cpal = { version = "0.15", optional = true }
@@ -80,7 +83,7 @@ midir = { version = "0.11", optional = true }
 rtrb = { version = "0.2.2", optional = true }
 
 # Used for the `vst3` feature
-vst3-sys = { path = "../vst3-sys", optional = true }
+vst3-sys = { version = "0.1.0", package = "sotf-vst3-sys", path = "../vst3-sys", optional = true }
 
 # Used for the `zstd` feature
 zstd = { version = "0.12.3", optional = true }
@@ -113,3 +116,6 @@ strip = "symbols"
 inherits = "release"
 debug = true
 strip = "none"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

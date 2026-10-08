@@ -1,5 +1,5 @@
 [package]
-name = "editor"
+name = "sotf-editor"
 version = "0.1.0"
 authors = ["Jeremy Soller <jeremy@system76.com>"]
 edition = "2021"
@@ -7,7 +7,7 @@ license = "MIT OR Apache-2.0"
 publish = false
 
 [dependencies]
-cosmic-text = { path = "../..", features = ["syntect"] }
+cosmic-text = { version = "0.19.0", package = "sotf-cosmic-text", path = "../..", features = ["syntect"] }
 env_logger = "0.11"
 fontdb = "0.24"
 log = "0.4"
@@ -19,3 +19,7 @@ winit = "0.29"
 [features]
 default = []
 vi = ["cosmic-text/vi"]
+
+[[bin]]
+name = "editor"
+path = "src/main.rs"

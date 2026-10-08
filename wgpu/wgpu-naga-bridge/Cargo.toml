@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-naga-bridge"
+name = "sotf-wgpu-naga-bridge"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -12,6 +12,12 @@ license.workspace = true
 # Match the MSRV of naga and wgpu-types so this crate is usable everywhere they are.
 rust-version = "1.87"
 
+[lib]
+name = "wgpu_naga_bridge"
+
 [dependencies]
 naga = { workspace = true }
 wgpu-types = { workspace = true }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

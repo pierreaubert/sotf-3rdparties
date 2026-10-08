@@ -1,5 +1,5 @@
 [package]
-name = "gpui-toolkit-perf"
+name = "sotf-gpui-toolkit-perf"
 version = "0.1.0"
 edition = "2024"
 description = "A tool for measuring Zed test performance, with too many Clippy lints"
@@ -16,3 +16,10 @@ name = "perf"
 collections = { workspace = true }
 serde = { version = "1.0.221", features = ["derive", "rc"] }
 serde_json = { version = "1.0.144", features = ["preserve_order", "raw_value"] }
+
+[[bin]]
+name = "gpui-toolkit-perf"
+path = "src/main.rs"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

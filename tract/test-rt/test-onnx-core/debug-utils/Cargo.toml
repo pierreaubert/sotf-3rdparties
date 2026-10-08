@@ -1,5 +1,6 @@
 [package]
-name = "debug-utils"
+name = "sotf-debug-utils"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 edition = "2024"
@@ -10,3 +11,7 @@ members = []
 [dependencies]
 protobuf = "*"
 tract-onnx.workspace = true
+
+[[bin]]
+name = "debug-utils"
+path = "src/main.rs"

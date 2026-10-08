@@ -1,5 +1,5 @@
 [package]
-name = "librespot-protocol"
+name = "sotf-librespot-protocol"
 version = "0.8.0"
 rust-version.workspace = true
 authors = ["Paul Liétar <paul@lietar.net>"]
@@ -9,8 +9,14 @@ repository.workspace = true
 edition.workspace = true
 build = "build.rs"
 
+[lib]
+name = "librespot_protocol"
+
 [dependencies]
 protobuf = "3"
 
 [build-dependencies]
 protobuf-codegen = "3"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

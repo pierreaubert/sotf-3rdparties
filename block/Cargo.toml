@@ -1,5 +1,5 @@
 [package]
-name = "block"
+name = "sotf-block"
 version = "0.1.6"
 authors = ["Steven Sheldon"]
 edition = "2015"
@@ -7,7 +7,7 @@ edition = "2015"
 description = "Rust interface for Apple's C language extension of blocks."
 keywords = ["blocks", "osx", "ios", "objective-c"]
 readme = "README.md"
-repository = "http://github.com/SSheldon/rust-block"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 documentation = "http://ssheldon.github.io/rust-objc/block/"
 license = "MIT"
 
@@ -19,4 +19,10 @@ exclude = [
   "tests-ios/**",
 ]
 
+[lib]
+name = "block"
+
 [workspace]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

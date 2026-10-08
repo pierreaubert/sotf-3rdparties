@@ -1,5 +1,5 @@
 [package]
-name = "vst3-sys"
+name = "sotf-vst3-sys"
 version = "0.1.0"
 authors = ["Mike Hilgendorf <mike@hilgendorf.audio>", "Mirko Covizzi <mrkcvzz@gmail.com>"]
 license = "GPLv3"
@@ -8,8 +8,11 @@ Pure Rust bindings to the VST3 APIs, based on COM.
 """
 edition = "2018"
 
+[lib]
+name = "vst3_sys"
+
 [dependencies]
-vst3-com = { path = "./com" }
+vst3-com = { version = "0.1.0", package = "sotf-vst3-com", path = "./com" }
 
 [dev-dependencies]
 log = "0.4"
@@ -23,3 +26,6 @@ members = ["examples/again", "com", "com/macros", "com/macros/support"]
 [[example]]
 name = "passthru"
 crate-type = ["cdylib"]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

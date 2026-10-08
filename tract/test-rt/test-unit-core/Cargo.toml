@@ -1,15 +1,23 @@
 [package]
-name = "test-unit-core"
+name = "sotf-test-unit-core"
+publish = false
 version = "0.1.0"
 edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+name = "test_unit_core"
+
 [dependencies]
 tract-core.workspace = true
 
 [dev-dependencies]
-suite-unit = { path = "../suite-unit" }
+suite-unit = { version = "0.1.0", package = "sotf-suite-unit", path = "../suite-unit" }
 
 [build-dependencies]
-suite-unit = { path = "../suite-unit" }
+suite-unit = { version = "0.1.0", package = "sotf-suite-unit", path = "../suite-unit" }
+
+[[bin]]
+name = "test-unit-core"
+path = "src/main.rs"

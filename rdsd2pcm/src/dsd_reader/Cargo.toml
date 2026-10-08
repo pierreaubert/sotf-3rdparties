@@ -1,14 +1,17 @@
 [package]
-name = "dsd-reader"
+name = "sotf-dsd-reader"
 version = "0.3.1"
 authors = ["clone206"]
 edition = "2024"
 license = "MIT/Apache-2.0"
 description = "A Rust library for reading DSD (Direct Stream Digital) audio data from DSF, DFF, or raw sources."
 readme = "README.md"
-repository = "https://github.com/clone206/dsd-reader"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = ["audio", "dsd", "dsf", "dff", "decoder"]
 categories = ["multimedia", "parsing"]
+
+[lib]
+name = "dsd_reader"
 
 [dependencies]
 dsf-meta = "0.2.6"
@@ -19,3 +22,6 @@ id3 = "1.16.3"
 [lints.clippy]
 # No glob imports: explicit import lists keep API scope reviewable.
 wildcard_imports = "warn"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

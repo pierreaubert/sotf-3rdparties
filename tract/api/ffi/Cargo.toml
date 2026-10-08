@@ -1,10 +1,10 @@
 [package]
-name = "tract-ffi"
+name = "sotf-tract-ffi"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 description = "Tiny, no-nonsense, self contained, neural network inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks" ]
 categories = [ "science" ]
 autobenches = false
@@ -25,3 +25,6 @@ serde.workspace = true
 serde_json.workspace = true
 tract-api.workspace = true
 tract-rs.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

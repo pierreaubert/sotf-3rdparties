@@ -49,3 +49,19 @@ skip custom batches, so they leave the flag false).
   app API). Includes a `#[cfg(test)]` flag roundtrip test.
 - **`src/gpui.rs`** (crate root): re-export of `wgpu_custom_draw_available`
   and `set_wgpu_custom_draw_available` alongside the registry functions.
+
+## 3. Nested `ScrollAnchor::scroll_into_view` (keyboard focus, 2026-10-08)
+
+Tracks the anchor's size as well as origin, then adjusts only the vertical
+offset of its associated scrollport by the minimum amount needed to reveal the
+descendant. It applies the offset synchronously during the key event and
+refreshes the window; scheduling the adjustment with `on_next_frame` alone did
+not run when focus changed without another frame request. The API is opt-in:
+the SOTF Channel Mute/Solo rack buttons attach anchors so Tab and Shift-Tab
+keep lower-channel controls visible, while graph-editor buttons have no rack
+anchor. Native 12-channel focus and state verification is recorded in
+`reviews/ui-plugins-p1-remediation-status.md`.
+
+- **`src/elements/div.rs`**: `ScrollAnchor` stores the descendant size and
+  exposes `scroll_into_view`, preserving horizontal scroll and ordinary
+  re-render behavior.

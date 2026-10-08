@@ -1,5 +1,6 @@
 [package]
-name = "keras-tract-tf2"
+name = "sotf-keras-tract-tf2"
+publish = false
 version = "0.20.7-pre"
 authors = ["Matthew Alhonte <mattalhonte@gmail.com>"]
 license = "MIT OR Apache-2.0"
@@ -13,3 +14,6 @@ tract-core.workspace = true
 tract-onnx.workspace = true
 ndarray-npy.workspace = true
 
+[[bin]]
+name = "keras-tract-tf2"
+path = "src/main.rs"

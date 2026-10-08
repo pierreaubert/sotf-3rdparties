@@ -1,9 +1,13 @@
 [package]
-name = "test-cuda"
+name = "sotf-test-cuda"
+publish = false
 version = "0.1.0"
 edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "test_cuda"
 
 [dependencies]
 
@@ -11,10 +15,10 @@ edition = "2024"
 home.workspace = true
 lazy_static.workspace = true
 regex.workspace = true
-infra = { path = "../infra" }
+infra = { version = "0.1.0", package = "sotf-infra", path = "../infra" }
 tract-core.workspace = true
-suite-onnx = { path = "../suite-onnx" }
-suite-unit = { path = "../suite-unit" }
+suite-onnx = { version = "0.1.0", package = "sotf-suite-onnx", path = "../suite-onnx" }
+suite-unit = { version = "0.1.0", package = "sotf-suite-unit", path = "../suite-unit" }
 tract-gpu.workspace = true
 tract-onnx-opl.workspace = true
 pastey.workspace = true
@@ -26,9 +30,9 @@ lazy_static.workspace = true
 log.workspace = true
 tract-core.workspace = true
 tract-onnx-opl.workspace = true
-infra = { path = "../infra" }
+infra = { version = "0.1.0", package = "sotf-infra", path = "../infra" }
 tract-cuda.workspace = true
 tract-gpu.workspace = true
-suite-onnx = { path = "../suite-onnx" }
-suite-unit = { path = "../suite-unit" }
+suite-onnx = { version = "0.1.0", package = "sotf-suite-onnx", path = "../suite-onnx" }
+suite-unit = { version = "0.1.0", package = "sotf-suite-unit", path = "../suite-unit" }
 pastey.workspace = true

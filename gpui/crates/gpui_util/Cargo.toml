@@ -1,9 +1,12 @@
 ["package"]
-"name" = "gpui_util"
+"name" = "sotf-gpui_util"
 "version" = "0.1.0"
-"publish" = false
+"description" = "Utility types and helpers used by Zed and GPUI"
 "edition" = "2024"
 "license" = "Apache-2.0"
+
+[lib]
+"name" = "gpui_util"
 
 ["dependencies"]
 
@@ -47,3 +50,5 @@
 "level" = "allow"
 "priority" = -1
 
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

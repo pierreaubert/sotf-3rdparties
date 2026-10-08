@@ -1,10 +1,10 @@
 [package]
-name = "tract"
+name = "sotf-tract"
 version = "0.22.4"
 authors = [ "Romain Liautaud <romain.liautaud@snips.ai>", "Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks" ]
 categories = [ "science" ]
 autobenches = false
@@ -74,3 +74,10 @@ tflite = [ "tract-tflite" ]
 transformers = [ "tract-transformers" ]
 conform = [ "tract-tensorflow/conform"  ]
 multithread-mm = [ "tract-linalg/multithread-mm" ]
+
+[[bin]]
+name = "tract"
+path = "src/main.rs"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

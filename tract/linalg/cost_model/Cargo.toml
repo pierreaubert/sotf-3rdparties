@@ -1,5 +1,6 @@
 [package]
-name = "cost_model"
+name = "sotf-cost_model"
+publish = false
 version = "0.20.7-pre"
 edition = "2024"
 
@@ -15,5 +16,9 @@ colorous = "1.0.6"
 nu-ansi-term = "0.50"
 pbr = "1"
 readings-probe = "0.1.4"
-tract-linalg = { path = ".."}
-tract-data = { path = "../../data" }
+tract-linalg = { version = "0.22.4", package = "sotf-tract-linalg", path = ".."}
+tract-data = { version = "0.22.4", package = "sotf-tract-data", path = "../../data" }
+
+[[bin]]
+name = "cost_model"
+path = "src/main.rs"

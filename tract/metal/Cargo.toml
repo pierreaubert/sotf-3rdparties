@@ -1,5 +1,5 @@
 [package]
-name = "tract-metal"
+name = "sotf-tract-metal"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = [
@@ -7,12 +7,15 @@ authors = [
 	"Mathieu Poumeyrol <kali@zoy.org>",
 ]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks", "Metal" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
 rust-version = "1.85"
+
+[lib]
+name = "tract_metal"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -42,3 +45,5 @@ ggml = { git = "https://github.com/rustformers/llm.git", rev="9376078", features
 name = "metal_gemm"
 harness = false
 
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

@@ -1,5 +1,6 @@
 [package]
-name = "example-onnx-mobilenet-v2"
+name = "sotf-example-onnx-mobilenet-v2"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
@@ -9,3 +10,11 @@ default-run = "example-onnx-mobilenet-v2"
 [dependencies]
 image.workspace = true
 tract-onnx.workspace = true
+
+[[bin]]
+name = "example-onnx-mobilenet-v2"
+path = "src/main.rs"
+
+[[bin]]
+name = "dyn-shape"
+path = "src/bin/dyn-shape.rs"

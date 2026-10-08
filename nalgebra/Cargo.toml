@@ -1,12 +1,12 @@
 [package]
-name = "nalgebra"
+name = "sotf-nalgebra"
 version = "0.35.0"
 authors = ["Sébastien Crozet <developer@crozet.re>"]
 
 description = "General-purpose linear algebra library with transformations and statically-sized or dynamically-sized matrices."
 documentation = "https://www.nalgebra.rs/docs"
 homepage = "https://nalgebra.rs"
-repository = "https://github.com/dimforge/nalgebra"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 readme = "README.md"
 categories = ["science", "mathematics", "wasm", "no-std"]
 keywords = ["linear", "algebra", "matrix", "vector", "math"]
@@ -73,7 +73,7 @@ slow-tests = []
 rkyv-safe-deser = ["rkyv-serialize", "rkyv/validation"]
 
 [dependencies]
-nalgebra-macros = { version = "0.3.0", path = "nalgebra-macros", optional = true }
+nalgebra-macros = { package = "sotf-nalgebra-macros", version = "0.3.0", path = "nalgebra-macros", optional = true }
 typenum = "1.12"
 rand-package = { package = "rand", version = "0.10", optional = true, default-features = false }
 num-traits = { version = "0.2", default-features = false }
@@ -103,7 +103,7 @@ encase = { version = "0.12", optional = true }
 serde_json = "1.0"
 rand_xorshift = "0.5"
 criterion = { version = "0.7", features = ["html_reports"] }
-nalgebra = { path = ".", features = ["debug", "compare", "rand", "macros"] }
+nalgebra = { version = "0.35.0", package = "sotf-nalgebra", path = ".", features = ["debug", "compare", "rand", "macros"] }
 
 # For matrix comparison macro
 matrixcompare = "0.3.0"
@@ -141,3 +141,6 @@ codegen-units = 1
 all-features = true
 # define the configuration attribute `docsrs`
 rustdoc-args = ["--cfg", "docsrs"]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

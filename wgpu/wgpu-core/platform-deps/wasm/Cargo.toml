@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-core-deps-wasm"
+name = "sotf-wgpu-core-deps-wasm"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -16,9 +16,15 @@ readme = "README.md"
 # whole, if their code permits. See `../README.md` for details.
 rust-version = "1.76"
 
+[lib]
+name = "wgpu_core_deps_wasm"
+
 [features]
 webgl = ["wgpu-hal/gles"]
 
 # Depend on wgpu-hal conditionally, so that the above features only apply to wgpu-hal on this set of platforms.
 [target.'cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))'.dependencies]
 wgpu-hal.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

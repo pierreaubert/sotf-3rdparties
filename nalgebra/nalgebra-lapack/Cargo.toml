@@ -1,16 +1,19 @@
 [package]
-name = "nalgebra-lapack"
+name = "sotf-nalgebra-lapack"
 version = "0.28.0"
 authors = ["Sébastien Crozet <developer@crozet.re>", "Andrew Straw <strawman@astraw.com>", "geo-ant <geos.blog@posteo.de>"]
 
 description = "Matrix decompositions using nalgebra matrices and Lapack bindings."
 homepage = "https://nalgebra.rs"
-repository = "https://github.com/dimforge/nalgebra"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 readme = "README.md"
 categories = ["science", "mathematics"]
 keywords = ["linear", "algebra", "matrix", "vector", "lapack"]
 license = "MIT"
 edition = "2024"
+
+[lib]
+name = "nalgebra_lapack"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -34,7 +37,7 @@ lapack-mkl-dynamic-par = ["lapack-src/intel-mkl-dynamic-parallel", "blas-src/int
 lapack-custom = []
 
 [dependencies]
-nalgebra = { version = "0.35", path = ".." }
+nalgebra = { package = "sotf-nalgebra", version = "0.35", path = ".." }
 num-traits = "0.2"
 num-complex = { version = "0.4", default-features = false }
 simba = "0.10"
@@ -46,8 +49,11 @@ blas-src = { version = "0.14", optional = true, default-features = false}
 thiserror = "2.0"
 
 [dev-dependencies]
-nalgebra = { version = "0.35", features = ["arbitrary", "rand"], path = ".." }
+nalgebra = { package = "sotf-nalgebra", version = "0.35", features = ["arbitrary", "rand"], path = ".." }
 proptest = { version = "1", default-features = false, features = ["std"] }
 quickcheck = "1"
 approx = "0.5"
 rand = "0.8"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

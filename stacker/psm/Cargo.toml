@@ -1,5 +1,5 @@
 [package]
-name = "psm"
+name = "sotf-psm"
 version = "0.1.32"
 edition = "2021"
 rust-version = "1.88.0"
@@ -8,12 +8,18 @@ build = "build.rs"
 description = "Portable Stack Manipulation: stack manipulation and introspection routines"
 keywords = ["stack", "no_std"]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/rust-lang/stacker/"
-documentation = "https://docs.rs/psm/0.1.31"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
+documentation = "https://docs.rs/sotf-psm/0.1.31"
 readme = "README.mkd"
+
+[lib]
+name = "psm"
 
 [dependencies]
 
 [build-dependencies]
 ar_archive_writer = "0.5.0"
 cc = "1.2.33"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

@@ -1,5 +1,5 @@
 [package]
-name = "naga-cli"
+name = "sotf-naga-cli"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -50,3 +50,6 @@ env_logger.workspace = true
 argh.workspace = true
 anyhow = { workspace = true, features = ["std"] }
 log.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

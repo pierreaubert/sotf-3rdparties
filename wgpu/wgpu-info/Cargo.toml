@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-info"
+name = "sotf-wgpu-info"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -23,3 +23,10 @@ wgpu.workspace = true
 
 [lints.clippy]
 disallowed_types = "allow"
+
+[[bin]]
+name = "wgpu-info"
+path = "src/main.rs"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

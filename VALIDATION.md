@@ -16,7 +16,7 @@ not a claim that the complete macOS release or every upstream platform is qualif
 
 | Check | Result |
 | --- | --- |
-| Collection inventory / licenses / consumer patch paths | 31 records and 126 local patch declarations pass |
+| Collection inventory / licenses / consumer patch paths | 34 records and 126 local patch declarations pass |
 | SOTF GPUI with shipping features | cargo check passes after final relocation |
 | Capture library | cargo check passes |
 | AU/VST3 worker and macOS sandbox helper | cargo check passes |
@@ -79,10 +79,11 @@ benchmark/debug manifests. It is not a passing aggregate release gate. This
 consolidation does not perform cross-workspace version upgrades to suppress those
 findings. The detailed static report is retained with the migration receipts.
 
-Upstream cosmic-text LFS test fonts remain exact committed pointers because the
-local cache lacks their payloads; they were not fetched. SOTF's actual embedded
-fonts remain available under gpui/assets. Standalone cosmic-text font fixture QA
-is not claimed by the SOTF compile check.
+Upstream cosmic-text LFS test fonts and images are fully fetched at the pinned
+revision and stored in this repository's LFS storage (`git lfs fsck` passes),
+so the vendored copy is self-contained. SOTF's actual embedded fonts remain
+available under gpui/assets. Standalone cosmic-text font fixture QA is not
+claimed by the SOTF compile check.
 
 Final expanded-scope acceptance: the SOTF GPUI shipping-feature check passes
 with all relocated GPUI dependencies. All nine consumers, the AutoEQ GPUI example,

@@ -1,9 +1,13 @@
 [package]
-name = "tf-mobilenet-v2"
+name = "sotf-tf-mobilenet-v2"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
+
+[lib]
+name = "tf_mobilenet_v2"
 
 [dependencies]
 image.workspace = true

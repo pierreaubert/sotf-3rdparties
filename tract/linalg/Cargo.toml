@@ -1,14 +1,17 @@
 [package]
-name = "tract-linalg"
+name = "sotf-tract-linalg"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = ["TensorFlow", "NeuralNetworks"]
 categories = ["science"]
 autobenches = false
 edition = "2024"
+
+[lib]
+name = "tract_linalg"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -123,3 +126,6 @@ harness = false
 bench = false
 name = "leaky_relu"
 harness = false
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

@@ -1,18 +1,19 @@
 [package]
-name = "nalgebra-macros"
+name = "sotf-nalgebra-macros"
 version = "0.3.0"
 authors = ["Andreas Longva", "Sébastien Crozet <developer@crozet.re>"]
 edition = "2024"
 description = "Procedural macros for nalgebra"
 documentation = "https://www.nalgebra.rs/docs"
 homepage = "https://nalgebra.rs"
-repository = "https://github.com/dimforge/nalgebra"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 readme = "../README.md"
 categories = ["science", "mathematics"]
 keywords = ["linear", "algebra", "matrix", "vector", "math"]
 license = "Apache-2.0"
 
 [lib]
+name = "nalgebra_macros"
 proc-macro = true
 
 [dependencies]
@@ -21,4 +22,7 @@ quote = "1.0"
 proc-macro2 = "1.0"
 
 [dev-dependencies]
-nalgebra = { version = "0.35", path = ".." }
+nalgebra = { package = "sotf-nalgebra", version = "0.35", path = ".." }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

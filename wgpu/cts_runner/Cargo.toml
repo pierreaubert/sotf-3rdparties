@@ -1,5 +1,5 @@
 [package]
-name = "cts_runner"
+name = "sotf-cts_runner"
 version.workspace = true
 authors = ["Luca Casonato <hello@lcas.dev>"]
 edition.workspace = true
@@ -27,3 +27,7 @@ termcolor.workspace = true
 
 [dev-dependencies]
 tempfile.workspace = true
+
+[[bin]]
+name = "cts_runner"
+path = "src/main.rs"

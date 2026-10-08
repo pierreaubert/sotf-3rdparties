@@ -1,15 +1,16 @@
 [package]
-name = "rubato"
+name = "sotf-rubato"
 version = "5.0.0"
 rust-version = "1.87"
 authors = ["HEnquist <henrik.enquist@gmail.com>"]
 description = "Asynchronous resampling library intended for audio data"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/HEnquist/rubato"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = ["interpolation", "resampling"]
 categories = ["multimedia::audio"]
 readme = "README.md"
 edition = "2021"
+exclude = ["Cargo.toml.orig"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -61,5 +62,9 @@ name = "resample_wav"
 required-features = ["fft_resampler"]
 
 [lib]
+name = "rubato"
 bench = false
 path = "src/lib.rs"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

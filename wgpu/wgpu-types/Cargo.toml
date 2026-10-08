@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-types"
+name = "sotf-wgpu-types"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -34,6 +34,7 @@ std_instead_of_alloc = "warn"
 alloc_instead_of_core = "warn"
 
 [lib]
+name = "wgpu_types"
 
 [features]
 default = ["std"]
@@ -73,3 +74,6 @@ web-sys = { workspace = true, optional = true, default-features = false, feature
 [dev-dependencies]
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

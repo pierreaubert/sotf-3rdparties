@@ -1,5 +1,5 @@
 [package]
-name = "librespot"
+name = "sotf-librespot"
 version = "0.8.0"
 rust-version.workspace = true
 authors.workspace = true
@@ -34,7 +34,7 @@ include = [
 rust-version = "1.89"
 authors = ["Librespot Org"]
 license = "MIT"
-repository = "https://github.com/librespot-org/librespot"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 edition = "2024"
 
 [features]
@@ -144,14 +144,14 @@ path = "src/main.rs"
 doc = false
 
 [workspace.dependencies]
-librespot-audio = { version = "0.8.0", path = "audio", default-features = false }
-librespot-connect = { version = "0.8.0", path = "connect", default-features = false }
-librespot-core = { version = "0.8.0", path = "core", default-features = false }
-librespot-discovery = { version = "0.8.0", path = "discovery", default-features = false }
-librespot-metadata = { version = "0.8.0", path = "metadata", default-features = false }
-librespot-oauth = { version = "0.8.0", path = "oauth", default-features = false }
-librespot-playback = { version = "0.8.0", path = "playback", default-features = false }
-librespot-protocol = { version = "0.8.0", path = "protocol", default-features = false }
+librespot-audio = { "package" = "sotf-librespot-audio", version = "0.8.0", path = "audio", default-features = false }
+librespot-connect = { "package" = "sotf-librespot-connect", version = "0.8.0", path = "connect", default-features = false }
+librespot-core = { "package" = "sotf-librespot-core", version = "0.8.0", path = "core", default-features = false }
+librespot-discovery = { "package" = "sotf-librespot-discovery", version = "0.8.0", path = "discovery", default-features = false }
+librespot-metadata = { "package" = "sotf-librespot-metadata", version = "0.8.0", path = "metadata", default-features = false }
+librespot-oauth = { "package" = "sotf-librespot-oauth", version = "0.8.0", path = "oauth", default-features = false }
+librespot-playback = { "package" = "sotf-librespot-playback", version = "0.8.0", path = "playback", default-features = false }
+librespot-protocol = { "package" = "sotf-librespot-protocol", version = "0.8.0", path = "protocol", default-features = false }
 
 [dependencies]
 librespot-audio.workspace = true
@@ -212,3 +212,5 @@ assets = [
     ["contrib/librespot.user.service", "lib/systemd/user/", "644"],
 ]
 
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

@@ -1,5 +1,5 @@
 [package]
-name = "librespot-oauth"
+name = "sotf-librespot-oauth"
 version = "0.8.0"
 rust-version.workspace = true
 authors = ["Nick Steel <nick@nsteel.co.uk>"]
@@ -7,6 +7,9 @@ license.workspace = true
 description = "OAuth authorization code flow with PKCE for obtaining a Spotify access token"
 repository.workspace = true
 edition.workspace = true
+
+[lib]
+name = "librespot_oauth"
 
 [features]
 # Refer to the workspace Cargo.toml for the list of features
@@ -48,3 +51,6 @@ env_logger = { version = "0.11", default-features = false, features = [
     "auto-color",
 ] }
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

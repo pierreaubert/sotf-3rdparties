@@ -1,5 +1,5 @@
 [package]
-name = "player"
+name = "sotf-player"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -12,6 +12,7 @@ rust-version.workspace = true
 publish = false
 
 [lib]
+name = "player"
 test = false
 
 [[bin]]

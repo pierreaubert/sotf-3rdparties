@@ -1,9 +1,13 @@
 [package]
-name = "tf-moz-deepspeech"
+name = "sotf-tf-moz-deepspeech"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 edition = "2024"
 license = "MIT OR Apache-2.0"
+
+[lib]
+name = "tf_moz_deepspeech"
 
 [dependencies]
 log.workspace = true

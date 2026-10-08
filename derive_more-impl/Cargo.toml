@@ -12,7 +12,7 @@
 [package]
 edition = "2021"
 rust-version = "1.85.0"
-name = "derive_more-impl"
+name = "sotf-derive_more-impl"
 version = "2.1.2"
 authors = ["Jelte Fennema <github-tech@jeltef.nl>"]
 build = false
@@ -32,7 +32,7 @@ description = "Internal implementation of `derive_more` crate"
 documentation = "https://docs.rs/derive_more"
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/JelteF/derive_more"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 
 [package.metadata.docs.rs]
 features = ["full"]
@@ -181,3 +181,6 @@ published-upstream-release = false
 change = "Private built-in case conversion uses convert_case 0.11; Rust source unchanged"
 
 [workspace]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

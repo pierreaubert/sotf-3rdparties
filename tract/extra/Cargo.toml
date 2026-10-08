@@ -1,15 +1,18 @@
 [package]
-name = "tract-extra"
+name = "sotf-tract-extra"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
 rust-version = "1.85"
+
+[lib]
+name = "tract_extra"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -24,3 +27,6 @@ env_logger.workspace = true
 lazy_static.workspace = true
 proptest.workspace = true
 approx.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

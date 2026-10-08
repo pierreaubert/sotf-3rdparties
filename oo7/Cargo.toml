@@ -12,7 +12,7 @@
 [package]
 edition = "2024"
 rust-version = "1.92"
-name = "oo7"
+name = "sotf-oo7"
 version = "0.7.0"
 authors = [
     "Bilal Elmoussaoui",
@@ -20,7 +20,7 @@ authors = [
     "Maximiliano Sandoval",
 ]
 build = false
-exclude = ["org.freedesktop.Secrets.xml"]
+exclude = ["org.freedesktop.Secrets.xml", "Cargo.toml.orig"]
 autolib = false
 autobins = false
 autoexamples = false
@@ -42,7 +42,7 @@ categories = [
     "api-bindings",
 ]
 license = "MIT"
-repository = "https://github.com/linux-credentials/oo7"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 
 [package.metadata.docs.rs]
 features = ["unstable"]
@@ -302,3 +302,6 @@ features = [
 ]
 
 [workspace]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

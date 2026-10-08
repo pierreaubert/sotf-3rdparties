@@ -1,10 +1,10 @@
 [package]
-name = "tract-proxy-sys"
+name = "sotf-tract-proxy-sys"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/sonos/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "NeuralNetworks" ]
 categories = [ "science" ]
 autobenches = false
@@ -12,5 +12,11 @@ edition = "2024"
 rust-version = "1.85"
 include = [ "Cargo.toml", "src/**/*.rs", "LICENSE*", "build.rs", "tract.h" ]
 
+[lib]
+name = "tract_proxy_sys"
+
 [build-dependencies]
 bindgen = "0.71.0"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

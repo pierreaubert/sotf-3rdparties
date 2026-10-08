@@ -1,15 +1,18 @@
 [package]
-name = "tract-core"
+name = "sotf-tract-core"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
 rust-version = "1.85"
+
+[lib]
+name = "tract_core"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -61,3 +64,6 @@ proptest.workspace = true
 criterion = { version = "0.6", default-features = false, features = ["plotters", "cargo_bench_support"] }
 # Wasm doesn't support the `fork` feature of proptest.
 proptest = { version = "1.0.0", default-features = false, features = ["std", "bit-set"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

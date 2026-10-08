@@ -1,9 +1,13 @@
 [package]
-name = "tfl-mobilenet-v2-q"
+name = "sotf-tfl-mobilenet-v2-q"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
+
+[lib]
+name = "tfl_mobilenet_v2_q"
 
 [dependencies]
 image.workspace = true

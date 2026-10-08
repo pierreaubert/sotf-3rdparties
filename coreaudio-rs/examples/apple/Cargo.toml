@@ -1,5 +1,6 @@
 [package]
-name = "coreaudio-apple-example"
+name = "sotf-coreaudio-apple-example"
+publish = false
 version = "0.1.0"
 authors = ["Michael Hills <mhills@gmail.com>"]
 edition = "2018"
@@ -11,7 +12,7 @@ crate-type = ["staticlib"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-coreaudio-rs = { path = "../.." }
+coreaudio-rs = { version = "0.14.2", package = "sotf-coreaudio-rs", path = "../.." }
 objc2-audio-toolbox = { version = "0.3", default-features = false, features = [
     "std",
     "AudioUnitProperties",

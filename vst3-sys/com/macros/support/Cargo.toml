@@ -1,5 +1,5 @@
 [package]
-name = "vst3-com-macros-support"
+name = "sotf-vst3-com-macros-support"
 version = "0.2.0"
 authors = ["Microsoft Corp."]
 edition = "2018"
@@ -10,7 +10,13 @@ Support library for COM crate macros
 """
 license = "MIT"
 
+[lib]
+name = "vst3_com_macros_support"
+
 [dependencies]
 syn = { version = "1.0.5", features = ["full"] }
 quote = "1.0"
 proc-macro2 = "1.0.1"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

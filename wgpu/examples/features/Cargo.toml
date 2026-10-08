@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-examples"
+name = "sotf-wgpu-examples"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -16,6 +16,7 @@ publish = false
 ignored = ["wasm_bindgen_test"]
 
 [lib]
+name = "wgpu_examples"
 path = "src/lib.rs"
 harness = false
 bench = false

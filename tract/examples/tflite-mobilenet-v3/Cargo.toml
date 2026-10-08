@@ -1,5 +1,6 @@
 [package]
-name = "example-tflite-mobilenet-v3"
+name = "sotf-example-tflite-mobilenet-v3"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
@@ -8,3 +9,7 @@ edition = "2024"
 [dependencies]
 image.workspace = true
 tract-tflite.workspace = true
+
+[[bin]]
+name = "example-tflite-mobilenet-v3"
+path = "src/main.rs"

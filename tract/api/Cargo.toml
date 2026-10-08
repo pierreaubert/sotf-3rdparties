@@ -1,16 +1,19 @@
 [package]
-name = "tract-api"
+name = "sotf-tract-api"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/sonos/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "NeuralNetworks" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
 rust-version = "1.85"
 include = [ "Cargo.toml", "src/**/*.rs", "LICENSE*", "tract.h" ]
+
+[lib]
+name = "tract_api"
 
 [dependencies]
 anyhow.workspace = true
@@ -27,3 +30,6 @@ lazy_static = "1.4.0"
 reqwest.workspace = true
 tempfile.workspace = true
 serde_json.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-example-01-hello-compute"
+name = "sotf-wgpu-example-01-hello-compute"
 edition = "2021"
 rust-version = "1.87"
 publish = false
@@ -8,4 +8,8 @@ publish = false
 bytemuck = "1.22.0"
 env_logger = "0.11"
 pollster = "0.4"
-wgpu = "29.0.0"
+wgpu = { version = "29.0.0", package = "sotf-wgpu", path = "../../../wgpu" }
+
+[[bin]]
+name = "wgpu-example-01-hello-compute"
+path = "src/main.rs"

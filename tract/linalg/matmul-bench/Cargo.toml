@@ -1,8 +1,12 @@
 [package]
-name = "matmul-bench"
+name = "sotf-matmul-bench"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 edition = "2024"
+
+[lib]
+name = "matmul_bench"
 
 [workspace]
 members = []

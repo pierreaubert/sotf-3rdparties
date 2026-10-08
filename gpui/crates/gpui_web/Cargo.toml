@@ -1,5 +1,5 @@
 [package]
-name = "gpui-toolkit-gpui-web"
+name = "sotf-gpui-toolkit-gpui-web"
 version = "0.1.1"
 edition = "2024"
 description.workspace = true
@@ -35,3 +35,6 @@ js-sys = "0.3"
 raw-window-handle = "0.6"
 wasm_thread = { version = "0.3", features = ["es_modules"], optional = true }
 web-sys = { version = "0.3", features = ["console", "Clipboard", "ClipboardEvent", "CompositionEvent", "CssStyleDeclaration", "DataTransfer", "Document", "DomRect", "DragEvent", "Element", "EventTarget", "File", "FileList", "HtmlCanvasElement", "HtmlElement", "HtmlInputElement", "KeyboardEvent", "MediaQueryList", "MediaQueryListEvent", "MessageChannel", "MessageEvent", "MessagePort", "MouseEvent", "Navigator", "PointerEvent", "ResizeObserver", "ResizeObserverBoxOptions", "ResizeObserverEntry", "ResizeObserverSize", "ResizeObserverOptions", "Screen", "Storage", "VisualViewport", "Headers", "Request", "RequestInit", "RequestRedirect", "Response", "WheelEvent", "Window"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

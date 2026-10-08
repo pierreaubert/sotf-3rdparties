@@ -1,9 +1,13 @@
 [package]
-name = "suite-onnx"
+name = "sotf-suite-onnx"
+publish = false
 version = "0.1.0"
 edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "suite_onnx"
 
 [dependencies]
 anyhow.workspace = true
@@ -14,7 +18,7 @@ itertools.workspace = true
 lazy_static.workspace = true
 log.workspace = true
 prost.workspace = true
-infra = { path = "../infra" }
+infra = { version = "0.1.0", package = "sotf-infra", path = "../infra" }
 tract-core.workspace = true
 tract-onnx.workspace = true
 tract-hir.workspace = true

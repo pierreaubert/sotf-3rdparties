@@ -1,9 +1,13 @@
 [package]
-name = "lstm-proptest-onnx-vs-tf"
+name = "sotf-lstm-proptest-onnx-vs-tf"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
+
+[lib]
+name = "lstm_proptest_onnx_vs_tf"
 
 [dependencies]
 proptest.workspace = true

@@ -208,7 +208,7 @@ structopt = { version = "0.3", default-features = false }
 tar = "0.4.37"
 tempfile = "3.8"
 tensorflow = "0.17.0"
-tflitec = { git = "https://github.com/kali/tflitec-rs.git", rev="9ceb838" }
+tflitec = { package = "sotf-tflitec", version = "0.6", path = "../tflitec" }
 time = "0.3.23"
 time-macros = "0.2.10"
 tinystr = "0.8.0"
@@ -218,28 +218,28 @@ walkdir = "2.3.2"
 writeable = "0.6.0"
 zerofrom = "0.1.5"
 zerotrie = "0.2.1"
-tract-api = { version = "=0.22.4", path = 'api' }
-tract-core = { version = "=0.22.4", path = 'core' }
-tract-cuda = { version = "=0.22.4", path = 'cuda' }
-tract-data = { version = "=0.22.4", path = 'data' }
-tract-extra = { version = "=0.22.4", path = 'extra' }
-tract-gpu = { version = "=0.22.4", path = 'gpu' }
-tract-hir = { version = "=0.22.4", path = 'hir' }
-tract-libcli = { version = "=0.22.4", path = 'libcli' }
-tract-linalg = { version = "=0.22.4", path = 'linalg' }
-tract-metal = { version = "=0.22.4", path = 'metal' }
-tract-nnef-resources = { version = "=0.22.4", path = 'nnef/nnef-resources' }
-tract-nnef = { version = "=0.22.4", path = 'nnef' }
-tract-onnx-opl = { version = "=0.22.4", path = 'onnx-opl' }
-tract-onnx = { version = "=0.22.4", path = 'onnx' }
-tract-pulse-opl = { version = "=0.22.4", path = 'pulse-opl' }
-tract-pulse = { version = "=0.22.4", path = 'pulse' }
-tract-tensorflow = { version = "=0.22.4", path = 'tensorflow' }
-tract-tflite = { version = "=0.22.4", path = 'tflite' }
-tract-transformers = { version = "=0.22.4", path = 'transformers' }
-tract-rs = { version = "=0.22.4", path = 'api/rs' }
-tract-proxy = { version = "=0.22.4", path = 'api/proxy' }
-tract-proxy-sys = { version = "=0.22.4", path = 'api/proxy/sys' }
+tract-api = { package = "sotf-tract-api", version = "=0.22.4", path = 'api' }
+tract-core = { package = "sotf-tract-core", version = "=0.22.4", path = 'core' }
+tract-cuda = { package = "sotf-tract-cuda", version = "=0.22.4", path = 'cuda' }
+tract-data = { package = "sotf-tract-data", version = "=0.22.4", path = 'data' }
+tract-extra = { package = "sotf-tract-extra", version = "=0.22.4", path = 'extra' }
+tract-gpu = { package = "sotf-tract-gpu", version = "=0.22.4", path = 'gpu' }
+tract-hir = { package = "sotf-tract-hir", version = "=0.22.4", path = 'hir' }
+tract-libcli = { package = "sotf-tract-libcli", version = "=0.22.4", path = 'libcli' }
+tract-linalg = { package = "sotf-tract-linalg", version = "=0.22.4", path = 'linalg' }
+tract-metal = { package = "sotf-tract-metal", version = "=0.22.4", path = 'metal' }
+tract-nnef-resources = { package = "sotf-tract-nnef-resources", version = "=0.22.4", path = 'nnef/nnef-resources' }
+tract-nnef = { package = "sotf-tract-nnef", version = "=0.22.4", path = 'nnef' }
+tract-onnx-opl = { package = "sotf-tract-onnx-opl", version = "=0.22.4", path = 'onnx-opl' }
+tract-onnx = { package = "sotf-tract-onnx", version = "=0.22.4", path = 'onnx' }
+tract-pulse-opl = { package = "sotf-tract-pulse-opl", version = "=0.22.4", path = 'pulse-opl' }
+tract-pulse = { package = "sotf-tract-pulse", version = "=0.22.4", path = 'pulse' }
+tract-tensorflow = { package = "sotf-tract-tensorflow", version = "=0.22.4", path = 'tensorflow' }
+tract-tflite = { package = "sotf-tract-tflite", version = "=0.22.4", path = 'tflite' }
+tract-transformers = { package = "sotf-tract-transformers", version = "=0.22.4", path = 'transformers' }
+tract-rs = { package = "sotf-tract-rs", version = "=0.22.4", path = 'api/rs' }
+tract-proxy = { package = "sotf-tract-proxy", version = "=0.22.4", path = 'api/proxy' }
+tract-proxy-sys = { package = "sotf-tract-proxy-sys", version = "=0.22.4", path = 'api/proxy/sys' }
 tract-ffi = { version = "=0.22.4" }
 tract = { version = "=0.22.4" }
 
@@ -265,3 +265,6 @@ opt-level = 0 # work around never ending build on wondows
 debug = false
 # strip = "debuginfo" does not work on android and ios
 incremental = false
+
+[workspace.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

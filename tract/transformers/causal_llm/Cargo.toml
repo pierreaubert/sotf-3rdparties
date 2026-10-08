@@ -1,7 +1,11 @@
 [package]
-name = "causal_llm"
+name = "sotf-causal_llm"
+publish = false
 version = "0.1.0"
 edition = "2024"
+
+[lib]
+name = "causal_llm"
 
 [dependencies]
 anyhow.workspace = true

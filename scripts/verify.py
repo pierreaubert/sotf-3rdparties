@@ -62,9 +62,89 @@ def main() -> None:
                         errors.append(f"{manifest}: missing patched crate {target}")
                     elif target.relative_to(collection).parts[0] not in directories:
                         errors.append(f"{manifest}: undocumented patch {target}")
+    check_release_naming(collection, errors)
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"Verified {len(directories)} fork records, licenses and {patches} active local patch declarations.")
+
+
+def check_release_naming(collection: Path, errors: list[str]) -> None:
+    """Enforce the crates.io release invariants (issue #3).
+
+    Every package in the collection must be named sotf-*, intra-collection
+    path dependencies must carry matching package/version keys (required for
+    `cargo publish` path rewriting), and publishable crates must not use git
+    dependencies in normal/build tables.
+    """
+    manifests = sorted(p for p in collection.rglob("Cargo.toml")
+                       if "target/" not in p.parts)
+    names: dict[str, str] = {}  # crate dir -> package name
+    versions: dict[str, str | None] = {}
+    parsed: dict[str, dict] = {}
+    for manifest in manifests:
+        rel = str(manifest.parent.relative_to(collection))
+        parsed[rel] = tomllib.loads(manifest.read_text())
+        name = parsed[rel].get("package", {}).get("name")
+        if isinstance(name, str):
+            if not name.startswith("sotf-"):
+                errors.append(f"{rel}/Cargo.toml: package name must start with sotf-: {name}")
+            names[rel] = name
+            version = parsed[rel].get("package", {}).get("version")
+            versions[rel] = version if isinstance(version, str) else None
+    for manifest in manifests:
+        rel = str(manifest.parent.relative_to(collection))
+        config = parsed[rel]
+        tables = [config.get("dependencies", {}), config.get("dev-dependencies", {}),
+                  config.get("build-dependencies", {}),
+                  config.get("workspace", {}).get("dependencies", {})]
+        for target in config.get("target", {}).values():
+            if isinstance(target, dict):
+                for section in ("dependencies", "dev-dependencies", "build-dependencies"):
+                    tables.append(target.get(section, {}))
+        for deps in tables:
+            if not isinstance(deps, dict):
+                continue
+            for key, dep in deps.items():
+                if not isinstance(dep, dict):
+                    continue
+                if "git" in dep:
+                    continue  # dev-only git deps and [patch] git overrides are allowed;
+                    # normal/build git deps are checked structurally below
+                if "path" not in dep:
+                    continue
+                target = (manifest.parent / dep["path"]).resolve()
+                try:
+                    trel = str(target.relative_to(collection))
+                except ValueError:
+                    continue
+                if trel not in names:
+                    errors.append(f"{rel}/Cargo.toml: path dep {key} has no collection manifest: {trel}")
+                    continue
+                if dep.get("package", key) != names[trel]:
+                    errors.append(f"{rel}/Cargo.toml: dep {key} must set package = \"{names[trel]}\"")
+                if "version" not in dep and versions[trel] is not None:
+                    errors.append(f"{rel}/Cargo.toml: dep {key} needs version = \"{versions[trel]}\"")
+        for section in ("dependencies", "build-dependencies"):
+            for key, dep in config.get(section, {}).items():
+                if isinstance(dep, dict) and "git" in dep:
+                    errors.append(f"{rel}/Cargo.toml: git dependency forbidden in [{section}]: {key}")
+        for key, dep in config.get("workspace", {}).get("dependencies", {}).items():
+            if isinstance(dep, dict) and "git" in dep:
+                errors.append(f"{rel}/Cargo.toml: git dependency forbidden in [workspace.dependencies]: {key}")
+        for source, entries in config.get("patch", {}).items():
+            if not isinstance(entries, dict):
+                continue
+            for key, dep in entries.items():
+                if not (isinstance(dep, dict) and "path" in dep):
+                    continue
+                target = (manifest.parent / dep["path"]).resolve()
+                try:
+                    trel = str(target.relative_to(collection))
+                except ValueError:
+                    continue
+                if trel in names and key != names[trel]:
+                    errors.append(f"{rel}/Cargo.toml: [patch.{source}] {key} must be keyed "
+                                  f"\"{names[trel]}\" to match its renamed target")
 
 
 if __name__ == "__main__":

@@ -823,25 +823,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "52560adf09603e58c9a7ee1fe1dcb95a16927b17c127f0ac02d6e768a0e25bc1"
 
 [[package]]
-name = "cts_runner"
-version = "29.0.3"
-dependencies = [
- "deno_console",
- "deno_core",
- "deno_features",
- "deno_url",
- "deno_web",
- "deno_webgpu",
- "deno_webidl",
- "env_logger",
- "log",
- "pico-args",
- "tempfile",
- "termcolor",
- "tokio",
-]
-
-[[package]]
 name = "cursor-icon"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1063,23 +1044,6 @@ dependencies = [
  "thiserror 2.0.18",
  "tokio",
  "uuid",
-]
-
-[[package]]
-name = "deno_webgpu"
-version = "0.181.0"
-dependencies = [
- "deno_core",
- "deno_error",
- "deno_unsync",
- "indexmap",
- "raw-window-handle",
- "serde",
- "serde_json",
- "thiserror 2.0.18",
- "tokio",
- "wgpu-core",
- "wgpu-types",
 ]
 
 [[package]]
@@ -1777,14 +1741,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dfa686283ad6dd069f105e5ab091b04c62850d3e4cf5d67debad1933f55023df"
 
 [[package]]
-name = "hlsl-snapshots"
-version = "29.0.3"
-dependencies = [
- "anyhow",
- "nanoserde",
-]
-
-[[package]]
 name = "home"
 version = "0.5.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2170,15 +2126,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "11d3d7f243d5c5a8b9bb5d6dd2b1602c0cb0b9db1621bafc7ed66e35ff9fe092"
 
 [[package]]
-name = "lock-analyzer"
-version = "29.0.3"
-dependencies = [
- "anyhow",
- "ron",
- "serde",
-]
-
-[[package]]
 name = "lock_api"
 version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2297,96 +2244,6 @@ checksum = "bb85c154ba489f01b25c0d36ae69a87e4a1c73a72631fc6c0eb6dde34a73e44b"
 dependencies = [
  "num-traits",
  "pxfm",
-]
-
-[[package]]
-name = "naga"
-version = "29.0.3"
-dependencies = [
- "arbitrary",
- "arrayvec",
- "bit-set 0.9.1",
- "bitflags 2.11.0",
- "cfg-if",
- "cfg_aliases",
- "codespan-reporting",
- "diff",
- "env_logger",
- "half",
- "hashbrown 0.16.1",
- "hexf-parse",
- "hlsl-snapshots",
- "indexmap",
- "itertools 0.14.0",
- "libm",
- "log",
- "naga-test",
- "num-traits",
- "once_cell",
- "petgraph 0.8.3",
- "pp-rs",
- "ron",
- "rspirv",
- "rustc-hash 1.1.0",
- "serde",
- "spirv",
- "strum",
- "thiserror 2.0.18",
- "unicode-ident",
- "walkdir",
-]
-
-[[package]]
-name = "naga-cli"
-version = "29.0.3"
-dependencies = [
- "anyhow",
- "argh",
- "bincode 2.0.1",
- "codespan-reporting",
- "env_logger",
- "log",
- "naga",
-]
-
-[[package]]
-name = "naga-fuzz"
-version = "29.0.3"
-dependencies = [
- "arbitrary",
- "cfg_aliases",
- "libfuzzer-sys",
- "naga",
-]
-
-[[package]]
-name = "naga-test"
-version = "29.0.3"
-dependencies = [
- "bitflags 2.11.0",
- "naga",
- "ron",
- "serde",
- "serde_json",
- "spirv",
- "toml",
-]
-
-[[package]]
-name = "naga-xtask"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "env_logger",
- "glob",
- "hlsl-snapshots",
- "indicatif",
- "jobserver",
- "log",
- "num_cpus",
- "pico-args",
- "shell-words",
- "which 8.0.2",
 ]
 
 [[package]]
@@ -3011,22 +2868,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4596b6d070b27117e987119b4dac604f3c58cfb0b191112e24771b2faeac1a6"
 
 [[package]]
-name = "player"
-version = "29.0.3"
-dependencies = [
- "bytemuck",
- "env_logger",
- "hashbrown 0.16.1",
- "log",
- "raw-window-handle",
- "ron",
- "serde",
- "wgpu-core",
- "wgpu-types",
- "winit",
-]
-
-[[package]]
 name = "png"
 version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3635,6 +3476,508 @@ checksum = "3a766e1110788c36f4fa1c2b71b387a7815aa65f88ce0229841826633d93723e"
 dependencies = [
  "libc",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "sotf-cts_runner"
+version = "29.0.3"
+dependencies = [
+ "deno_console",
+ "deno_core",
+ "deno_features",
+ "deno_url",
+ "deno_web",
+ "deno_webidl",
+ "env_logger",
+ "log",
+ "pico-args",
+ "sotf-deno_webgpu",
+ "tempfile",
+ "termcolor",
+ "tokio",
+]
+
+[[package]]
+name = "sotf-deno_webgpu"
+version = "0.181.0"
+dependencies = [
+ "deno_core",
+ "deno_error",
+ "deno_unsync",
+ "indexmap",
+ "raw-window-handle",
+ "serde",
+ "serde_json",
+ "sotf-wgpu-core",
+ "sotf-wgpu-types",
+ "thiserror 2.0.18",
+ "tokio",
+]
+
+[[package]]
+name = "sotf-hlsl-snapshots"
+version = "29.0.3"
+dependencies = [
+ "anyhow",
+ "nanoserde",
+]
+
+[[package]]
+name = "sotf-lock-analyzer"
+version = "29.0.3"
+dependencies = [
+ "anyhow",
+ "ron",
+ "serde",
+]
+
+[[package]]
+name = "sotf-naga"
+version = "29.0.3"
+dependencies = [
+ "arbitrary",
+ "arrayvec",
+ "bit-set 0.9.1",
+ "bitflags 2.11.0",
+ "cfg-if",
+ "cfg_aliases",
+ "codespan-reporting",
+ "diff",
+ "env_logger",
+ "half",
+ "hashbrown 0.16.1",
+ "hexf-parse",
+ "indexmap",
+ "itertools 0.14.0",
+ "libm",
+ "log",
+ "num-traits",
+ "once_cell",
+ "petgraph 0.8.3",
+ "pp-rs",
+ "ron",
+ "rspirv",
+ "rustc-hash 1.1.0",
+ "serde",
+ "sotf-hlsl-snapshots",
+ "sotf-naga-test",
+ "spirv",
+ "strum",
+ "thiserror 2.0.18",
+ "unicode-ident",
+ "walkdir",
+]
+
+[[package]]
+name = "sotf-naga-cli"
+version = "29.0.3"
+dependencies = [
+ "anyhow",
+ "argh",
+ "bincode 2.0.1",
+ "codespan-reporting",
+ "env_logger",
+ "log",
+ "sotf-naga",
+]
+
+[[package]]
+name = "sotf-naga-fuzz"
+version = "29.0.3"
+dependencies = [
+ "arbitrary",
+ "cfg_aliases",
+ "libfuzzer-sys",
+ "sotf-naga",
+]
+
+[[package]]
+name = "sotf-naga-test"
+version = "29.0.3"
+dependencies = [
+ "bitflags 2.11.0",
+ "ron",
+ "serde",
+ "serde_json",
+ "sotf-naga",
+ "spirv",
+ "toml",
+]
+
+[[package]]
+name = "sotf-naga-xtask"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "env_logger",
+ "glob",
+ "indicatif",
+ "jobserver",
+ "log",
+ "num_cpus",
+ "pico-args",
+ "shell-words",
+ "sotf-hlsl-snapshots",
+ "which 8.0.2",
+]
+
+[[package]]
+name = "sotf-player"
+version = "29.0.3"
+dependencies = [
+ "bytemuck",
+ "env_logger",
+ "hashbrown 0.16.1",
+ "log",
+ "raw-window-handle",
+ "ron",
+ "serde",
+ "sotf-wgpu-core",
+ "sotf-wgpu-types",
+ "winit",
+]
+
+[[package]]
+name = "sotf-wgpu"
+version = "29.0.3"
+dependencies = [
+ "arrayvec",
+ "bitflags 2.11.0",
+ "bytemuck",
+ "cfg-if",
+ "cfg_aliases",
+ "document-features",
+ "hashbrown 0.16.1",
+ "js-sys",
+ "log",
+ "parking_lot",
+ "portable-atomic",
+ "profiling",
+ "raw-window-handle",
+ "smallvec",
+ "sotf-naga",
+ "sotf-wgpu-core",
+ "sotf-wgpu-hal",
+ "sotf-wgpu-types",
+ "static_assertions",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
+name = "sotf-wgpu-benchmark"
+version = "29.0.3"
+dependencies = [
+ "anyhow",
+ "bincode 2.0.1",
+ "bytemuck",
+ "nanorand",
+ "pico-args",
+ "pollster",
+ "profiling",
+ "rayon",
+ "serde",
+ "serde_json",
+ "sotf-naga",
+ "sotf-naga-test",
+ "sotf-wgpu",
+ "termcolor",
+ "tracy-client",
+]
+
+[[package]]
+name = "sotf-wgpu-bug-repro-01-texture-atomic-bug"
+version = "0.0.0"
+dependencies = [
+ "env_logger",
+ "pollster",
+ "sotf-wgpu",
+ "winit",
+]
+
+[[package]]
+name = "sotf-wgpu-core"
+version = "29.0.3"
+dependencies = [
+ "arrayvec",
+ "bit-set 0.9.1",
+ "bit-vec 0.9.1",
+ "bitflags 2.11.0",
+ "bytemuck",
+ "cfg_aliases",
+ "document-features",
+ "hashbrown 0.16.1",
+ "indexmap",
+ "log",
+ "macro_rules_attribute",
+ "once_cell",
+ "parking_lot",
+ "portable-atomic",
+ "profiling",
+ "raw-window-handle",
+ "ron",
+ "rustc-hash 1.1.0",
+ "serde",
+ "smallvec",
+ "sotf-naga",
+ "sotf-wgpu-core-deps-apple",
+ "sotf-wgpu-core-deps-emscripten",
+ "sotf-wgpu-core-deps-wasm",
+ "sotf-wgpu-core-deps-windows-linux-android",
+ "sotf-wgpu-hal",
+ "sotf-wgpu-naga-bridge",
+ "sotf-wgpu-types",
+ "thiserror 2.0.18",
+]
+
+[[package]]
+name = "sotf-wgpu-core-deps-apple"
+version = "29.0.3"
+dependencies = [
+ "sotf-wgpu-hal",
+]
+
+[[package]]
+name = "sotf-wgpu-core-deps-emscripten"
+version = "29.0.3"
+dependencies = [
+ "sotf-wgpu-hal",
+]
+
+[[package]]
+name = "sotf-wgpu-core-deps-wasm"
+version = "29.0.3"
+dependencies = [
+ "sotf-wgpu-hal",
+]
+
+[[package]]
+name = "sotf-wgpu-core-deps-windows-linux-android"
+version = "29.0.3"
+dependencies = [
+ "sotf-wgpu-hal",
+]
+
+[[package]]
+name = "sotf-wgpu-example-01-hello-compute"
+version = "0.0.0"
+dependencies = [
+ "bytemuck",
+ "env_logger",
+ "pollster",
+ "sotf-wgpu",
+]
+
+[[package]]
+name = "sotf-wgpu-example-02-hello-window"
+version = "0.0.0"
+dependencies = [
+ "env_logger",
+ "pollster",
+ "sotf-wgpu",
+ "winit",
+]
+
+[[package]]
+name = "sotf-wgpu-example-custom-backend"
+version = "0.0.0"
+dependencies = [
+ "pollster",
+ "sotf-wgpu",
+]
+
+[[package]]
+name = "sotf-wgpu-examples"
+version = "29.0.3"
+dependencies = [
+ "bytemuck",
+ "cfg-if",
+ "console_error_panic_hook",
+ "console_log",
+ "encase",
+ "env_logger",
+ "fern",
+ "flume",
+ "glam",
+ "half",
+ "ktx2",
+ "log",
+ "nanorand",
+ "noise",
+ "obj",
+ "png",
+ "pollster",
+ "sotf-wgpu",
+ "sotf-wgpu-test",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "wasm-bindgen-test",
+ "web-sys",
+ "web-time",
+ "winit",
+]
+
+[[package]]
+name = "sotf-wgpu-hal"
+version = "29.0.3"
+dependencies = [
+ "android_system_properties",
+ "arrayvec",
+ "ash",
+ "bit-set 0.9.1",
+ "bitflags 2.11.0",
+ "block2 0.6.2",
+ "bytemuck",
+ "cfg-if",
+ "cfg_aliases",
+ "env_logger",
+ "glam",
+ "glow",
+ "glutin",
+ "glutin-winit",
+ "glutin_wgl_sys",
+ "gpu-allocator",
+ "gpu-descriptor",
+ "hashbrown 0.16.1",
+ "js-sys",
+ "khronos-egl",
+ "libc",
+ "libloading",
+ "log",
+ "mach-dxcompiler-rs",
+ "ndk-sys",
+ "objc2 0.6.4",
+ "objc2-core-foundation",
+ "objc2-foundation 0.3.2",
+ "objc2-metal 0.3.2",
+ "objc2-quartz-core 0.3.2",
+ "once_cell",
+ "ordered-float",
+ "parking_lot",
+ "portable-atomic",
+ "portable-atomic-util",
+ "profiling",
+ "range-alloc",
+ "raw-window-handle",
+ "raw-window-metal",
+ "renderdoc-sys",
+ "smallvec",
+ "sotf-naga",
+ "sotf-wgpu-naga-bridge",
+ "sotf-wgpu-types",
+ "thiserror 2.0.18",
+ "wasm-bindgen",
+ "wayland-sys",
+ "web-sys",
+ "windows",
+ "windows-core",
+ "windows-result",
+ "winit",
+]
+
+[[package]]
+name = "sotf-wgpu-info"
+version = "29.0.3"
+dependencies = [
+ "anyhow",
+ "bitflags 2.11.0",
+ "env_logger",
+ "hashbrown 0.16.1",
+ "pico-args",
+ "pollster",
+ "serde",
+ "serde_json",
+ "sotf-wgpu",
+]
+
+[[package]]
+name = "sotf-wgpu-macros"
+version = "29.0.3"
+dependencies = [
+ "heck",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "sotf-wgpu-naga-bridge"
+version = "29.0.3"
+dependencies = [
+ "sotf-naga",
+ "sotf-wgpu-types",
+]
+
+[[package]]
+name = "sotf-wgpu-test"
+version = "29.0.3"
+dependencies = [
+ "anyhow",
+ "approx",
+ "arrayvec",
+ "bitflags 2.11.0",
+ "bytemuck",
+ "cargo_metadata",
+ "cfg-if",
+ "console_log",
+ "ctor",
+ "env_logger",
+ "futures-lite",
+ "glam",
+ "half",
+ "image",
+ "itertools 0.14.0",
+ "js-sys",
+ "libtest-mimic",
+ "log",
+ "nanorand",
+ "nv-flip",
+ "parking_lot",
+ "png",
+ "pollster",
+ "profiling",
+ "raw-window-handle",
+ "serde",
+ "serde_json",
+ "sotf-naga",
+ "sotf-wgpu",
+ "sotf-wgpu-core",
+ "sotf-wgpu-hal",
+ "sotf-wgpu-macros",
+ "sotf-wgpu-types",
+ "strum",
+ "trybuild",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "wasm-bindgen-test",
+ "web-sys",
+]
+
+[[package]]
+name = "sotf-wgpu-types"
+version = "29.0.3"
+dependencies = [
+ "bitflags 2.11.0",
+ "bytemuck",
+ "js-sys",
+ "log",
+ "raw-window-handle",
+ "serde",
+ "serde_json",
+ "web-sys",
+]
+
+[[package]]
+name = "sotf-wgpu-xtask"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "env_logger",
+ "log",
+ "pico-args",
+ "regex-lite",
+ "serde_json",
+ "xshell",
 ]
 
 [[package]]
@@ -4542,349 +4885,6 @@ checksum = "5a6580f308b1fad9207618087a65c04e7a10bc77e02c8e84e9b00dd4b12fa0bb"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "wgpu"
-version = "29.0.3"
-dependencies = [
- "arrayvec",
- "bitflags 2.11.0",
- "bytemuck",
- "cfg-if",
- "cfg_aliases",
- "document-features",
- "hashbrown 0.16.1",
- "js-sys",
- "log",
- "naga",
- "parking_lot",
- "portable-atomic",
- "profiling",
- "raw-window-handle",
- "smallvec",
- "static_assertions",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "wgpu-core",
- "wgpu-hal",
- "wgpu-types",
-]
-
-[[package]]
-name = "wgpu-benchmark"
-version = "29.0.3"
-dependencies = [
- "anyhow",
- "bincode 2.0.1",
- "bytemuck",
- "naga",
- "naga-test",
- "nanorand",
- "pico-args",
- "pollster",
- "profiling",
- "rayon",
- "serde",
- "serde_json",
- "termcolor",
- "tracy-client",
- "wgpu",
-]
-
-[[package]]
-name = "wgpu-bug-repro-01-texture-atomic-bug"
-version = "0.0.0"
-dependencies = [
- "env_logger",
- "pollster",
- "wgpu",
- "winit",
-]
-
-[[package]]
-name = "wgpu-core"
-version = "29.0.3"
-dependencies = [
- "arrayvec",
- "bit-set 0.9.1",
- "bit-vec 0.9.1",
- "bitflags 2.11.0",
- "bytemuck",
- "cfg_aliases",
- "document-features",
- "hashbrown 0.16.1",
- "indexmap",
- "log",
- "macro_rules_attribute",
- "naga",
- "once_cell",
- "parking_lot",
- "portable-atomic",
- "profiling",
- "raw-window-handle",
- "ron",
- "rustc-hash 1.1.0",
- "serde",
- "smallvec",
- "thiserror 2.0.18",
- "wgpu-core-deps-apple",
- "wgpu-core-deps-emscripten",
- "wgpu-core-deps-wasm",
- "wgpu-core-deps-windows-linux-android",
- "wgpu-hal",
- "wgpu-naga-bridge",
- "wgpu-types",
-]
-
-[[package]]
-name = "wgpu-core-deps-apple"
-version = "29.0.3"
-dependencies = [
- "wgpu-hal",
-]
-
-[[package]]
-name = "wgpu-core-deps-emscripten"
-version = "29.0.3"
-dependencies = [
- "wgpu-hal",
-]
-
-[[package]]
-name = "wgpu-core-deps-wasm"
-version = "29.0.3"
-dependencies = [
- "wgpu-hal",
-]
-
-[[package]]
-name = "wgpu-core-deps-windows-linux-android"
-version = "29.0.3"
-dependencies = [
- "wgpu-hal",
-]
-
-[[package]]
-name = "wgpu-example-01-hello-compute"
-version = "0.0.0"
-dependencies = [
- "bytemuck",
- "env_logger",
- "pollster",
- "wgpu",
-]
-
-[[package]]
-name = "wgpu-example-02-hello-window"
-version = "0.0.0"
-dependencies = [
- "env_logger",
- "pollster",
- "wgpu",
- "winit",
-]
-
-[[package]]
-name = "wgpu-example-custom-backend"
-version = "0.0.0"
-dependencies = [
- "pollster",
- "wgpu",
-]
-
-[[package]]
-name = "wgpu-examples"
-version = "29.0.3"
-dependencies = [
- "bytemuck",
- "cfg-if",
- "console_error_panic_hook",
- "console_log",
- "encase",
- "env_logger",
- "fern",
- "flume",
- "glam",
- "half",
- "ktx2",
- "log",
- "nanorand",
- "noise",
- "obj",
- "png",
- "pollster",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "wasm-bindgen-test",
- "web-sys",
- "web-time",
- "wgpu",
- "wgpu-test",
- "winit",
-]
-
-[[package]]
-name = "wgpu-hal"
-version = "29.0.3"
-dependencies = [
- "android_system_properties",
- "arrayvec",
- "ash",
- "bit-set 0.9.1",
- "bitflags 2.11.0",
- "block2 0.6.2",
- "bytemuck",
- "cfg-if",
- "cfg_aliases",
- "env_logger",
- "glam",
- "glow",
- "glutin",
- "glutin-winit",
- "glutin_wgl_sys",
- "gpu-allocator",
- "gpu-descriptor",
- "hashbrown 0.16.1",
- "js-sys",
- "khronos-egl",
- "libc",
- "libloading",
- "log",
- "mach-dxcompiler-rs",
- "naga",
- "ndk-sys",
- "objc2 0.6.4",
- "objc2-core-foundation",
- "objc2-foundation 0.3.2",
- "objc2-metal 0.3.2",
- "objc2-quartz-core 0.3.2",
- "once_cell",
- "ordered-float",
- "parking_lot",
- "portable-atomic",
- "portable-atomic-util",
- "profiling",
- "range-alloc",
- "raw-window-handle",
- "raw-window-metal",
- "renderdoc-sys",
- "smallvec",
- "thiserror 2.0.18",
- "wasm-bindgen",
- "wayland-sys",
- "web-sys",
- "wgpu-naga-bridge",
- "wgpu-types",
- "windows",
- "windows-core",
- "windows-result",
- "winit",
-]
-
-[[package]]
-name = "wgpu-info"
-version = "29.0.3"
-dependencies = [
- "anyhow",
- "bitflags 2.11.0",
- "env_logger",
- "hashbrown 0.16.1",
- "pico-args",
- "pollster",
- "serde",
- "serde_json",
- "wgpu",
-]
-
-[[package]]
-name = "wgpu-macros"
-version = "29.0.3"
-dependencies = [
- "heck",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "wgpu-naga-bridge"
-version = "29.0.3"
-dependencies = [
- "naga",
- "wgpu-types",
-]
-
-[[package]]
-name = "wgpu-test"
-version = "29.0.3"
-dependencies = [
- "anyhow",
- "approx",
- "arrayvec",
- "bitflags 2.11.0",
- "bytemuck",
- "cargo_metadata",
- "cfg-if",
- "console_log",
- "ctor",
- "env_logger",
- "futures-lite",
- "glam",
- "half",
- "image",
- "itertools 0.14.0",
- "js-sys",
- "libtest-mimic",
- "log",
- "naga",
- "nanorand",
- "nv-flip",
- "parking_lot",
- "png",
- "pollster",
- "profiling",
- "raw-window-handle",
- "serde",
- "serde_json",
- "strum",
- "trybuild",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "wasm-bindgen-test",
- "web-sys",
- "wgpu",
- "wgpu-core",
- "wgpu-hal",
- "wgpu-macros",
- "wgpu-types",
-]
-
-[[package]]
-name = "wgpu-types"
-version = "29.0.3"
-dependencies = [
- "bitflags 2.11.0",
- "bytemuck",
- "js-sys",
- "log",
- "raw-window-handle",
- "serde",
- "serde_json",
- "web-sys",
-]
-
-[[package]]
-name = "wgpu-xtask"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "env_logger",
- "log",
- "pico-args",
- "regex-lite",
- "serde_json",
- "xshell",
 ]
 
 [[package]]

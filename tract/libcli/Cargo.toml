@@ -1,13 +1,16 @@
 [package]
-name = "tract-libcli"
+name = "sotf-tract-libcli"
 version = "0.22.4"
 license = "MIT OR Apache-2.0"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks" ]
 categories = [ "science" ]
 edition = "2024"
+
+[lib]
+name = "tract_libcli"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -41,3 +44,6 @@ tract-metal = { workspace = true }
 hir = []
 onnx = [ "tract-onnx" ]
 complex = [ "tract-core/complex" ]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

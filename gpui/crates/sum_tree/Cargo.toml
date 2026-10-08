@@ -1,5 +1,5 @@
 [package]
-name = "gpui-toolkit-sum-tree"
+name = "sotf-gpui-toolkit-sum-tree"
 version = "0.1.0"
 edition = "2024"
 description = "A sum tree data structure, a concurrency-friendly B-tree"
@@ -28,3 +28,6 @@ proptest = { workspace = true, features = ["attr-macro"], optional = true }
 ctor = "1.0.6"
 rand = "0.9"
 proptest = { workspace = true, features = ["attr-macro"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

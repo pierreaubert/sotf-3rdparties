@@ -1,11 +1,11 @@
 [package]
-name = "dst-decoder"
+name = "sotf-dst-decoder"
 description = "A Rust implementation of the MPEG-4 Part 3 Subpart 10 Direct Stream Transfer (DST) Audio compression format."
 version = "0.1.2"
 edition = "2024"
 readme = "README.md"
 license = "Apache-2.0"
-repository = "https://github.com/bleggett/dst-decoder"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = ["audio", "dst", "dsd", "sacd", "decoder"]
 categories = ["multimedia", "multimedia::audio", "compression"]
 
@@ -22,3 +22,6 @@ anyhow = "1.0"
 [lints.clippy]
 # No glob imports: explicit import lists keep API scope reviewable.
 wildcard_imports = "warn"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

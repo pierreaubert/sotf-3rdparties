@@ -1,5 +1,5 @@
 [package]
-name = "editor-test"
+name = "sotf-editor-test"
 version = "0.1.0"
 authors = ["Jeremy Soller <jeremy@system76.com>"]
 edition = "2021"
@@ -7,9 +7,13 @@ license = "MIT OR Apache-2.0"
 publish = false
 
 [dependencies]
-cosmic-text = { path = "../../" }
+cosmic-text = { version = "0.19.0", package = "sotf-cosmic-text", path = "../../" }
 env_logger = "0.11"
 fontdb = "0.24"
 log = "0.4"
 orbclient = "0.3.50"
 unicode-segmentation = "1.12"
+
+[[bin]]
+name = "editor-test"
+path = "src/main.rs"

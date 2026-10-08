@@ -1,5 +1,5 @@
 [package]
-name = "librespot-core"
+name = "sotf-librespot-core"
 version = "0.8.0"
 rust-version.workspace = true
 authors = ["Paul Lietar <paul@lietar.net>"]
@@ -8,6 +8,9 @@ description = "The core functionality provided by librespot"
 repository.workspace = true
 edition.workspace = true
 build = "build.rs"
+
+[lib]
+name = "librespot_core"
 
 [features]
 # Refer to the workspace Cargo.toml for the list of features
@@ -40,8 +43,8 @@ rustls-tls-webpki-roots = [
 __rustls = []
 
 [dependencies]
-librespot-oauth = { version = "0.8.0", path = "../oauth", default-features = false }
-librespot-protocol = { version = "0.8.0", path = "../protocol", default-features = false }
+librespot-oauth = { package = "sotf-librespot-oauth", version = "0.8.0", path = "../oauth", default-features = false }
+librespot-protocol = { package = "sotf-librespot-protocol", version = "0.8.0", path = "../protocol", default-features = false }
 
 aes = "0.9"
 base64 = "0.22"
@@ -117,3 +120,6 @@ vergen-gitcl = { version = "1.0", default-features = false, features = [
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

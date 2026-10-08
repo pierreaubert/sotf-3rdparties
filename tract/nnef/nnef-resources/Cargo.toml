@@ -1,5 +1,5 @@
 [package]
-name = "tract-nnef-resources"
+name = "sotf-tract-nnef-resources"
 version = "0.22.4"
 authors = [
 	"Mathieu Poumeyrol <kali@zoy.org>",
@@ -7,12 +7,15 @@ authors = [
 ]
 license = "MIT OR Apache-2.0"
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "NeuralNetworks", "NNEF" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
 rust-version = "1.85"
+
+[lib]
+name = "tract_nnef_resources"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -27,3 +30,5 @@ nom-language.workspace = true
 tract-nnef.workspace = true
 
 
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

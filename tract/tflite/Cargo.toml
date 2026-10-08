@@ -1,11 +1,14 @@
 [package]
-name = "tract-tflite"
+name = "sotf-tract-tflite"
 version = "0.22.4"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 edition = "2021"
+
+[lib]
+name = "tract_tflite"
 
 [dependencies]
 derive-new.workspace = true
@@ -14,3 +17,6 @@ tract-core.workspace = true
 
 [features]
 complex = []
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

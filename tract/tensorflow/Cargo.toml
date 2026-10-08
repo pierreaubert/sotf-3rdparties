@@ -1,16 +1,19 @@
 [package]
-name = "tract-tensorflow"
+name = "sotf-tract-tensorflow"
 version = "0.22.4"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks", "ONNX" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
 rust-version = "1.85"
 # build = "build-proto.rs"
+
+[lib]
+name = "tract_tensorflow"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -42,3 +45,6 @@ rand.workspace = true
 # [[bench]]
 # name = "conv"
 # harness = false
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

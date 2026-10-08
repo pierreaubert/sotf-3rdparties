@@ -1,9 +1,13 @@
 [package]
-name = "test-f16"
+name = "sotf-test-f16"
+publish = false
 version = "0.1.0"
 edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "test_f16"
 
 [dependencies]
 
@@ -11,11 +15,11 @@ edition = "2024"
 home.workspace = true
 lazy_static.workspace = true
 regex.workspace = true
-infra = { path = "../infra" }
+infra = { version = "0.1.0", package = "sotf-infra", path = "../infra" }
 tract-core.workspace = true
 tract-transformers.workspace = true
-suite-onnx = { path = "../suite-onnx" }
-suite-unit = { path = "../suite-unit" }
+suite-onnx = { version = "0.1.0", package = "sotf-suite-onnx", path = "../suite-onnx" }
+suite-unit = { version = "0.1.0", package = "sotf-suite-unit", path = "../suite-unit" }
 tract-onnx-opl.workspace = true
 
 [dev-dependencies]
@@ -27,6 +31,6 @@ tract-core.workspace = true
 tract-transformers.workspace = true
 tract-nnef.workspace = true
 tract-onnx-opl.workspace = true
-infra = { path = "../infra" }
-suite-onnx = { path = "../suite-onnx" }
-suite-unit = { path = "../suite-unit" }
+infra = { version = "0.1.0", package = "sotf-infra", path = "../infra" }
+suite-onnx = { version = "0.1.0", package = "sotf-suite-onnx", path = "../suite-onnx" }
+suite-unit = { version = "0.1.0", package = "sotf-suite-unit", path = "../suite-unit" }

@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-macros"
+name = "sotf-wgpu-macros"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -10,12 +10,15 @@ keywords.workspace = true
 license.workspace = true
 rust-version.workspace = true
 exclude = ["Cargo.lock"]
-publish = false
 
 [lib]
+name = "wgpu_macros"
 proc-macro = true
 
 [dependencies]
 heck.workspace = true
 quote.workspace = true
 syn = { workspace = true, features = ["full"] }
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

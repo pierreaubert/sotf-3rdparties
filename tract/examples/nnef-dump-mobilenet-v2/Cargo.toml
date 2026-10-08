@@ -1,5 +1,6 @@
 [package]
-name = "example-dump-nnef-mobilenet-v2"
+name = "sotf-example-dump-nnef-mobilenet-v2"
+publish = false
 version = "0.20.7-pre"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
@@ -9,3 +10,7 @@ edition = "2024"
 image.workspace = true
 
 tract-nnef.workspace = true
+
+[[bin]]
+name = "example-dump-nnef-mobilenet-v2"
+path = "src/main.rs"

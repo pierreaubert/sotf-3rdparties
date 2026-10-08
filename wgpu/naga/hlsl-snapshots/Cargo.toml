@@ -1,8 +1,8 @@
 [package]
-name = "hlsl-snapshots"
+name = "sotf-hlsl-snapshots"
+description = "HLSL snapshot data shared by Naga tests"
 version.workspace = true
 edition.workspace = true
-publish = false
 license.workspace = true
 
 [lib]
@@ -13,3 +13,6 @@ test = false
 [dependencies]
 anyhow.workspace = true
 nanoserde.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

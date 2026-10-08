@@ -1,5 +1,6 @@
 [package]
-name = "face_detection_yolov8onnx_example"
+name = "sotf-face_detection_yolov8onnx_example"
+publish = false
 version = "0.1.0"
 edition = "2024"
 
@@ -8,3 +9,7 @@ anyhow.workspace = true
 clap = { version = "4.5.9", features = ["derive"] }
 image.workspace = true 
 tract-onnx.workspace = true
+
+[[bin]]
+name = "face_detection_yolov8onnx_example"
+path = "src/main.rs"

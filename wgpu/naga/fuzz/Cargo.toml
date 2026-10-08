@@ -1,5 +1,5 @@
 [package]
-name = "naga-fuzz"
+name = "sotf-naga-fuzz"
 version.workspace = true
 authors.workspace = true
 publish = false

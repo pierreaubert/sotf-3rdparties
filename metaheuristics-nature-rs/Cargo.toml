@@ -1,14 +1,17 @@
 [package]
-name = "metaheuristics-nature"
+name = "sotf-metaheuristics-nature"
 description = "A collection of nature-inspired metaheuristic algorithms."
 version = "10.1.0"
 authors = ["KmolYuan <pyslvs@gmail.com>"]
 edition = "2021"
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/KmolYuan/metaheuristics-nature-rs"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = ["metaheuristic", "algorithm", "optimization"]
 categories = ["algorithms", "no-std"]
+
+[lib]
+name = "metaheuristics_nature"
 
 [features]
 default = ["std"]
@@ -49,3 +52,6 @@ semicolon-if-nothing-returned = "warn"
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "doc_cfg"]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

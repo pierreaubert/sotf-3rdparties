@@ -1,5 +1,5 @@
 [package]
-name = "tract-nnef-cli"
+name = "sotf-tract-nnef-cli"
 version = "0.21.8-pre"
 authors = [
 	"Mathieu Poumeyrol <kali@zoy.org>",
@@ -7,7 +7,7 @@ authors = [
 ]
 license = "MIT OR Apache-2.0"
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "NeuralNetworks", "NNEF" ]
 categories = [ "science" ]
 autobenches = false
@@ -22,3 +22,10 @@ structopt.workspace = true
 tract-nnef.workspace = true
 tract-pulse.workspace = true
 tract-onnx-opl.workspace = true
+
+[[bin]]
+name = "tract-nnef-cli"
+path = "src/main.rs"
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

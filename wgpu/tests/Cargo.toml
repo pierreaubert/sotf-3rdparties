@@ -1,5 +1,5 @@
 [package]
-name = "wgpu-test"
+name = "sotf-wgpu-test"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -10,6 +10,9 @@ keywords.workspace = true
 license.workspace = true
 rust-version.workspace = true
 publish = false
+
+[lib]
+name = "wgpu_test"
 
 [[test]]
 name = "wgpu-compile"

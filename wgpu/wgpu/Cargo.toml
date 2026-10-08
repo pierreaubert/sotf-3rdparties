@@ -1,5 +1,5 @@
 [package]
-name = "wgpu"
+name = "sotf-wgpu"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -32,6 +32,7 @@ targets = [
 ignored = ["cfg_aliases"]
 
 [lib]
+name = "wgpu"
 
 [features]
 default = [
@@ -269,3 +270,6 @@ bytemuck.workspace = true
 
 [build-dependencies]
 cfg_aliases.workspace = true
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"

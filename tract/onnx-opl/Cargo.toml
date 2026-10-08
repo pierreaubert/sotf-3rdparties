@@ -1,14 +1,17 @@
 [package]
-name = "tract-onnx-opl"
+name = "sotf-tract-onnx-opl"
 version = "0.22.4"
 authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT OR Apache-2.0"
 description = "Tiny, no-nonsense, self contained, TensorFlow and ONNX inference"
-repository = "https://github.com/snipsco/tract"
+repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = [ "TensorFlow", "NeuralNetworks", "ONNX" ]
 categories = [ "science" ]
 autobenches = false
 edition = "2024"
+
+[lib]
+name = "tract_onnx_opl"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -27,3 +30,6 @@ env_logger.workspace = true
 [features]
 default = []
 getrandom-js = ["getrandom/js"]
+
+[package.metadata.release]
+tag-name = "{{crate_name}}-v{{version}}"
