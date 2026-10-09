@@ -19,12 +19,17 @@ test-support = []
 
 [dependencies]
 async-task = "4.7"
-backtrace = "0.3"
 chrono = { version = "0.4", features = ["serde"] }
 futures = "0.3.32"
 parking_lot = "0.12.1"
 rand = "0.9"
 web-time = "1.1.0"
+
+[target.'cfg(not(any(target_os = "ios", target_os = "tvos", target_os = "watchos", target_os = "visionos")))'.dependencies]
+# backtrace 0.3 does not compile on Apple mobile targets with libc >= 0.2.190
+# (the dyld image functions became macOS-only). src/test_scheduler.rs carries
+# capture-less stand-ins there; see VENDORED.md.
+backtrace = "0.3"
 
 [package.metadata.release]
 tag-name = "{{crate_name}}-v{{version}}"

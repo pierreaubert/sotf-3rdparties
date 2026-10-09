@@ -3,8 +3,88 @@ use crate::{
     SessionId, Task, TestClock, Timer,
 };
 use async_task::Runnable;
+#[cfg(not(any(
+    target_os = "ios",
+    target_os = "tvos",
+    target_os = "watchos",
+    target_os = "visionos"
+)))]
 use backtrace::{Backtrace, BacktraceFrame};
+// backtrace 0.3 does not compile on Apple mobile targets with libc >= 0.2.190
+// (the dyld image functions became macOS-only); TestScheduler needs only
+// capture-less placeholders there, so the module below stands in.
+#[cfg(any(
+    target_os = "ios",
+    target_os = "tvos",
+    target_os = "watchos",
+    target_os = "visionos"
+))]
+use mobile_no_backtrace::{Backtrace, BacktraceFrame};
 use futures::channel::oneshot;
+
+#[cfg(any(
+    target_os = "ios",
+    target_os = "tvos",
+    target_os = "watchos",
+    target_os = "visionos"
+))]
+#[allow(dead_code)]
+mod mobile_no_backtrace {
+    //! Capture-less backtrace stand-ins for Apple mobile targets.
+    //!
+    //! Mirrors the subset of the `backtrace` 0.3 API used in this file
+    //! (`new`, `new_unresolved`, `resolve`, frame iteration, symbol names,
+    //! `Debug`). Traces are always empty: non-determinism reports keep
+    //! their message but carry no frames on mobile.
+
+    #[derive(Debug, Default)]
+    pub struct Backtrace;
+
+    #[derive(Debug, Default)]
+    pub struct BacktraceFrame;
+
+    #[derive(Debug, Default)]
+    pub struct BacktraceSymbol;
+
+    #[derive(Debug)]
+    pub struct BacktraceSymbolName;
+
+    impl Backtrace {
+        pub fn new() -> Self {
+            Backtrace
+        }
+
+        pub fn new_unresolved() -> Self {
+            Backtrace
+        }
+
+        pub fn resolve(&mut self) {}
+    }
+
+    impl From<Backtrace> for Vec<BacktraceFrame> {
+        fn from(_: Backtrace) -> Self {
+            Vec::new()
+        }
+    }
+
+    impl From<Vec<BacktraceFrame>> for Backtrace {
+        fn from(_: Vec<BacktraceFrame>) -> Self {
+            Backtrace
+        }
+    }
+
+    impl BacktraceFrame {
+        pub fn symbols(&self) -> Vec<BacktraceSymbol> {
+            Vec::new()
+        }
+    }
+
+    impl BacktraceSymbol {
+        pub fn name(&self) -> Option<&BacktraceSymbolName> {
+            None
+        }
+    }
+}
 use parking_lot::{Mutex, MutexGuard};
 use rand::{
     distr::{StandardUniform, uniform::SampleRange, uniform::SampleUniform},
