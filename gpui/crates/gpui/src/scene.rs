@@ -559,6 +559,7 @@ impl PrimitiveBatch {
                 )
             }
             Self::Surfaces(range) => format!("surfaces ({})", range.len()),
+            Self::Custom(range) => format!("custom ({})", range.len()),
         }
     }
 }

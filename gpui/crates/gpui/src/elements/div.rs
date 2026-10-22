@@ -26,7 +26,7 @@ use crate::{
     ScrollWheelEvent, SharedString, Size, Style, StyleRefinement, Styled, Task, TooltipId,
     TouchPhase, Visibility, Window, WindowControlArea, point, px, size,
 };
-use crate::{PinchEvent, PointerEvent, PointerPhase};
+use crate::{PointerEvent, PointerPhase};
 use collections::HashMap;
 use gpui_util::ResultExt;
 use refineable::Refineable;

@@ -64,7 +64,7 @@ KEEP_DEPS = {("gpui", "async-channel")}
 # needs new features; local code needs the old ones). Version/default-features
 # follow upstream; local package/path (sibling forks) are preserved.
 UNION_FEATURE_DEPS = {
-    ("gpui", "accesskit"), ("gpui", "windows"),
+    ("gpui", "accesskit"), ("gpui", "bitflags"), ("gpui", "windows"),
     ("gpui_linux", "accesskit"), ("gpui_linux", "ashpd"),
     ("gpui_macos", "accesskit"), ("gpui_macos", "objc2-app-kit"),
     ("gpui_macos", "objc2-foundation"), ("gpui_web", "web-sys"),
@@ -75,8 +75,14 @@ FEATURE_REMOVALS = {
     ("http_client", "test-support"): {"dep:log"},
     ("util", "test-support"): {"dep:tempfile"},
 }
+# Features neither side declares but the merged code needs (feature-unification
+# gaps that a full-workspace build would mask).
+EXTRA_FEATURES = {("gpui", "objc2-core-video"): {"CVBuffer", "CVImageBuffer"}}
 # Deps the merged code uses unconditionally; never made optional by dep: refs.
 FORCE_NON_OPTIONAL = {("http_client", "log"), ("util", "tempfile")}
+# Deps where the local spec provably breaks the new upstream code; the
+# upstream spec wins verbatim (syn 3 local bump vs syn-2 macro parsers).
+FORCE_UPSTREAM_DEPS = set()
 DEP_SECTIONS = ("dependencies", "dev-dependencies", "build-dependencies")
 REPO = "https://github.com/pierreaubert/sotf-3rdparties"
 
@@ -142,6 +148,10 @@ def merge_deps(crate: str, pre: dict, regen: dict, report: list[str], emitter) -
                 report.append(f"{crate}: drop upstream dep {name} (DROP_DEPS)")
                 continue
             if name in pdeps:
+                if (crate, name) in FORCE_UPSTREAM_DEPS:
+                    merged[name] = rspec
+                    report.append(f"{crate}: dep {name} forced upstream {rspec!r}")
+                    continue
                 if (crate, name) in UNION_FEATURE_DEPS:
                     pspec = {"version": pdeps[name]} if isinstance(pdeps[name], str) else dict(pdeps[name])
                     uspec = {"version": rspec} if isinstance(rspec, str) else dict(rspec)
@@ -220,6 +230,10 @@ def merge_manifest(crate: str, pre: dict | None, regen: dict, report: list[str],
             elif isinstance(spec, dict) and not spec.get("optional"):
                 spec["optional"] = True
                 report.append(f"{crate}: dep {name} made optional (dep: feature ref)")
+    for deps in sections.values():
+        for (c, name), extras in EXTRA_FEATURES.items():
+            if c == crate and name in deps and isinstance(deps[name], dict):
+                deps[name]["features"] = sorted(set(deps[name].get("features", [])) | extras)
     for (section, _cfg), deps in sections.items():
         if section == "dev-dependencies":
             for spec in deps.values():

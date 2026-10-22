@@ -6301,7 +6301,7 @@ impl Window {
         allow_redraw: bool,
     ) -> bool {
         if allow_redraw && self.invalidator.is_dirty() {
-            self.draw(cx).clear();
+            self.draw(cx).clear(cx);
         }
 
         cx.propagate_event = true;

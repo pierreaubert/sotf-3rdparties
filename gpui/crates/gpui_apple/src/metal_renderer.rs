@@ -239,7 +239,7 @@ impl MetalRenderer {
             log::error!(
                 "Unable to enumerate Metal devices; attempting to use system default device"
             );
-            Self::system_default_device()
+            metal::Device::system_default()
         }
     }
 

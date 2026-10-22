@@ -293,28 +293,6 @@ impl Application {
         ApplicationHandle { app: self.0 }
     }
 
-    /// Start the application for an embedder that drives the run loop itself.
-    ///
-    /// On ordinary platforms `Platform::run` blocks for the lifetime of the app, and the
-    /// app state is kept alive by [`Application::run`]'s stack frame. Embedded platforms —
-    /// where the run loop belongs to someone else, e.g. GPUI compiled into a Wasm guest,
-    /// or a GPUI view hosted inside a foreign native application — implement
-    /// `Platform::run` to invoke the launch callback and return immediately. This method
-    /// supports that shape: it returns an [`ApplicationHandle`] that keeps the app alive
-    /// and lets the embedder re-enter it whenever the external run loop yields control.
-    pub fn run_embedded<F>(self, on_finish_launching: F) -> ApplicationHandle
-    where
-        F: 'static + FnOnce(&mut App),
-    {
-        let this = self.0.clone();
-        let platform = self.0.borrow().platform.clone();
-        platform.run(Box::new(move || {
-            let cx = &mut *this.borrow_mut();
-            on_finish_launching(cx);
-        }));
-        ApplicationHandle { app: self.0 }
-    }
-
     /// Register a handler to be invoked when the platform instructs the application
     /// to open one or more URLs.
     pub fn on_open_urls<F>(&self, mut callback: F) -> &Self

@@ -150,3 +150,10 @@ priority = -1
 
 [workspace.metadata.release]
 tag-name = "{{crate_name}}-v{{version}}"
+
+# Local patch: registry proptest-macro cannot parse `config = ...` in
+# #[property_test] with current syn (panics in codegen); upstream Zed pins
+# this git rev for the same reason. Patch is workspace-local and ignored
+# when publishing member crates.
+[patch.crates-io]
+proptest = { git = "https://github.com/proptest-rs/proptest", rev = "3dca198a8fef1b32e3a66f1e1897c955b4dc5b5b" }
