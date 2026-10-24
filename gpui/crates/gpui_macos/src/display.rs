@@ -86,7 +86,7 @@ impl PlatformDisplay for MacDisplay {
     }
 
     fn uuid(&self) -> Result<Uuid> {
-        let cfuuid = unsafe { CGDisplayCreateUUIDFromDisplayID(self.0 as CGDirectDisplayID) };
+        let cfuuid = unsafe { CGDisplayCreateUUIDFromDisplayID(self.0) };
         anyhow::ensure!(
             !cfuuid.is_null(),
             "AppKit returned a null from CGDisplayCreateUUIDFromDisplayID"

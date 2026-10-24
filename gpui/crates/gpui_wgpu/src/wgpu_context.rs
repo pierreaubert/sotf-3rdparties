@@ -15,6 +15,9 @@ pub enum WgpuBackend {
 }
 
 impl WgpuBackend {
+    // Native constructors only; new_web must reject non-browser backends
+    // instead of mapping them to Native.
+    #[cfg(not(target_family = "wasm"))]
     fn from_adapter_backend(backend: wgpu::Backend) -> Self {
         match backend {
             wgpu::Backend::BrowserWebGpu => Self::BrowserWebGpu,

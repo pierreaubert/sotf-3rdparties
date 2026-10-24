@@ -5,6 +5,11 @@
 //! owns GPU resources, text rendering, Keychain access, and thermal notifications
 //! while leaving application lifecycle, windowing, and input to each platform backend.
 
+// Local patch (see VENDORED.md): default-lint noise under `-D warnings`; upstream code unchanged.
+#![allow(clippy::collapsible_if)]
+#![allow(clippy::missing_safety_doc)]
+#![allow(clippy::new_without_default)]
+
 pub mod custom_metal;
 mod dispatcher;
 pub mod keychain;

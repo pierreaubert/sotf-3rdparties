@@ -40,7 +40,7 @@ optional = true
 
 [dev-dependencies]
 ctor = "1.0.6"
-rand = "0.9"
+rand = "0.10"
 
 [dev-dependencies.log]
 version = "0.4"
@@ -50,3 +50,8 @@ features = ["std"]
 [dev-dependencies.proptest]
 workspace = true
 features = ["attr-macro"]
+
+# Intentionally not inheriting [workspace.lints]: it enables the clippy
+# pedantic group, which this vendored upstream code does not target.
+# The zero-warnings gate (issue #6) runs default rustc/clippy lints.
+[lints]

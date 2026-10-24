@@ -35,7 +35,7 @@ bytes = "1.0"
 futures = "0.3.32"
 http-body = "1.0"
 http = "1.1"
-parking_lot = "0.12.1"
+parking_lot = "0.13"
 serde_urlencoded = "0.7"
 url = "2.2"
 
@@ -82,3 +82,8 @@ optional = true
 [target.'cfg(not(target_family = "wasm"))'.dependencies.tempfile]
 version = "3.20.0"
 optional = true
+
+# Intentionally not inheriting [workspace.lints]: it enables the clippy
+# pedantic group, which this vendored upstream code does not target.
+# The zero-warnings gate (issue #6) runs default rustc/clippy lints.
+[lints]

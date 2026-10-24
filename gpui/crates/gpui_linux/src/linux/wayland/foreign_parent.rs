@@ -83,18 +83,17 @@ use xkbcommon::xkb::{self, KEYMAP_COMPILE_NO_FLAGS, Keycode};
 use super::window::{Callbacks, WaylandSubsurfaceState, WaylandSurfaceState};
 use crate::linux::foreign_parent::WaylandForeignParent;
 use crate::linux::{
-    DOUBLE_CLICK_INTERVAL, LinuxCommon, SCROLL_LINES, capslock_from_xkb,
-    get_xkb_compose_state, is_within_click_distance, keystroke_from_xkb,
-    keystroke_underlying_dead_key, modifiers_from_xkb,
+    DOUBLE_CLICK_INTERVAL, LinuxCommon, SCROLL_LINES, capslock_from_xkb, get_xkb_compose_state,
+    is_within_click_distance, keystroke_from_xkb, keystroke_underlying_dead_key,
+    modifiers_from_xkb,
 };
 use gpui::{
-    AnyWindowHandle, Bounds, Capslock, Decorations, DevicePixels, GpuSpecs, Modifiers,
-    MouseButton, MouseDownEvent, MouseExitEvent, MouseMoveEvent, MouseUpEvent, NavigationDirection,
-    Pixels, PlatformAtlas, PlatformDisplay, PlatformInput, PlatformInputHandler, PlatformWindow,
-    Point, PromptButton, PromptLevel, RequestFrameOptions, Scene, ScrollDelta, ScrollWheelEvent,
-    Size, TouchPhase, WindowAppearance, WindowBackgroundAppearance, WindowBounds, WindowControlArea,
-    WindowVisibility,
-    KeyDownEvent, KeyUpEvent, ModifiersChangedEvent, point, px,
+    AnyWindowHandle, Bounds, Capslock, Decorations, DevicePixels, GpuSpecs, KeyDownEvent,
+    KeyUpEvent, Modifiers, ModifiersChangedEvent, MouseButton, MouseDownEvent, MouseExitEvent,
+    MouseMoveEvent, MouseUpEvent, NavigationDirection, Pixels, PlatformAtlas, PlatformDisplay,
+    PlatformInput, PlatformInputHandler, PlatformWindow, Point, PromptButton, PromptLevel,
+    RequestFrameOptions, Scene, ScrollDelta, ScrollWheelEvent, Size, TouchPhase, WindowAppearance,
+    WindowBackgroundAppearance, WindowBounds, WindowControlArea, WindowVisibility, point, px,
 };
 use gpui_wgpu::{GpuContext, WgpuRenderer, WgpuSurfaceConfig, wgpu};
 
@@ -229,12 +228,10 @@ impl WaylandForeignClient {
     pub(crate) fn new(host: &WaylandForeignParent) -> anyhow::Result<Self> {
         // SAFETY: the host guarantees a live `wl_display*` for the editor
         // lifetime (see the module contract); guest mode never closes it.
-        let backend = unsafe {
-            Backend::from_foreign_display(host.display_ptr().cast())
-        };
+        let backend = unsafe { Backend::from_foreign_display(host.display_ptr().cast()) };
         let conn = Connection::from_backend(backend);
-        let (globals, event_queue) =
-            registry_queue_init::<WaylandForeignStatePtr>(&conn).context("Wayland foreign: registry init failed")?;
+        let (globals, event_queue) = registry_queue_init::<WaylandForeignStatePtr>(&conn)
+            .context("Wayland foreign: registry init failed")?;
         let qh = event_queue.handle();
 
         let mut compositor: Option<(u32, wl_compositor::WlCompositor)> = None;
@@ -264,7 +261,10 @@ impl WaylandForeignClient {
                                 globals
                                     .registry()
                                     .bind::<wl_subcompositor::WlSubcompositor, _, _>(
-                                        global.name, 1, &qh, (),
+                                        global.name,
+                                        1,
+                                        &qh,
+                                        (),
                                     ),
                             );
                         }
@@ -272,12 +272,14 @@ impl WaylandForeignClient {
                     "wp_viewporter" => {
                         if viewporter.is_none() {
                             viewporter = Some(
-                                globals.registry().bind::<wp_viewporter::WpViewporter, _, _>(
-                                    global.name,
-                                    1,
-                                    &qh,
-                                    (),
-                                ),
+                                globals
+                                    .registry()
+                                    .bind::<wp_viewporter::WpViewporter, _, _>(
+                                        global.name,
+                                        1,
+                                        &qh,
+                                        (),
+                                    ),
                             );
                         }
                     }
@@ -320,8 +322,7 @@ impl WaylandForeignClient {
 
         let event_loop = EventLoop::<WaylandForeignStatePtr>::try_new()
             .context("Wayland foreign: event loop init failed")?;
-        let (common, main_receiver, power_receiver) =
-            LinuxCommon::new(event_loop.get_signal());
+        let (common, main_receiver, power_receiver) = LinuxCommon::new(event_loop.get_signal());
         let loop_handle = event_loop.handle();
         loop_handle
             .insert_source(main_receiver, {
@@ -385,7 +386,9 @@ impl WaylandForeignClient {
 
         WaylandSource::new(conn, event_queue)
             .insert(loop_handle)
-            .map_err(|err| anyhow::anyhow!("Wayland foreign: WaylandSource insert failed: {err:?}"))?;
+            .map_err(|err| {
+                anyhow::anyhow!("Wayland foreign: WaylandSource insert failed: {err:?}")
+            })?;
 
         Ok(client)
     }
@@ -432,12 +435,10 @@ impl WaylandForeignClient {
     ) -> anyhow::Result<Box<dyn PlatformWindow>> {
         let mut state = self.0.borrow_mut();
         let surface = state.compositor.create_surface(&state.qh, ());
-        let subsurface = state.subcompositor.get_subsurface(
-            &surface,
-            &state.parent_surface,
-            &state.qh,
-            (),
-        );
+        let subsurface =
+            state
+                .subcompositor
+                .get_subsurface(&surface, &state.parent_surface, &state.qh, ());
         subsurface.set_position(0, 0);
         // Desync: editor commits apply immediately instead of waiting for
         // the host's commit cadence.
@@ -585,6 +586,9 @@ impl WaylandForeignWindowStatePtr {
         self.state.borrow().destroyed
     }
 
+    // Part of the foreign-parent surface mirroring handle()/is_destroyed();
+    // the Wayland host-resize path that consumes it is not wired yet.
+    #[allow(dead_code)]
     fn surface_id(&self) -> ObjectId {
         self.state.borrow().surface.id()
     }
@@ -638,6 +642,9 @@ impl WaylandForeignWindowStatePtr {
         }
     }
 
+    // Wayland foreign-parent IME forwarding is not wired yet; kept with
+    // the rest of the host-input surface (see handle_input).
+    #[allow(dead_code)]
     pub(crate) fn handle_ime_unmark(&self) {
         let mut state = self.state.borrow_mut();
         if let Some(mut input_handler) = state.input_handler.take() {
@@ -789,8 +796,7 @@ impl rwh::HasWindowHandle for WaylandForeignWindow {
 impl rwh::HasDisplayHandle for WaylandForeignWindow {
     fn display_handle(&self) -> Result<rwh::DisplayHandle<'_>, rwh::HandleError> {
         let state = self.0.state.borrow();
-        let display =
-            NonNull::new(state.host_display).ok_or(rwh::HandleError::Unavailable)?;
+        let display = NonNull::new(state.host_display).ok_or(rwh::HandleError::Unavailable)?;
         let handle = rwh::WaylandDisplayHandle::new(display);
         Ok(unsafe { rwh::DisplayHandle::borrow_raw(handle.into()) })
     }
@@ -954,10 +960,7 @@ impl PlatformWindow for WaylandForeignWindow {
         self.0.callbacks.borrow_mut().should_close = Some(callback);
     }
 
-    fn on_hit_test_window_control(
-        &self,
-        _callback: Box<dyn FnMut() -> Option<WindowControlArea>>,
-    ) {
+    fn on_hit_test_window_control(&self, _callback: Box<dyn FnMut() -> Option<WindowControlArea>>) {
     }
 
     fn on_close(&self, callback: Box<dyn FnOnce()>) {
@@ -1134,7 +1137,10 @@ impl Dispatch<wl_seat::WlSeat, ()> for WaylandForeignStatePtr {
 }
 
 impl Dispatch<wl_pointer::WlPointer, ()> for WaylandForeignStatePtr {
-    #[allow(clippy::too_many_lines, reason = "one arm per pointer event, mirroring the app path")]
+    #[allow(
+        clippy::too_many_lines,
+        reason = "one arm per pointer event, mirroring the app path"
+    )]
     fn event(
         state: &mut Self,
         _proxy: &wl_pointer::WlPointer,
@@ -1499,8 +1505,7 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for WaylandForeignStatePtr {
                                     keystroke.key_char = None;
                                     state.pre_edit_text =
                                         compose.utf8().or(keystroke_underlying_dead_key(keysym));
-                                    let pre_edit =
-                                        state.pre_edit_text.clone().unwrap_or_default();
+                                    let pre_edit = state.pre_edit_text.clone().unwrap_or_default();
                                     drop(state);
                                     window.handle_ime_preedit(pre_edit);
                                     client.0.borrow_mut().compose_state = Some(compose);
@@ -1543,8 +1548,7 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for WaylandForeignStatePtr {
                         window.handle_input(input);
                     }
                     wl_keyboard::KeyState::Released => {
-                        let keystroke =
-                            keystroke_from_xkb(keymap_state, state.modifiers, keycode);
+                        let keystroke = keystroke_from_xkb(keymap_state, state.modifiers, keycode);
                         let input = PlatformInput::KeyUp(KeyUpEvent { keystroke });
                         drop(state);
                         window.handle_input(input);

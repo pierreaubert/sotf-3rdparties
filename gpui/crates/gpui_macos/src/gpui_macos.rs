@@ -5,6 +5,10 @@
 //! an origin at the bottom left of the main display.
 
 // Local patch (see VENDORED.md): default-lint noise under `-D warnings`; upstream code unchanged.
+// `deprecated`: this vendored upstream crate is written against the
+// deprecated `cocoa` crate (~2.5k diagnostics). Migrating to objc2 is an
+// upstream-scale rewrite, tracked there; do not cherry-pick it here.
+#![allow(deprecated)]
 #![allow(clippy::collapsible_if)]
 #![allow(clippy::needless_borrow)]
 #![allow(clippy::new_without_default)]
