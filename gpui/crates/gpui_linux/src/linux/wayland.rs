@@ -2,8 +2,8 @@ mod client;
 mod clipboard;
 mod cursor;
 mod display;
-mod popup;
 pub(crate) mod foreign_parent;
+mod popup;
 mod serial;
 mod window;
 

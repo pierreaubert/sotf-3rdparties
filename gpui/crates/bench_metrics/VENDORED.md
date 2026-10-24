@@ -7,4 +7,9 @@
 
 ## Local patches
 
-none
+- `#[allow(clippy::let_unit_value)]` on the
+  `erased_measurement_preserves_wrapped_values` test (issue #6 Phase C):
+  FakeCounter's Intermediate is `()`, bound to mirror the real start/end
+  pattern.
+- `Cargo.toml`: package metadata (description/readme/keywords/categories)
+  inherited from `workspace.package` for `clippy::cargo_common_metadata`.

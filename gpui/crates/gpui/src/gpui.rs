@@ -32,6 +32,7 @@
 #![allow(clippy::redundant_static_lifetimes)]
 #![allow(clippy::single_match)]
 #![allow(clippy::too_many_arguments)]
+#![allow(clippy::unnecessary_lazy_evaluations)]
 #![allow(clippy::unnecessary_map_or)]
 #![allow(unexpected_cfgs)]
 

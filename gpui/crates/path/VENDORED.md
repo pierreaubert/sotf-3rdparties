@@ -7,4 +7,9 @@
 
 ## Local patches
 
-none
+- Crate-root clippy allows in `src/path.rs` (issue #6 Phase C, zero-warnings
+  gate): `collapsible_if`, `comparison_to_empty`, `if_same_then_else`,
+  `new_without_default`, `question_mark`, `redundant_closure` — style lints
+  on unmodified upstream code; code unchanged.
+- `Cargo.toml`: package metadata (description/readme/keywords/categories)
+  inherited from `workspace.package` for `clippy::cargo_common_metadata`.

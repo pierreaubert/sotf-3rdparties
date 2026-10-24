@@ -39,13 +39,13 @@ workspace = true
 default-features = false
 
 [target.'cfg(target_os = "macos")'.dependencies]
-accesskit_macos = "0.26.0"
+accesskit_macos = "0.27"
 anyhow = "1.0.86"
 block2 = "0.6"
-cocoa = "=0.26.0"
+cocoa = "0.27"
 core-foundation = "=0.10.1"
 core-foundation-sys = "0.8.6"
-core-graphics = "0.24"
+core-graphics = "0.25"
 ctor = "1.0.6"
 dispatch2 = "0.3.1"
 foreign-types = "0.5"
@@ -53,11 +53,11 @@ futures = "0.3.32"
 itertools = "0.15.0"
 objc = "0.2"
 objc2 = "0.6"
-parking_lot = "0.12.1"
+parking_lot = "0.13"
 raw-window-handle = "0.6"
 
 [target.'cfg(target_os = "macos")'.dependencies.accesskit]
-version = "0.24.0"
+version = "0.25"
 features = ["enumn"]
 
 [target.'cfg(target_os = "macos")'.dependencies.collections]
@@ -143,3 +143,10 @@ features = ["test-support"]
 [target.'cfg(target_os = "macos")'.dev-dependencies.gpui_apple]
 workspace = true
 features = ["test-support"]
+
+# objc 0.2's msg_send!/sel! macros use `cfg_attr(feature = "cargo-clippy")`;
+# without declaring that feature value, every expansion in this crate warns
+# unexpected_cfgs. (This crate intentionally does not inherit
+# [workspace.lints]; see the pedantic-group note in member manifests.)
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(feature, values(\"cargo-clippy\"))"] }

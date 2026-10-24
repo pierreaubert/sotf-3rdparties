@@ -11,9 +11,9 @@ use std::{
 };
 
 use ::util::{ResultExt, paths::SanitizedPath};
+use ::util::{get_powershell, new_std_command};
 use anyhow::{Context as _, Result, anyhow};
 use futures::channel::oneshot::Receiver;
-use ::util::{get_powershell, new_std_command};
 use itertools::Itertools;
 use parking_lot::RwLock;
 use smallvec::SmallVec;
@@ -335,6 +335,7 @@ impl WindowsPlatform {
             icon: self.icon,
             executor: self.foreground_executor.clone(),
             current_cursor: self.inner.state.current_cursor.get(),
+            cursor_visible: self.inner.state.cursor_visible.clone(),
             drop_target_helper: self.drop_target_helper.clone().unwrap(),
             validation_number: self.inner.validation_number,
             main_receiver: self.inner.main_receiver.clone(),
@@ -1034,11 +1035,28 @@ impl Platform for WindowsPlatform {
     }
 
     fn hide_cursor_until_mouse_moves(&self) {
-        unsafe { ShowCursor(false) };
+        if !self
+            .inner
+            .state
+            .cursor_visible
+            .swap(false, Ordering::Relaxed)
+        {
+            return;
+        }
+
+        for handle in self.raw_window_handles.read().iter() {
+            let Some(window) = self.window_from_hwnd(handle.as_raw()) else {
+                continue;
+            };
+            if window.state.hovered.get() {
+                unsafe { SetCursor(None) };
+                break;
+            }
+        }
     }
 
     fn is_cursor_visible(&self) -> bool {
-        self.inner.state.current_cursor.get().is_some()
+        self.inner.state.cursor_visible.load(Ordering::Relaxed)
     }
 
     fn should_auto_hide_scrollbars(&self) -> bool {
@@ -1447,6 +1465,7 @@ pub(crate) struct WindowCreationInfo {
     pub(crate) icon: HICON,
     pub(crate) executor: ForegroundExecutor,
     pub(crate) current_cursor: Option<HCURSOR>,
+    pub(crate) cursor_visible: Arc<AtomicBool>,
     pub(crate) drop_target_helper: IDropTargetHelper,
     pub(crate) validation_number: usize,
     pub(crate) main_receiver: PriorityQueueReceiver<RunnableVariant>,

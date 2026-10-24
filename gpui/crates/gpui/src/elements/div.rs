@@ -4405,7 +4405,6 @@ impl ScrollAnchor {
         });
     }
 
-
     /// Scroll just enough to show this descendant inside its tracked viewport.
     pub fn scroll_into_view(&self, window: &mut Window, _cx: &mut App) {
         let viewport = self.handle.bounds();

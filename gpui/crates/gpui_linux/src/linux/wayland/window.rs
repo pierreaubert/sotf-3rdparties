@@ -386,6 +386,9 @@ impl WaylandSubsurfaceState {
         Self { subsurface }
     }
 
+    // Accessor for foreign-parent (subsurface) embedding hosts; the
+    // in-crate consumer lands with the CLAP/Wayland wiring.
+    #[allow(dead_code)]
     pub fn subsurface(&self) -> &wl_subsurface::WlSubsurface {
         &self.subsurface
     }

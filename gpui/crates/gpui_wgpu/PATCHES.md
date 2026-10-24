@@ -112,3 +112,12 @@ not have. Ported from upstream `crates/gpui_wgpu/src/cosmic_text_system.rs`:
   `src/cosmic_text_system/cosmic_text_system_state.rs`.
 - New dependency `unicode-segmentation = "1.10"` (same version as the
   `gpui` crate) for `grapheme_indices`.
+
+## 8. `draw` unreachable-tail fix (issue #6 Phase C)
+
+`WgpuRenderer::draw` ended with a `true` that is unreachable in
+non-`headless-qa` builds (the interactive render loop only exits via
+`return`). The two mutually exclusive cfg blocks now form the tail
+expression: the `headless-qa` block evaluates to `true`, the interactive
+block's loop diverges. No behavior change; both feature states check
+warning-free.

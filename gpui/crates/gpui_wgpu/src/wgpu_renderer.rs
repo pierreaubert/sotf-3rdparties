@@ -1280,12 +1280,16 @@ impl WgpuRenderer {
             .texture
             .create_view(&wgpu::TextureViewDescriptor::default());
 
+        // Exactly one of the two cfg blocks below is present per build and
+        // forms the tail expression: headless-qa evaluates to `true`, the
+        // interactive block's render loop only exits via `return`.
         #[cfg(feature = "headless-qa")]
         {
             if let Err(error) = self.render_scene_to_view(scene, &frame_view) {
                 *self.last_error.lock().unwrap() = Some(error.to_string());
             }
             frame.present();
+            true
         }
 
         #[cfg(not(feature = "headless-qa"))]
@@ -1536,7 +1540,6 @@ impl WgpuRenderer {
                 return true;
             }
         }
-        true
     }
 
     /// Encode a GPUI scene into an already-created color target.

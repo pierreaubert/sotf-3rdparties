@@ -202,7 +202,8 @@ where
 {
     let (task, delivery) = Task::rendezvous();
     let thread_body = move || {
-        let (runnable_sender, runnable_receiver) = std::sync::mpsc::channel::<Runnable<RunnableMeta>>();
+        let (runnable_sender, runnable_receiver) =
+            std::sync::mpsc::channel::<Runnable<RunnableMeta>>();
         let dispatch = move |runnable: Runnable<RunnableMeta>| {
             let _ = runnable_sender.send(runnable);
         };

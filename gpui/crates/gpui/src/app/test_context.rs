@@ -1270,8 +1270,8 @@ impl AnyWindowHandle {
 #[cfg(test)]
 mod tests {
     use crate::{
-        AppContext, EventEmitter, PathPromptOptions, SystemNotification,
-        SystemNotificationAction, SystemNotificationResponse, TestAppContext,
+        AppContext, EventEmitter, PathPromptOptions, SystemNotification, SystemNotificationAction,
+        SystemNotificationResponse, TestAppContext,
     };
     use std::cell::RefCell;
     use std::path::PathBuf;
