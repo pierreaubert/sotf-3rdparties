@@ -13,6 +13,7 @@ use backtrace::{Backtrace, BacktraceFrame};
 // backtrace 0.3 does not compile on Apple mobile targets with libc >= 0.2.190
 // (the dyld image functions became macOS-only); TestScheduler needs only
 // capture-less placeholders there, so the module below stands in.
+use futures::channel::oneshot;
 #[cfg(any(
     target_os = "ios",
     target_os = "tvos",
@@ -20,7 +21,6 @@ use backtrace::{Backtrace, BacktraceFrame};
     target_os = "visionos"
 ))]
 use mobile_no_backtrace::{Backtrace, BacktraceFrame};
-use futures::channel::oneshot;
 
 #[cfg(any(
     target_os = "ios",

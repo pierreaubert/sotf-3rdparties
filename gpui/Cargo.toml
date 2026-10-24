@@ -2,13 +2,11 @@
 resolver = "3"
 members = ["crates/gpui", "crates/gpui_linux", "crates/gpui_macos", "crates/gpui_macros", "crates/gpui_web", "crates/gpui_wgpu", "crates/gpui_windows", "crates/http_client", "crates/perf", "crates/scheduler", "crates/sum_tree", "crates/util", "crates/util_macros", "crates/collections", "crates/gpui_util", "crates/gpui_shared_string", "crates/refineable", "crates/refineable/derive_refineable", "crates/gpui_apple", "crates/path", "crates/bench_metrics"]
 
+# Only fields members actually inherit; unused ones make cargo warn on
+# every build. Members keep their own version/license (Apache-2.0).
 [workspace.package]
-version = "0.9.31"
-authors = ["Pierre F. Aubert pierre@spinorama.org"]
 description = "A toolkit to build portable and fast UI"
 edition = "2024"
-documentation = "https://docs.rs/gpui-toolkit"
-license = "ISC"
 repository = "https://github.com/pierreaubert/sotf-3rdparties"
 keywords = ["gpui", "ui", "visualization"]
 categories = ["gui", "visualization"]

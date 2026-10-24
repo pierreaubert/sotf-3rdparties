@@ -13,6 +13,12 @@ Keep the macro facade aligned with the maintained implementation and case-conver
 ## Retained changes
 
 Unpublished 2.1.2 maintenance version; upstream Rust and feature definitions retained.
+Local (issue #6 Phase C): empty `[lints]` clarifies non-inheritance for
+cargo's `missing_lints_inheritance`; the optional `rustc_version` build
+dependency was removed (and from `testing-helpers`) — dead weight here
+since this fork ships `build = false` with no build script. The
+`derive_more-impl` utils module carries `#[allow(dead_code, unused_mut)]`
+because which helpers are dead depends on the consumer's feature set.
 Read [the existing detail record](../derive_more/SOTF_FORK_PROVENANCE.json) before updating.
 This inventory review does not claim a fresh upstream parity or security audit.
 

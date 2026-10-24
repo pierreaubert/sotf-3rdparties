@@ -53,3 +53,8 @@ js-sys = "0.3"
 
 [package.metadata.release]
 tag-name = "{{crate_name}}-v{{version}}"
+
+# Intentionally not inheriting [workspace.lints]: it enables the clippy
+# pedantic group, which this vendored upstream code does not target.
+# The zero-warnings gate (issue #6) runs default rustc/clippy lints.
+[lints]

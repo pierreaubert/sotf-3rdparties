@@ -175,4 +175,4 @@ features = ["test-support"]
 
 [lints.rust.unexpected_cfgs]
 level = "warn"
-check-cfg = ["cfg(coverage)"]
+check-cfg = ["cfg(coverage)", "cfg(feature, values(\"nightly_coverage\"))"]

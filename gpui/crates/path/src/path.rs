@@ -6,6 +6,14 @@
 //!
 //! Adapted from Zed's `util::rel_path` module.
 
+// Local patch (see VENDORED.md): default-lint noise under `-D warnings`; upstream code unchanged.
+#![allow(clippy::collapsible_if)]
+#![allow(clippy::comparison_to_empty)]
+#![allow(clippy::if_same_then_else)]
+#![allow(clippy::new_without_default)]
+#![allow(clippy::question_mark)]
+#![allow(clippy::redundant_closure)]
+
 #[cfg(windows)]
 use anyhow::Context;
 #[cfg(all(unix, not(target_family = "wasm")))]

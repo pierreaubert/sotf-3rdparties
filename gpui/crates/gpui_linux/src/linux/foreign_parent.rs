@@ -20,18 +20,18 @@
 //! All entry points run on the host UI thread.
 
 use std::cell::RefCell;
-use std::path::{Path, PathBuf};
-use std::rc::Rc;
 #[cfg(feature = "wayland")]
 use std::ffi::c_void;
+use std::path::{Path, PathBuf};
+use std::rc::Rc;
 
 use anyhow::anyhow;
 
-use super::{LinuxCommon, LinuxKeyboardLayout};
 #[cfg(feature = "wayland")]
 use super::wayland::foreign_parent::WaylandForeignClient;
 #[cfg(feature = "x11")]
 use super::x11::{X11Connection, X11ForeignChildParams};
+use super::{LinuxCommon, LinuxKeyboardLayout};
 use gpui::{
     Action, AnyWindowHandle, BackgroundExecutor, ClipboardItem, CursorStyle, ForegroundExecutor,
     Keymap, Menu, MenuItem, Platform, PlatformDisplay, PlatformInput, PlatformKeyboardLayout,
@@ -581,7 +581,9 @@ impl Platform for ForeignParentPlatform {
     }
 
     fn register_url_scheme(&self, _: &str) -> Task<anyhow::Result<()>> {
-        Task::ready(Err(anyhow!("register_url_scheme is unavailable in the plugin context")))
+        Task::ready(Err(anyhow!(
+            "register_url_scheme is unavailable in the plugin context"
+        )))
     }
 
     fn prompt_for_paths(
@@ -614,7 +616,9 @@ impl Platform for ForeignParentPlatform {
             // Portal pickers need a toplevel parent ident; unavailable here.
             #[cfg(feature = "wayland")]
             ForeignParentClient::Wayland(_) => {
-                log::info!("ForeignParentPlatform::reveal_path is unavailable in the plugin context");
+                log::info!(
+                    "ForeignParentPlatform::reveal_path is unavailable in the plugin context"
+                );
             }
         }
     }
@@ -658,10 +662,7 @@ impl Platform for ForeignParentPlatform {
         });
     }
 
-    fn prevent_idle_sleep(
-        &self,
-        reason: &str,
-    ) -> Task<anyhow::Result<gpui::ActivityGuard>> {
+    fn prevent_idle_sleep(&self, reason: &str) -> Task<anyhow::Result<gpui::ActivityGuard>> {
         let executor = self.background_executor();
         let (guard_tx, guard_rx) = futures::channel::oneshot::channel();
         executor
@@ -677,9 +678,7 @@ impl Platform for ForeignParentPlatform {
             .detach();
         executor
             .clone()
-            .spawn(async move {
-                super::await_idle_sleep_prevention(guard_rx, &executor).await
-            })
+            .spawn(async move { super::await_idle_sleep_prevention(guard_rx, &executor).await })
     }
 
     fn on_reopen(&self, callback: Box<dyn FnMut()>) {
@@ -802,18 +801,19 @@ impl Platform for ForeignParentPlatform {
         _username: &str,
         _password: &[u8],
     ) -> Task<anyhow::Result<()>> {
-        Task::ready(Err(anyhow!("credentials are unavailable in the plugin context")))
+        Task::ready(Err(anyhow!(
+            "credentials are unavailable in the plugin context"
+        )))
     }
 
-    fn read_credentials(
-        &self,
-        _url: &str,
-    ) -> Task<anyhow::Result<Option<(String, Vec<u8>)>>> {
+    fn read_credentials(&self, _url: &str) -> Task<anyhow::Result<Option<(String, Vec<u8>)>>> {
         Task::ready(Ok(None))
     }
 
     fn delete_credentials(&self, _url: &str) -> Task<anyhow::Result<()>> {
-        Task::ready(Err(anyhow!("credentials are unavailable in the plugin context")))
+        Task::ready(Err(anyhow!(
+            "credentials are unavailable in the plugin context"
+        )))
     }
 
     fn keyboard_layout(&self) -> Box<dyn PlatformKeyboardLayout> {
@@ -821,9 +821,7 @@ impl Platform for ForeignParentPlatform {
             #[cfg(feature = "x11")]
             ForeignParentClient::X11(client) => client.keyboard_layout(),
             #[cfg(feature = "wayland")]
-            ForeignParentClient::Wayland(_) => {
-                Box::new(LinuxKeyboardLayout::new("unknown".into()))
-            }
+            ForeignParentClient::Wayland(_) => Box::new(LinuxKeyboardLayout::new("unknown".into())),
         }
     }
 

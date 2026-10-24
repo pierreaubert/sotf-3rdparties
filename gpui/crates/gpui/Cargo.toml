@@ -47,7 +47,6 @@ futures = "0.3.32"
 inventory = "0.3.19"
 itertools = "0.15.0"
 num_cpus = "1.13"
-parking = "2.0.0"
 parking_lot = "0.13"
 profiling = "1"
 rand = "0.10"
@@ -58,7 +57,6 @@ seahash = "4.1"
 slotmap = "1.0.6"
 taffy = "=0.15.0"
 thiserror = "2.0.12"
-waker-fn = "1.2.0"
 lyon = "1.0"
 pin-project = "1.1.10"
 url = "2.2"
@@ -214,6 +212,10 @@ features = ["std"]
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 pollster = "1"
+# Only used by PlatformScheduler::block, cfg'd out on wasm; keeping them
+# target-scoped silences cargo's unused-dependency manifest lint there.
+parking = "2.0.0"
+waker-fn = "1.2.0"
 
 [target.'cfg(not(target_family = "wasm"))'.dev-dependencies.http_client]
 workspace = true
@@ -286,3 +288,8 @@ features = ["test-support"]
 
 [dev-dependencies.util_macros]
 workspace = true
+
+# Intentionally not inheriting [workspace.lints]: it enables the clippy
+# pedantic group, which this vendored upstream code does not target.
+# The zero-warnings gate (issue #6) runs default rustc/clippy lints.
+[lints]
