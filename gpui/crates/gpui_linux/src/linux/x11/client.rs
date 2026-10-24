@@ -183,6 +183,9 @@ pub struct X11ClientState {
     /// A weak pointer to this state, for event-loop callbacks registered by its methods.
     this: X11ClientStatePtr,
     pub(crate) loop_handle: LoopHandle<'static, ()>,
+    /// Foreign-parent mode only: the client owns its event loop because the
+    /// host drives dispatch via `dispatch_pending` instead of `run`.
+    foreign_event_loop: Option<calloop::EventLoop<'static, ()>>,
     /// Long-lived sources this client registered on the loop, removed when its
     /// [`X11Connection`] drops.
     registrations: Vec<RegistrationToken>,
@@ -511,6 +514,7 @@ impl X11Connection {
                 last_modifiers_changed_event: Modifiers::default(),
                 last_capslock_changed_event: Capslock::default(),
                 loop_handle: handle.clone(),
+                foreign_event_loop: None,
                 common,
                 last_click: Instant::now(),
                 last_mouse_button: None,
@@ -560,6 +564,28 @@ impl X11Connection {
         connection.register_sources(&handle, background_executor)?;
         let xcb_connection = connection.0.0.borrow().xcb_connection.clone();
         xcb_flush(&xcb_connection);
+        Ok(connection)
+    }
+
+    /// Foreign-parent construction: the client owns its event loop and
+    /// common state because the host drives dispatch via
+    /// [`X11Client::dispatch_pending`] instead of a platform `run`.
+    pub(crate) fn new_foreign() -> anyhow::Result<Self> {
+        let event_loop = calloop::EventLoop::try_new()
+            .context("X11 foreign: event loop init failed")?;
+        let (common, main_receiver, power_receiver) =
+            crate::linux::LinuxCommon::new(event_loop.get_signal());
+        let common = Rc::new(RefCell::new(common));
+        let handle = event_loop.handle();
+        crate::linux::LinuxCommon::register_sources(
+            &common,
+            &handle,
+            main_receiver,
+            power_receiver,
+        )?;
+        let environment = GraphicalEnvironment::detect();
+        let connection = Self::attach(handle, common, &environment)?;
+        connection.0.0.borrow_mut().foreign_event_loop = Some(event_loop);
         Ok(connection)
     }
 }
@@ -888,7 +914,7 @@ impl X11Client {
         state.windows.values().find_map(|window_reference| {
             let window = &window_reference.window;
             let window_state = window.state.borrow();
-            (window_state.handle == handle && !window_state.destroyed).then(|| window.clone())
+            (window_state.handle == handle).then(|| window.clone())
         })
     }
 
@@ -913,13 +939,13 @@ impl X11Client {
         let xcb_connection = state.xcb_connection.clone();
         let x_root_index = state.x_root_index;
         let atoms = state.atoms;
-        let appearance = state.common.appearance;
+        let appearance = state.common.borrow().appearance;
         let compositor_gpu = state.compositor_gpu.take();
         let supports_xinput_gestures = state.supports_xinput_gestures;
         let window = X11Window::new_in_foreign_parent(
             handle,
             X11ClientStatePtr(Rc::downgrade(&self.0)),
-            state.common.foreground_executor.clone(),
+            state.common.borrow().foreground_executor.clone(),
             state.gpu_context.clone(),
             compositor_gpu,
             params,
@@ -936,7 +962,6 @@ impl X11Client {
         let window_ref = WindowRef {
             window: window.0.clone(),
             refresh_state: None,
-            expose_event_received: false,
             last_visibility: Visibility::UNOBSCURED,
             is_mapped: false,
         };
@@ -952,13 +977,13 @@ impl X11Client {
     /// is taken out of the state for the dispatch (as `run()` does) so that
     /// re-entrant source callbacks can borrow the state, then put back.
     pub(crate) fn dispatch_pending(&self) {
-        let Some(mut event_loop) = self.0.borrow_mut().event_loop.take() else {
+        let Some(mut event_loop) = self.0.borrow_mut().foreign_event_loop.take() else {
             return;
         };
         event_loop
-            .dispatch(Some(Duration::ZERO), &mut self.clone())
+            .dispatch(Some(Duration::ZERO), &mut ())
             .log_err();
-        self.0.borrow_mut().event_loop = Some(event_loop);
+        self.0.borrow_mut().foreign_event_loop = Some(event_loop);
     }
 
     fn handle_event(&self, event: Event) -> Option<()> {

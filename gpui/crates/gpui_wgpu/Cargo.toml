@@ -33,6 +33,7 @@ profiling = "1"
 raw-window-handle = "0.6"
 smallvec = { version = "1.6", features = ["union", "const_new"] }
 swash = "0.2.6"
+unicode-segmentation = "1.10"
 gpui_util = { workspace = true }
 wgpu = { package = "sotf-wgpu", path = "../../../wgpu/wgpu", version = "29.0.0" }
 image = { workspace = true, optional = true }

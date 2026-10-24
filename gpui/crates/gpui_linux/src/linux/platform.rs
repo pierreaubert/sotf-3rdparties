@@ -1649,7 +1649,7 @@ pub(super) fn compositor_gpu_hint_from_dev_t(dev: u64) -> Option<gpui_wgpu::Comp
 }
 
 #[cfg(any(feature = "wayland", feature = "x11"))]
-async fn inhibit_idle_sleep(reason: String, executor: BackgroundExecutor) -> Result<ActivityGuard> {
+pub(crate) async fn inhibit_idle_sleep(reason: String, executor: BackgroundExecutor) -> Result<ActivityGuard> {
     let proxy = InhibitProxy::new()
         .await
         .context("Idle sleep prevention portal is unavailable")?;
@@ -1683,7 +1683,7 @@ fn release_on_drop(request: Request<()>, executor: BackgroundExecutor) -> Activi
 }
 
 #[cfg(any(feature = "wayland", feature = "x11"))]
-async fn await_idle_sleep_prevention(
+pub(crate) async fn await_idle_sleep_prevention(
     guard_rx: oneshot::Receiver<Result<ActivityGuard>>,
     executor: &BackgroundExecutor,
 ) -> Result<ActivityGuard> {

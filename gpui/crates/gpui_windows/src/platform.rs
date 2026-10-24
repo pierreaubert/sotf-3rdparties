@@ -13,7 +13,7 @@ use std::{
 use ::util::{ResultExt, paths::SanitizedPath};
 use anyhow::{Context as _, Result, anyhow};
 use futures::channel::oneshot::Receiver;
-use util::{ResultExt, get_powershell, new_std_command};
+use ::util::{get_powershell, new_std_command};
 use itertools::Itertools;
 use parking_lot::RwLock;
 use smallvec::SmallVec;
@@ -619,10 +619,10 @@ impl Platform for WindowsPlatform {
     }
 
     fn run(&self, on_finish_launching: Box<dyn 'static + FnOnce()>) {
-        on_finish_launching();
         if self.foreign {
             // The host owns the message loop: no vsync thread (frames are
             // host-pumped), no `GetMessage` loop, and no `ExitProcess`.
+            on_finish_launching();
             return;
         }
         if !self.headless {

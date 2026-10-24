@@ -1575,10 +1575,12 @@ impl X11WindowStatePtr {
                 width: px(width as f32),
                 height: px(height as f32),
             };
-            state.renderer.update_drawable_size(Size {
-                width: DevicePixels(drawable_width),
-                height: DevicePixels(drawable_height),
-            });
+            if let Some(renderer) = state.renderer.as_mut() {
+                renderer.update_drawable_size(Size {
+                    width: DevicePixels(drawable_width),
+                    height: DevicePixels(drawable_height),
+                });
+            }
             (state.content_size(), state.scale_factor)
         };
         if let Some(ref mut fun) = self.callbacks.borrow_mut().resize {
@@ -2231,7 +2233,7 @@ impl PlatformWindow for X11Window {
     }
 
     fn gpu_specs(&self) -> Option<GpuSpecs> {
-        self.0.state.borrow().renderer.as_ref()?.gpu_specs()
+        Some(self.0.state.borrow().renderer.as_ref()?.gpu_specs())
     }
 
     fn play_system_bell(&self) {

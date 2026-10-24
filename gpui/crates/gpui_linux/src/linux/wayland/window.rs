@@ -433,6 +433,7 @@ impl WaylandSurfaceState {
                 Some(xdg_surface)
             }
             WaylandSurfaceState::LayerShell(_) => None,
+            WaylandSurfaceState::Subsurface(_) => None,
         }
     }
 
@@ -2246,7 +2247,7 @@ impl PlatformWindow for WaylandWindow {
     }
 
     fn gpu_specs(&self) -> Option<GpuSpecs> {
-        self.borrow().renderer.as_ref()?.gpu_specs()
+        Some(self.borrow().renderer.as_ref()?.gpu_specs())
     }
 
     fn play_system_bell(&self) {

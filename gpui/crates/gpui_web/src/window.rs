@@ -643,34 +643,6 @@ impl Drop for WebWindow {
     }
 }
 
-impl Drop for WebWindow {
-    fn drop(&mut self) {
-        // Cancel the pending requestAnimationFrame callback before
-        // `_raf_closure` is freed, and disconnect the resize observer before
-        // `_resize_observer_closure` is freed; a late invocation of either
-        // would throw "closure invoked after being dropped".
-        if let Some(raf_id) = self.inner.raf_id.take() {
-            self.inner
-                .browser_window
-                .cancel_animation_frame(raf_id)
-                .ok();
-        }
-        if let Some(ref observer) = self._resize_observer {
-            observer.disconnect();
-        }
-
-        // The DPR media-query closure captures an `Rc<WebWindowInner>` and is
-        // stored inside the inner itself, forming a reference cycle; take it
-        // out so the inner can actually be freed.
-        self.inner.mql_handle.borrow_mut().take();
-
-        let canvas: &web_sys::Element = self.inner.canvas.as_ref();
-        canvas.remove();
-        let input_element: &web_sys::Element = self.inner.input_element.as_ref();
-        input_element.remove();
-    }
-}
-
 fn current_appearance(browser_window: &web_sys::Window) -> WindowAppearance {
     let is_dark = browser_window
         .match_media("(prefers-color-scheme: dark)")
@@ -1061,7 +1033,7 @@ impl PlatformWindow for WebWindow {
     }
 
     fn gpu_specs(&self) -> Option<GpuSpecs> {
-        self.inner.state.borrow().renderer.gpu_specs()
+        Some(self.inner.state.borrow().renderer.gpu_specs())
     }
 
     fn update_ime_position(&self, _bounds: Bounds<Pixels>) {}

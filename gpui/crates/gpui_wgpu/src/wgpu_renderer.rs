@@ -334,6 +334,27 @@ impl WgpuRenderer {
         )
     }
 
+    #[cfg(target_family = "wasm")]
+    pub fn new_from_surface(
+        context: &WgpuContext,
+        surface: wgpu::Surface<'static>,
+        config: WgpuSurfaceConfig,
+    ) -> anyhow::Result<Self> {
+        context.check_compatible_with_surface(&surface)?;
+
+        let gpu_context = Rc::new(RefCell::new(Some(context.clone())));
+        let atlas = Arc::new(WgpuAtlas::from_context(context));
+
+        Self::new_internal(
+            Some(gpu_context),
+            context,
+            Some(surface),
+            config,
+            None,
+            atlas,
+        )
+    }
+
     /// Construct the GPUI renderer against an offscreen WGPU texture.
     ///
     /// This keeps the normal GPUI scene encoder, text atlas, custom-draw

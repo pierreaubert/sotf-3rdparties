@@ -609,23 +609,7 @@ impl Platform for WebPlatform {
     }
 
     fn read_from_clipboard(&self) -> Option<ClipboardItem> {
-        self.clipboard.borrow().clone()
-    }
-
-    fn write_to_clipboard(&self, item: ClipboardItem) {
-        if let Some(text) = item.text() {
-            let promise = self
-                .browser_window
-                .navigator()
-                .clipboard()
-                .write_text(&text);
-            wasm_bindgen_futures::spawn_local(async move {
-                if let Err(error) = wasm_bindgen_futures::JsFuture::from(promise).await {
-                    log::warn!("browser clipboard write failed: {error:?}");
-                }
-            });
-        }
-        *self.clipboard.borrow_mut() = Some(item);
+        None
     }
 
     fn read_from_clipboard_async(&self) -> Task<Result<Option<ClipboardItem>, ClipboardReadError>> {

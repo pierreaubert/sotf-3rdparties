@@ -611,6 +611,7 @@ impl WindowsWindow {
             disable_direct_composition,
             directx_devices,
             invalidate_devices,
+            draw_coordinator,
         } = creation_info;
         register_window_class(icon);
         let parent_hwnd = HWND(info.parent as *mut std::ffi::c_void);
@@ -645,6 +646,8 @@ impl WindowsWindow {
             display,
             // The host moves the child; GPUI never repositions it.
             is_movable: false,
+            is_resizable: false,
+            is_minimizable: false,
             min_size: params.window_min_size,
             executor,
             current_cursor,
@@ -658,6 +661,7 @@ impl WindowsWindow {
             disable_direct_composition,
             directx_devices,
             invalidate_devices,
+            draw_coordinator,
             // Never the modal-dialog parent: destroy must not touch the
             // host window (`handle_destroy_msg` re-enables `parent_hwnd`).
             parent_hwnd: None,

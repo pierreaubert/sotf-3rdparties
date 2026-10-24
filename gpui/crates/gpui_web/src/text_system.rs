@@ -397,7 +397,7 @@ impl PlatformTextSystem for WebTextSystem {
         Ok((bounds.size, pixels))
     }
 
-    fn layout_line(&self, text: &str, font_size: Pixels, runs: &[FontRun]) -> LineLayout {
+    fn layout_line(&self, text: &str, font_size: Pixels, runs: &[FontRun]) -> Arc<LineLayout> {
         let native_runs: Cow<'_, [FontRun]> =
             if runs.iter().any(|run| run.font_id.0 & CANVAS_FONT_BIT != 0) {
                 Cow::Owned(
@@ -411,7 +411,8 @@ impl PlatformTextSystem for WebTextSystem {
             } else {
                 Cow::Borrowed(runs)
             };
-        let mut layout = self.native.layout_line(text, font_size, &native_runs);
+        let mut layout =
+            Arc::unwrap_or_clone(self.native.layout_line(text, font_size, &native_runs));
         self.apply_fallback(text, &native_runs, &mut layout);
         let sink = self.state.read().missing_glyph_sink.clone();
         if let Some(sink) = sink {
@@ -427,7 +428,7 @@ impl PlatformTextSystem for WebTextSystem {
                     .missing_glyphs(text, &native_runs, missing_indices),
             );
         }
-        layout
+        Arc::new(layout)
     }
 
     fn recommended_rendering_mode(&self, font_id: FontId, font_size: Pixels) -> TextRenderingMode {
