@@ -93,6 +93,7 @@ use gpui::{
     Pixels, PlatformAtlas, PlatformDisplay, PlatformInput, PlatformInputHandler, PlatformWindow,
     Point, PromptButton, PromptLevel, RequestFrameOptions, Scene, ScrollDelta, ScrollWheelEvent,
     Size, TouchPhase, WindowAppearance, WindowBackgroundAppearance, WindowBounds, WindowControlArea,
+    WindowVisibility,
     KeyDownEvent, KeyUpEvent, ModifiersChangedEvent, point, px,
 };
 use gpui_wgpu::{GpuContext, WgpuRenderer, WgpuSurfaceConfig, wgpu};
@@ -148,6 +149,10 @@ pub(crate) struct WaylandForeignClientState {
     event_loop: Option<EventLoop<'static, WaylandForeignStatePtr>>,
     qh: QueueHandle<WaylandForeignStatePtr>,
     pub(crate) common: LinuxCommon,
+    /// Held so the common power listener's sends never fail; foreign
+    /// editors do not consume system power events.
+    #[allow(dead_code, reason = "held alive for the power listener channel")]
+    power_receiver: calloop::channel::Channel<crate::linux::SystemPowerEvent>,
     gpu_context: GpuContext,
     compositor_gpu: Option<gpui_wgpu::CompositorGpuHint>,
 
@@ -225,7 +230,7 @@ impl WaylandForeignClient {
         // SAFETY: the host guarantees a live `wl_display*` for the editor
         // lifetime (see the module contract); guest mode never closes it.
         let backend = unsafe {
-            Backend::from_foreign_display(host.display_ptr().cast::<wayland_sys::client::wl_display>())
+            Backend::from_foreign_display(host.display_ptr().cast())
         };
         let conn = Connection::from_backend(backend);
         let (globals, event_queue) =
@@ -306,7 +311,7 @@ impl WaylandForeignClient {
         let parent_surface = unsafe {
             let id = ObjectId::from_ptr(
                 wl_surface::WlSurface::interface(),
-                host.parent_surface_ptr().cast::<wayland_sys::client::wl_proxy>(),
+                host.parent_surface_ptr().cast(),
             )
             .context("Wayland foreign: parent surface pointer has the wrong interface")?;
             wl_surface::WlSurface::from_id(&conn, id)
@@ -315,7 +320,8 @@ impl WaylandForeignClient {
 
         let event_loop = EventLoop::<WaylandForeignStatePtr>::try_new()
             .context("Wayland foreign: event loop init failed")?;
-        let (common, main_receiver) = LinuxCommon::new(event_loop.get_signal());
+        let (common, main_receiver, power_receiver) =
+            LinuxCommon::new(event_loop.get_signal());
         let loop_handle = event_loop.handle();
         loop_handle
             .insert_source(main_receiver, {
@@ -337,6 +343,7 @@ impl WaylandForeignClient {
             event_loop: Some(event_loop),
             qh: qh.clone(),
             common,
+            power_receiver,
             gpu_context: Rc::new(RefCell::new(None)),
             compositor_gpu: None,
             compositor,
@@ -493,7 +500,6 @@ impl WaylandForeignClient {
                 mouse_position: point(px(0.0), px(0.0)),
                 frame_callback: None,
                 frame_done_chase: true,
-                renderer_presented: false,
                 appearance: WindowAppearance::Light,
                 background_appearance: WindowBackgroundAppearance::Opaque,
                 handle,
@@ -558,7 +564,6 @@ pub(crate) struct WaylandForeignWindowState {
     frame_callback: Option<wl_callback::WlCallback>,
     /// False while a frame callback is still outstanding (pacing gate).
     frame_done_chase: bool,
-    renderer_presented: bool,
     appearance: WindowAppearance,
     background_appearance: WindowBackgroundAppearance,
     handle: AnyWindowHandle,
@@ -804,6 +809,22 @@ impl PlatformWindow for WaylandForeignWindow {
         WindowBounds::Windowed(self.0.state.borrow().bounds)
     }
 
+    fn visibility(&self) -> WindowVisibility {
+        if self.0.state.borrow().destroyed {
+            WindowVisibility::Hidden
+        } else {
+            WindowVisibility::Visible
+        }
+    }
+
+    fn on_visibility_change(&self, callback: Box<dyn FnMut(WindowVisibility)>) {
+        self.0.callbacks.borrow_mut().visibility_change = Some(callback);
+    }
+
+    fn on_display_changed(&self, callback: Box<dyn FnMut()>) {
+        self.0.callbacks.borrow_mut().display_changed = Some(callback);
+    }
+
     fn content_size(&self) -> Size<Pixels> {
         self.0.state.borrow().bounds.size
     }
@@ -958,27 +979,23 @@ impl PlatformWindow for WaylandForeignWindow {
             if let Err(err) = state.renderer.recover(&raw_window) {
                 log::warn!("GPU recovery failed, will retry on next frame: {err}");
             }
+            state.surface.commit();
+            state.conn.flush().log_err();
             return;
         }
 
-        state.renderer.draw(scene);
-        state.renderer_presented = true;
+        let presented = state.renderer.draw(scene);
+
+        // Commit so a desync subsurface presents even when the renderer
+        // skipped (mirrors the app path's wlroots workaround).
+        if !presented {
+            state.surface.commit();
+        }
+        state.conn.flush().log_err();
 
         if state.renderer.needs_redraw() {
             state.frame_done_chase = true;
         }
-    }
-
-    fn completed_frame(&self) {
-        let state = self.0.state.borrow();
-        // Commit so a desync subsurface presents even when the renderer
-        // skipped (mirrors the app path's wlroots workaround).
-        if !state.renderer_presented {
-            state.surface.commit();
-        }
-        state.conn.flush().log_err();
-        drop(state);
-        self.0.state.borrow_mut().renderer_presented = false;
     }
 
     fn sprite_atlas(&self) -> std::sync::Arc<dyn PlatformAtlas> {

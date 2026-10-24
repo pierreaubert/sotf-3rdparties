@@ -27,11 +27,11 @@ use std::ffi::c_void;
 
 use anyhow::anyhow;
 
-use super::{LinuxClient, LinuxCommon, LinuxKeyboardLayout};
+use super::{LinuxCommon, LinuxKeyboardLayout};
 #[cfg(feature = "wayland")]
 use super::wayland::foreign_parent::WaylandForeignClient;
 #[cfg(feature = "x11")]
-use super::x11::{X11Client, X11ForeignChildParams};
+use super::x11::{X11Connection, X11ForeignChildParams};
 use gpui::{
     Action, AnyWindowHandle, BackgroundExecutor, ClipboardItem, CursorStyle, ForegroundExecutor,
     Keymap, Menu, MenuItem, Platform, PlatformDisplay, PlatformInput, PlatformKeyboardLayout,
@@ -281,7 +281,7 @@ pub fn clear_pending_wayland_foreign_parent() {
 
 pub(crate) enum ForeignParentClient {
     #[cfg(feature = "x11")]
-    X11(X11Client),
+    X11(X11Connection),
     #[cfg(feature = "wayland")]
     Wayland(WaylandForeignClient),
 }
@@ -305,7 +305,7 @@ impl ForeignParentPlatform {
     #[cfg(feature = "x11")]
     pub fn new_x11() -> anyhow::Result<Self> {
         Ok(Self {
-            client: ForeignParentClient::X11(X11Client::new()?),
+            client: ForeignParentClient::X11(X11Connection::new_foreign()?),
         })
     }
 
@@ -477,7 +477,7 @@ impl Platform for ForeignParentPlatform {
 
     /// Restarting the host process from a plugin would be catastrophic, so
     /// this is a loud no-op by design.
-    fn restart(&self, _binary_path: Option<PathBuf>) {
+    fn restart(&self, _binary_path: Option<PathBuf>, _arguments: Vec<std::ffi::OsString>) {
         log::error!("ForeignParentPlatform::restart is unavailable in the plugin context");
     }
 
@@ -566,7 +566,12 @@ impl Platform for ForeignParentPlatform {
             ForeignParentClient::X11(client) => client.open_uri(url),
             #[cfg(feature = "wayland")]
             ForeignParentClient::Wayland(_) => {
-                super::open_uri_internal(self.background_executor(), url, None);
+                super::open_uri_internal(
+                    self.background_executor(),
+                    url,
+                    None,
+                    gpui::GraphicalEnvironment::detect(),
+                );
             }
         }
     }
@@ -631,8 +636,50 @@ impl Platform for ForeignParentPlatform {
             .detach();
     }
 
-    fn on_quit(&self, callback: Box<dyn FnMut()>) {
+    fn on_quit(&self, callback: Box<dyn FnMut() -> bool>) {
         self.with_common(|common| common.callbacks.quit = Some(callback));
+    }
+
+    fn on_displays_changed(&self, callback: Box<dyn FnMut()>) {
+        self.with_common(|common| common.callbacks.displays_changed = Some(callback));
+    }
+
+    fn on_system_sleep(&self, callback: Box<dyn FnMut()>) {
+        self.with_common(|common| {
+            common.callbacks.system_sleep = Some(callback);
+            common.start_power_listener();
+        });
+    }
+
+    fn on_system_wake(&self, callback: Box<dyn FnMut()>) {
+        self.with_common(|common| {
+            common.callbacks.system_wake = Some(callback);
+            common.start_power_listener();
+        });
+    }
+
+    fn prevent_idle_sleep(
+        &self,
+        reason: &str,
+    ) -> Task<anyhow::Result<gpui::ActivityGuard>> {
+        let executor = self.background_executor();
+        let (guard_tx, guard_rx) = futures::channel::oneshot::channel();
+        executor
+            .spawn({
+                let executor = executor.clone();
+                let reason = reason.to_owned();
+                async move {
+                    guard_tx
+                        .send(super::inhibit_idle_sleep(reason, executor).await)
+                        .ok();
+                }
+            })
+            .detach();
+        executor
+            .clone()
+            .spawn(async move {
+                super::await_idle_sleep_prevention(guard_rx, &executor).await
+            })
     }
 
     fn on_reopen(&self, callback: Box<dyn FnMut()>) {
