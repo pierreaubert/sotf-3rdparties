@@ -42,21 +42,21 @@ optional = true
 anyhow = "1.0.86"
 async-task = "4.7"
 ctor = "1.0.6"
-etagere = "0.2"
+etagere = "0.3"
 futures = "0.3.32"
 inventory = "0.3.19"
 itertools = "0.15.0"
 num_cpus = "1.13"
 parking = "2.0.0"
-parking_lot = "0.12.1"
+parking_lot = "0.13"
 profiling = "1"
-rand = "0.9"
+rand = "0.10"
 raw-window-handle = "0.6"
 regex = "1.5"
 ttf-parser = "0.25"
 seahash = "4.1"
 slotmap = "1.0.6"
-taffy = "=0.14.0"
+taffy = "=0.15.0"
 thiserror = "2.0.12"
 waker-fn = "1.2.0"
 lyon = "1.0"
@@ -66,7 +66,7 @@ heapless = "0.9.2"
 async-channel = "2.5.0"
 
 [dependencies.accesskit]
-version = "0.24.0"
+version = "0.25"
 features = ["enumn"]
 
 [dependencies.backtrace]
@@ -213,7 +213,7 @@ default-features = false
 features = ["std"]
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
-pollster = "0.4.0"
+pollster = "1"
 
 [target.'cfg(not(target_family = "wasm"))'.dev-dependencies.http_client]
 workspace = true
@@ -224,7 +224,7 @@ workspace = true
 features = ["attr-macro"]
 
 [target.'cfg(target_family = "wasm")'.dependencies.getrandom]
-version = "0.3.4"
+version = "0.4"
 features = ["wasm_js"]
 
 [target.'cfg(target_family = "wasm")'.dependencies.uuid]
@@ -254,7 +254,7 @@ features = ["Win32_Foundation", "Win32_System_Power", "Win32_System_RemoteDeskto
 [dev-dependencies]
 backtrace = "0.3"
 env_logger = "0.11"
-rand = "0.9"
+rand = "0.10"
 unicode-segmentation = "1.10"
 
 [dev-dependencies.bench_metrics]

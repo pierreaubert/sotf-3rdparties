@@ -21,6 +21,11 @@ itertools = "0.15"
 log = "0.4.28"
 proptest = "1.9"
 rand = "0.10.2"
+# Held at the 0.62 line (issue #6 Phase B): `windows` latest is 0.62.2 and
+# it requires windows-core 0.62.2 exactly. windows-core/-numerics/-registry
+# 0.100.0 exist but have no matching `windows` crate yet; mixing them
+# duplicates windows-core and breaks type identity across the interop
+# surface. Revisit when `windows` publishes a 0.100-line release.
 windows-core = "0.62"
 collections = { package = "sotf-collections", path = "crates/collections", version = "0.1.0" }
 gpui = { package = "sotf-gpui-toolkit-gpui", path = "crates/gpui", version = "0.2.3", default-features = false }
@@ -46,7 +51,7 @@ default-features = false
 features = ["bmp", "gif", "ico", "jpeg", "png", "pnm", "tiff", "webp"]
 
 [workspace.dependencies.parking_lot]
-version = "0.12"
+version = "0.13"
 features = ["deadlock_detection"]
 
 [workspace.dependencies.smallvec]

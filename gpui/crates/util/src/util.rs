@@ -724,7 +724,9 @@ pub fn dev_repo_root() -> Option<&'static std::path::Path> {
 /// detail). Hidden from the public API.
 #[doc(hidden)]
 pub mod __rust_embed {
-    pub use rust_embed::{EmbeddedFile, Filenames, Metadata, RustEmbed, flate, utils};
+    pub use rust_embed::{
+        EmbeddedCompressedFile, EmbeddedFile, Filenames, Metadata, RustEmbed, flate, utils,
+    };
 }
 
 /// Backs the dev arm of [`fs_embed!`]'s `iter`: every file under the root-relative
@@ -851,6 +853,14 @@ macro_rules! __fs_embed {
 
         #[cfg(debug_assertions)]
         impl $crate::__rust_embed::RustEmbed for $name {
+            fn compressed(
+                _file_path: &str,
+            ) -> ::core::option::Option<$crate::__rust_embed::EmbeddedCompressedFile> {
+                // Dev builds serve files uncompressed from the filesystem;
+                // callers fall back to `get`.
+                ::core::option::Option::None
+            }
+
             fn get(
                 file_path: &str,
             ) -> ::core::option::Option<$crate::__rust_embed::EmbeddedFile> {
@@ -1098,7 +1108,9 @@ mod tests {
     crate::fs_embed! {
         struct FsEmbedTestAssets,
         crate_relative = "src",
-        root_relative = "crates/util/src",
+        // Upstream uses "crates/util/src" (util at the Zed repo root); in
+        // sotf-3rdparties the GPUI tree lives under gpui/.
+        root_relative = "gpui/crates/util/src",
         include = ["*.rs"],
         exclude = ["test/**/*"],
     }
