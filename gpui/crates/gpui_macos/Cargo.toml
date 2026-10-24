@@ -39,7 +39,7 @@ workspace = true
 default-features = false
 
 [target.'cfg(target_os = "macos")'.dependencies]
-accesskit_macos = "0.26.0"
+accesskit_macos = "0.27"
 anyhow = "1.0.86"
 block2 = "0.6"
 cocoa = "0.27"
@@ -57,7 +57,7 @@ parking_lot = "0.13"
 raw-window-handle = "0.6"
 
 [target.'cfg(target_os = "macos")'.dependencies.accesskit]
-version = "0.24.0"
+version = "0.25"
 features = ["enumn"]
 
 [target.'cfg(target_os = "macos")'.dependencies.collections]

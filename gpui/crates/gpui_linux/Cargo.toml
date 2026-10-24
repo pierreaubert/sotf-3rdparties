@@ -46,11 +46,11 @@ notify-rust = "4"
 raw-window-handle = "0.6"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.accesskit]
-version = "0.24.0"
+version = "0.25"
 features = ["enumn"]
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.accesskit_unix]
-version = "0.22.1"
+version = "0.24"
 optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.collections]
