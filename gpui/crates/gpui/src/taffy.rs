@@ -510,10 +510,12 @@ impl ToTaffy<taffy::style::Style> for Style {
             margin: self.margin.to_taffy(rem_size, scale_factor),
             padding: self.padding.to_taffy(rem_size, scale_factor),
             border: border_widths_to_taffy(&self.border_widths, rem_size, scale_factor),
-            align_items: self.align_items.map(|x| x.into()),
+            // taffy 0.15: these fields are no longer Option; the type's
+            // Default (NORMAL) is the old None (layout-mode default).
+            align_items: self.align_items.map(Into::into).unwrap_or_default(),
             align_self: self.align_self.map(|x| x.into()),
-            align_content: self.align_content.map(|x| x.into()),
-            justify_content: self.justify_content.map(|x| x.into()),
+            align_content: self.align_content.map(Into::into).unwrap_or_default(),
+            justify_content: self.justify_content.map(Into::into).unwrap_or_default(),
             gap: self.gap.to_taffy(rem_size, scale_factor),
             flex_direction: self.flex_direction.into(),
             flex_wrap: self.flex_wrap.into(),
