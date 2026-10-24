@@ -48,7 +48,7 @@ inventory = "0.3.19"
 itertools = "0.15.0"
 num_cpus = "1.13"
 parking = "2.0.0"
-parking_lot = "0.12.1"
+parking_lot = "0.13"
 profiling = "1"
 rand = "0.9"
 raw-window-handle = "0.6"
@@ -213,7 +213,7 @@ default-features = false
 features = ["std"]
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
-pollster = "0.4.0"
+pollster = "1"
 
 [target.'cfg(not(target_family = "wasm"))'.dev-dependencies.http_client]
 workspace = true
@@ -224,7 +224,7 @@ workspace = true
 features = ["attr-macro"]
 
 [target.'cfg(target_family = "wasm")'.dependencies.getrandom]
-version = "0.3.4"
+version = "0.4"
 features = ["wasm_js"]
 
 [target.'cfg(target_family = "wasm")'.dependencies.uuid]
