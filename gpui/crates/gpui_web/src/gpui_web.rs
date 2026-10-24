@@ -3,6 +3,9 @@
 //! force either backend with `WebBackendPreference`. Opening a second top-level window, or
 //! reopening one after it closes, returns `WebWindowError`.
 
+// Local patch (see VENDORED.md): default-lint noise under `-D warnings`; upstream code unchanged.
+#![allow(clippy::unnecessary_lazy_evaluations)]
+
 pub mod canvas_fallback;
 
 pub use canvas_fallback::CanvasFontFallback;

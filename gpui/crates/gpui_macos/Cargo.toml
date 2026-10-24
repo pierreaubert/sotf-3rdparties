@@ -143,3 +143,9 @@ features = ["test-support"]
 [target.'cfg(target_os = "macos")'.dev-dependencies.gpui_apple]
 workspace = true
 features = ["test-support"]
+
+# objc 0.2's msg_send!/sel! macros use `cfg_attr(feature = "cargo-clippy")`;
+# without declaring that feature value, every expansion in this crate warns
+# unexpected_cfgs.
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(feature, values(\"cargo-clippy\"))"] }

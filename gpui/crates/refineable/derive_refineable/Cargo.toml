@@ -4,6 +4,10 @@
 "edition" = "2024"
 "license" = "Apache-2.0"
 "description" = "A derive macro for creating refinement types in Rust"
+"repository" = { "workspace" = true }
+"readme" = { "workspace" = true }
+"keywords" = { "workspace" = true }
+"categories" = { "workspace" = true }
 
 ["lints"]
 

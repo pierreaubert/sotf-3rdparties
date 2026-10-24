@@ -2039,6 +2039,9 @@ mod tests {
             .measurement_time(std::time::Duration::from_millis(1))
     }
 
+    // FakeCounter's Intermediate is (); binding it mirrors the real
+    // start/end measurement pattern this test exercises.
+    #[allow(clippy::let_unit_value)]
     #[test]
     fn erased_measurement_preserves_wrapped_values() {
         let counter = Arc::new(AtomicU64::new(0));

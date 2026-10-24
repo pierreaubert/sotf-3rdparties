@@ -248,6 +248,7 @@ impl MetalRenderer {
         Self::system_default_device()
     }
 
+    #[cfg(target_os = "ios")]
     fn system_default_device() -> metal::Device {
         metal::Device::system_default().unwrap_or_else(|| {
             log::error!("unable to access a compatible graphics device");
