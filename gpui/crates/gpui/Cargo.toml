@@ -50,7 +50,7 @@ num_cpus = "1.13"
 parking = "2.0.0"
 parking_lot = "0.13"
 profiling = "1"
-rand = "0.9"
+rand = "0.10"
 raw-window-handle = "0.6"
 regex = "1.5"
 ttf-parser = "0.25"
@@ -254,7 +254,7 @@ features = ["Win32_Foundation", "Win32_System_Power", "Win32_System_RemoteDeskto
 [dev-dependencies]
 backtrace = "0.3"
 env_logger = "0.11"
-rand = "0.9"
+rand = "0.10"
 unicode-segmentation = "1.10"
 
 [dev-dependencies.bench_metrics]
