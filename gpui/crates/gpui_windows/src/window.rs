@@ -76,6 +76,8 @@ pub struct WindowsWindowState {
 
     pub click_state: ClickState,
     pub current_cursor: Cell<Option<HCURSOR>>,
+    /// Shared with [`WindowsPlatformState::cursor_visible`].
+    pub cursor_visible: Arc<AtomicBool>,
     pub nc_button_pressed: Cell<Option<u32>>,
 
     pub display: Cell<WindowsDisplay>,
@@ -113,6 +115,7 @@ impl WindowsWindowState {
         directx_devices: &DirectXDevices,
         window_params: &CREATESTRUCTW,
         current_cursor: Option<HCURSOR>,
+        cursor_visible: Arc<AtomicBool>,
         display: WindowsDisplay,
         min_size: Option<Size<Pixels>>,
         appearance: WindowAppearance,
@@ -177,6 +180,7 @@ impl WindowsWindowState {
             force_render_pending: Cell::new(false),
             click_state,
             current_cursor: Cell::new(current_cursor),
+            cursor_visible,
             nc_button_pressed: Cell::new(nc_button_pressed),
             display: Cell::new(display),
             fullscreen: Cell::new(fullscreen),
@@ -267,6 +271,7 @@ impl WindowsWindowInner {
             &context.directx_devices,
             cs,
             context.current_cursor,
+            context.cursor_visible.clone(),
             context.display,
             context.min_size,
             context.appearance,
@@ -418,6 +423,7 @@ struct WindowCreateContext {
     min_size: Option<Size<Pixels>>,
     executor: ForegroundExecutor,
     current_cursor: Option<HCURSOR>,
+    cursor_visible: Arc<AtomicBool>,
     drop_target_helper: IDropTargetHelper,
     validation_number: usize,
     main_receiver: PriorityQueueReceiver<RunnableVariant>,
@@ -446,6 +452,7 @@ impl WindowsWindow {
             icon,
             executor,
             current_cursor,
+            cursor_visible,
             drop_target_helper,
             validation_number,
             main_receiver,
@@ -528,6 +535,7 @@ impl WindowsWindow {
             min_size: params.window_min_size,
             executor,
             current_cursor,
+            cursor_visible,
             drop_target_helper,
             validation_number,
             main_receiver,
@@ -604,6 +612,7 @@ impl WindowsWindow {
             icon,
             executor,
             current_cursor,
+            cursor_visible,
             drop_target_helper,
             validation_number,
             main_receiver,
@@ -651,6 +660,7 @@ impl WindowsWindow {
             min_size: params.window_min_size,
             executor,
             current_cursor,
+            cursor_visible,
             // Stored but unused: the foreign path skips drag-drop
             // registration so host drop handling stays in charge.
             drop_target_helper,
