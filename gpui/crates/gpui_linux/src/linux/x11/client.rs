@@ -571,8 +571,8 @@ impl X11Connection {
     /// common state because the host drives dispatch via
     /// [`X11Client::dispatch_pending`] instead of a platform `run`.
     pub(crate) fn new_foreign() -> anyhow::Result<Self> {
-        let event_loop = calloop::EventLoop::try_new()
-            .context("X11 foreign: event loop init failed")?;
+        let event_loop =
+            calloop::EventLoop::try_new().context("X11 foreign: event loop init failed")?;
         let (common, main_receiver, power_receiver) =
             crate::linux::LinuxCommon::new(event_loop.get_signal());
         let common = Rc::new(RefCell::new(common));
@@ -906,10 +906,7 @@ impl X11Client {
     }
 
     /// Resolve a live window by its GPUI handle (foreign-parent pump/resize).
-    pub(crate) fn window_by_handle(
-        &self,
-        handle: AnyWindowHandle,
-    ) -> Option<X11WindowStatePtr> {
+    pub(crate) fn window_by_handle(&self, handle: AnyWindowHandle) -> Option<X11WindowStatePtr> {
         let state = self.0.borrow();
         state.windows.values().find_map(|window_reference| {
             let window = &window_reference.window;
@@ -980,9 +977,7 @@ impl X11Client {
         let Some(mut event_loop) = self.0.borrow_mut().foreign_event_loop.take() else {
             return;
         };
-        event_loop
-            .dispatch(Some(Duration::ZERO), &mut ())
-            .log_err();
+        event_loop.dispatch(Some(Duration::ZERO), &mut ()).log_err();
         self.0.borrow_mut().foreign_event_loop = Some(event_loop);
     }
 

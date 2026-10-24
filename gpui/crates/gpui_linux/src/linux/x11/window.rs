@@ -659,11 +659,7 @@ impl X11WindowState {
         // app path keeps the root parent and the +2 default-position shift.
         let (create_parent, origin_x, origin_y) = match foreign {
             Some(foreign) => (foreign.parent, 0, 0),
-            None => (
-                visual_set.root,
-                bounds.origin.x.0 + 2,
-                bounds.origin.y.0,
-            ),
+            None => (visual_set.root, bounds.origin.x.0 + 2, bounds.origin.y.0),
         };
 
         check_reply(

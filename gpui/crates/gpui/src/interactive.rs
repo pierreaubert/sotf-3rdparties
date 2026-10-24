@@ -931,8 +931,8 @@ mod test {
 
     use crate::{
         self as gpui, AppContext as _, Context, FocusHandle, InteractiveElement, IntoElement,
-        KeyBinding, Keystroke, Modifiers, ParentElement, PointerDevice, PointerEvent,
-        PointerPhase, Render, Styled, TestAppContext, Window, div, point, px,
+        KeyBinding, Keystroke, Modifiers, ParentElement, PointerDevice, PointerEvent, PointerPhase,
+        Render, Styled, TestAppContext, Window, div, point, px,
     };
     use std::cell::RefCell;
     use std::rc::Rc;

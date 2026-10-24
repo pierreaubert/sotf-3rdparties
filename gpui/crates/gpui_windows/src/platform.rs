@@ -11,9 +11,9 @@ use std::{
 };
 
 use ::util::{ResultExt, paths::SanitizedPath};
+use ::util::{get_powershell, new_std_command};
 use anyhow::{Context as _, Result, anyhow};
 use futures::channel::oneshot::Receiver;
-use ::util::{get_powershell, new_std_command};
 use itertools::Itertools;
 use parking_lot::RwLock;
 use smallvec::SmallVec;

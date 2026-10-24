@@ -324,7 +324,10 @@ mod tests {
             },
         );
         let rendered = out.to_string();
-        assert!(rendered.contains("apply_seed_to_proptest_config"), "{rendered}");
+        assert!(
+            rendered.contains("apply_seed_to_proptest_config"),
+            "{rendered}"
+        );
     }
 
     #[test]

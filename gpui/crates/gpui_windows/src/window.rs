@@ -701,7 +701,9 @@ impl WindowsWindow {
             DevicePixels((client.right - client.left).max(1)),
             DevicePixels((client.bottom - client.top).max(1)),
         );
-        this.state.logical_size.set(device_size.to_pixels(info.scale));
+        this.state
+            .logical_size
+            .set(device_size.to_pixels(info.scale));
         unsafe {
             SetWindowPos(
                 hwnd,
