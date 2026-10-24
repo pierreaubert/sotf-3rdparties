@@ -586,6 +586,9 @@ impl WaylandForeignWindowStatePtr {
         self.state.borrow().destroyed
     }
 
+    // Part of the foreign-parent surface mirroring handle()/is_destroyed();
+    // the Wayland host-resize path that consumes it is not wired yet.
+    #[allow(dead_code)]
     fn surface_id(&self) -> ObjectId {
         self.state.borrow().surface.id()
     }
@@ -639,6 +642,9 @@ impl WaylandForeignWindowStatePtr {
         }
     }
 
+    // Wayland foreign-parent IME forwarding is not wired yet; kept with
+    // the rest of the host-input surface (see handle_input).
+    #[allow(dead_code)]
     pub(crate) fn handle_ime_unmark(&self) {
         let mut state = self.state.borrow_mut();
         if let Some(mut input_handler) = state.input_handler.take() {

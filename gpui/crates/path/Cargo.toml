@@ -31,3 +31,8 @@ tendril = "0.5"
 
 [dev-dependencies]
 tempfile = "3.20.0"
+
+# Intentionally not inheriting [workspace.lints]: it enables the clippy
+# pedantic group, which this vendored upstream code does not target.
+# The zero-warnings gate (issue #6) runs default rustc/clippy lints.
+[lints]

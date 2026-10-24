@@ -30,6 +30,9 @@ Deltas that remain local after the merge:
   breaks the DPR media-query Rc cycle, removes canvas, drops the IME
   mirror, marks the lifecycle closed). The pre-1.25.2 local Drop and its
   hidden input element are gone; upstream uses `ime_mirror` instead.
+- Crate-root `#![allow(clippy::unnecessary_lazy_evaluations)]` in
+  `src/gpui_web.rs` (issue #6 Phase C, zero-warnings gate; upstream code
+  unchanged).
 
 The "Local patches" and "Deliberately not ported" sections below describe
 the pre-1.25.2 (v1.9.0-based) state. Several items listed there (e.g. the

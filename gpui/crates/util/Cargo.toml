@@ -131,3 +131,8 @@ path = "../util_macros"
 [dev-dependencies.path]
 workspace = true
 features = ["test-support"]
+
+# Intentionally not inheriting [workspace.lints]: it enables the clippy
+# pedantic group, which this vendored upstream code does not target.
+# The zero-warnings gate (issue #6) runs default rustc/clippy lints.
+[lints]
