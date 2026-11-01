@@ -1,10 +1,23 @@
 #!/usr/bin/env python3
-"""Check fork documentation and the aggregate's active local patch paths."""
+"""Check fork documentation and the aggregate's reviewed patch sources."""
 
 import json
 from pathlib import Path
 import subprocess
 import tomllib
+
+
+def is_block_compatibility_patch(source: str, package: str, dependency: object) -> bool:
+    """Recognize the retained upstream-name patch; see Capture's manifest.
+
+    The current local fork is named sotf-block and cannot replace block in
+    upstream consumers. Keep this exception exact so other Git pins still
+    require review.
+    """
+    return source == "crates-io" and package == "block" and dependency == {
+        "git": "https://github.com/pierreaubert/sotf-3rdparties",
+        "rev": "5a4634af0916b5f53effa5ef6340efd90af32285",
+    }
 
 
 def main() -> None:
@@ -52,6 +65,8 @@ def main() -> None:
             for source, entries in config.get("patch", {}).items():
                 for package, dependency in entries.items():
                     patches += 1
+                    if is_block_compatibility_patch(source, package, dependency):
+                        continue
                     if not isinstance(dependency, dict) or "path" not in dependency:
                         errors.append(f"{manifest}: {source}/{package} is not a local path")
                         continue
@@ -65,7 +80,7 @@ def main() -> None:
     check_release_naming(collection, errors)
     if errors:
         raise SystemExit("\n".join(errors))
-    print(f"Verified {len(directories)} fork records, licenses and {patches} active local patch declarations.")
+    print(f"Verified {len(directories)} fork records, licenses and {patches} reviewed patch declarations.")
 
 
 def check_release_naming(collection: Path, errors: list[str]) -> None:

@@ -746,8 +746,28 @@ pub fn __fs_embed_iter(
 }
 
 #[cfg(all(debug_assertions, not(feature = "debug-embed")))]
+fn fs_embed_root(root_relative: &str) -> Option<std::path::PathBuf> {
+    let preferred = dev_repo_root().map(|root| root.join(root_relative));
+    if preferred.as_ref().is_some_and(|root| root.is_dir()) {
+        return preferred;
+    }
+
+    // A shared target directory can place the executable under a different
+    // repository. Use the runner's checkout when it contains the requested assets.
+    std::env::current_dir()
+        .ok()
+        .and_then(|cwd| {
+            cwd.ancestors()
+                .find(|dir| dir.join(".git").exists())
+                .map(|root| root.join(root_relative))
+        })
+        .filter(|root| root.is_dir())
+        .or(preferred)
+}
+
+#[cfg(all(debug_assertions, not(feature = "debug-embed")))]
 fn fs_embed_file_names(root_relative: &str, includes: &[&str], excludes: &[&str]) -> Vec<String> {
-    let Some(root) = dev_repo_root().map(|root| root.join(root_relative)) else {
+    let Some(root) = fs_embed_root(root_relative) else {
         return Vec::new();
     };
     let matcher = rust_embed::utils::PathMatcher::new(includes, excludes);
@@ -771,9 +791,8 @@ pub fn __fs_embed_get(
     if !matcher.is_path_included(file_path) {
         return None;
     }
-    let root = dev_repo_root()
-        .expect("dev asset loading requires running from within the checkout")
-        .join(root_relative);
+    let root = fs_embed_root(root_relative)
+        .expect("dev asset loading requires running from within the checkout");
     rust_embed::utils::read_file_from_fs(&root.join(file_path)).ok()
 }
 
