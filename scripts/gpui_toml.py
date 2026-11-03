@@ -15,6 +15,7 @@ TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 """
 import json
+import re
 
 class InlineTable(dict):
     """A dict rendered as a TOML inline table instead of a section."""
@@ -30,17 +31,15 @@ def _toml_value(v) -> str:
     if isinstance(v, list):
         return "[" + ", ".join(_toml_value(i) for i in v) + "]"
     if isinstance(v, InlineTable):
-        inner = ", ".join(f"{k} = {_toml_value(x)}" for k, x in v.items())
+        inner = ", ".join(f"{_quote_segment(k)} = {_toml_value(x)}" for k, x in v.items())
         return "{ " + inner + " }" if inner else "{}"
     raise TypeError(f"unsupported TOML value: {v!r}")
 
 
 def _quote_segment(seg: str) -> str:
-    if seg and all(c.isalnum() or c in "-_" for c in seg):
+    if re.fullmatch(r"[A-Za-z0-9_-]+", seg):
         return seg
-    if "'" in seg:
-        raise ValueError(f"cannot quote TOML segment: {seg!r}")
-    return f"'{seg}'"
+    return json.dumps(seg)
 
 
 def dumps_toml(doc: dict) -> str:
@@ -56,7 +55,7 @@ def dumps_toml(doc: dict) -> str:
         if prefix and scalars:
             lines.append("[" + ".".join(_quote_segment(s) for s in prefix) + "]")
         for k, v in scalars.items():
-            lines.append(f"{k} = {_toml_value(v)}")
+            lines.append(f"{_quote_segment(k)} = {_toml_value(v)}")
         if scalars:
             lines.append("")
         for name, child in children.items():

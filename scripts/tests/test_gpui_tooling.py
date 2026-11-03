@@ -9,9 +9,17 @@ import unittest
 SCRIPTS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SCRIPTS))
 import gpui_provenance
+from gpui_toml import InlineTable, dumps_toml
 
 
 class GpuiToolingTest(unittest.TestCase):
+    def test_emitter_preserves_quoted_keys(self):
+        document = {
+            "features": {"my.feature": ["a"], "contains'quote": [], "unicode-é": []},
+            "metadata": {"table.name": InlineTable({"key.with.dot": "value", "space key": True})},
+        }
+        self.assertEqual(tomllib.loads(dumps_toml(document)), document)
+
     def test_restoration_in_isolated_tree(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
