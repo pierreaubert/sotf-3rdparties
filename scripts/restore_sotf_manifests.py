@@ -26,10 +26,11 @@ Run from the sotf-3rdparties worktree root:
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import sys
 import tomllib
 from pathlib import Path
+
+import gpui_toml
 
 # New crates admitted at v1.25.2: upstream lib name -> sotf package name.
 NEW_CRATE_PACKAGES = {
@@ -85,20 +86,6 @@ FORCE_NON_OPTIONAL = {("http_client", "log"), ("util", "tempfile")}
 FORCE_UPSTREAM_DEPS = set()
 DEP_SECTIONS = ("dependencies", "dev-dependencies", "build-dependencies")
 REPO = "https://github.com/pierreaubert/sotf-3rdparties"
-
-
-def load_emitter():
-    """Reuse the importer's TOML emitter (single source of formatting)."""
-    for candidate in (
-        Path("/Volumes/home_worktrees/gpui-toolkit-gpui-v1.25.2/scripts/import_gpui_upstream.py"),
-        Path("/Volumes/home_tmp/src/gpui-toolkit/scripts/import_gpui_upstream.py"),
-    ):
-        if candidate.is_file():
-            spec = importlib.util.spec_from_file_location("importer", candidate)
-            module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(module)
-            return module
-    raise SystemExit("error: import_gpui_upstream.py not found for TOML emitter")
 
 
 def read_toml(path: Path) -> dict:
@@ -272,7 +259,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--crates", default="gpui/crates", help="destination crates dir")
     parser.add_argument("--only", action="append", default=[], help="limit to crate name(s)")
     args = parser.parse_args(argv)
-    emitter = load_emitter()
+    emitter = gpui_toml
     pre_root = Path(args.pre) / "gpui" / "crates"
     regen_root = Path(args.regen)
     dest_root = Path(args.crates)

@@ -6,6 +6,8 @@ from pathlib import Path
 import subprocess
 import tomllib
 
+from gpui_provenance import update as check_gpui_provenance
+
 
 def is_block_compatibility_patch(source: str, package: str, dependency: object) -> bool:
     """Recognize the retained upstream-name patch; see Capture's manifest.
@@ -77,6 +79,7 @@ def main() -> None:
                         errors.append(f"{manifest}: missing patched crate {target}")
                     elif target.relative_to(collection).parts[0] not in directories:
                         errors.append(f"{manifest}: undocumented patch {target}")
+    errors.extend(check_gpui_provenance(collection))
     check_release_naming(collection, errors)
     if errors:
         raise SystemExit("\n".join(errors))
