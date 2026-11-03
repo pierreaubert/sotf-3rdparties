@@ -25,6 +25,7 @@ use {
     crate::event_loop::{EventLoop, MainThreadExecutor, TASK_QUEUE_CAPACITY},
     crossbeam::queue::ArrayQueue,
     libc,
+    std::sync::Weak,
     vst3_sys::gui::linux::{FileDescriptor, IEventHandler, IRunLoop},
 };
 
