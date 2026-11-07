@@ -23,5 +23,6 @@ pub use img::*;
 pub use list::*;
 pub use surface::*;
 pub use svg::*;
+pub(crate) use text::TextLayoutInner;
 pub use text::*;
 pub use uniform_list::*;

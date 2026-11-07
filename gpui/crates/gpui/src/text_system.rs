@@ -228,13 +228,13 @@ impl Drop for MissingGlyphReceiver {
 
 /// The GPUI text rendering sub system.
 pub struct TextSystem {
-    platform_text_system: Arc<dyn PlatformTextSystem>,
-    font_ids_by_font: RwLock<FxHashMap<Font, Result<FontId>>>,
+    pub(crate) platform_text_system: Arc<dyn PlatformTextSystem>,
+    pub(crate) font_ids_by_font: RwLock<FxHashMap<Font, Result<FontId>>>,
     font_metrics: RwLock<FxHashMap<FontId, FontMetrics>>,
     raster_bounds: RwLock<FxHashMap<RenderGlyphParams, Bounds<DevicePixels>>>,
     wrapper_pool: Mutex<FxHashMap<FontIdWithSize, Vec<LineWrapper>>>,
     font_runs_pool: Mutex<Vec<Vec<FontRun>>>,
-    fallback_font_stack: SmallVec<[Font; 2]>,
+    pub(crate) fallback_font_stack: SmallVec<[Font; 2]>,
     font_generation: Arc<AtomicUsize>,
     missing_glyph_reporter: Arc<MissingGlyphReporter>,
     missing_glyph_receiver: Mutex<Option<MissingGlyphReceiver>>,
@@ -293,6 +293,7 @@ impl TextSystem {
     /// Cached font resolution and line layouts are invalidated after installation.
     /// Layouts already in progress may complete against the previous font set.
     pub fn add_fonts(&self, fonts: Vec<Cow<'static, [u8]>>) -> Result<()> {
+        crate::fast::text::fonts_changed();
         self.platform_text_system.add_fonts(fonts)?;
         self.font_ids_by_font.write().clear();
         self.missing_glyph_reporter.reset();
@@ -368,6 +369,12 @@ impl TextSystem {
     ///
     /// Panics if the font and none of the fallbacks can be resolved.
     pub fn resolve_font(&self, font: &Font) -> FontId {
+        crate::fast::text::resolve_font(self, font)
+    }
+
+    /// [`Self::resolve_font`] without the lately-resolved cache in
+    /// `fast::text`: the font, or else the first fallback that loads.
+    pub(crate) fn resolve_font_uncached(&self, font: &Font) -> FontId {
         if let Ok(font_id) = self.font_id(font) {
             return font_id;
         }
@@ -462,14 +469,14 @@ impl TextSystem {
     ///
     /// Uses the width of the `m` character in the given font and size.
     pub fn em_width(&self, font_id: FontId, font_size: Pixels) -> Result<Pixels> {
-        Ok(self.typographic_bounds(font_id, font_size, 'm')?.size.width)
+        crate::fast::em_metrics::em_width(self, font_id, font_size)
     }
 
     /// Returns the advance width of an `em`.
     ///
     /// Uses the advance width of the `m` character in the given font and size.
     pub fn em_advance(&self, font_id: FontId, font_size: Pixels) -> Result<Pixels> {
-        Ok(self.advance(font_id, font_size, 'm')?.width)
+        crate::fast::em_metrics::em_advance(self, font_id, font_size)
     }
 
     /// Returns the width of an `ch`.
@@ -611,7 +618,7 @@ impl TextSystem {
 /// The GPUI text layout subsystem.
 #[derive(Deref)]
 pub struct WindowTextSystem {
-    line_layout_cache: LineLayoutCache,
+    pub(crate) line_layout_cache: LineLayoutCache,
     #[deref]
     text_system: Arc<TextSystem>,
 }
@@ -776,7 +783,7 @@ impl WindowTextSystem {
         let mut process_line = |line_text: SharedString, line_start, line_end| {
             font_runs.clear();
 
-            let mut decoration_runs = <Vec<DecorationRun>>::with_capacity(32);
+            let mut decoration_runs = crate::fast::text::decoration_runs();
             let mut run_start = line_start;
             while run_start < line_end {
                 let Some(run) = runs.peek_mut() else {

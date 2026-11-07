@@ -44,6 +44,7 @@ mod app;
 mod arena;
 mod asset_cache;
 mod assets;
+#[path = "fast/bounds_tree.rs"]
 mod bounds_tree;
 mod color;
 /// The default colors used by GPUI.
@@ -54,6 +55,18 @@ mod debug_overlay;
 mod element;
 mod elements;
 mod executor;
+// The gpui-fast port (see crates/gpui/PATCHES.md). Ported files are kept
+// byte-close to gpui-fast for upstream sync, so lints its style trips are
+// allowed here rather than edited into the copies; the historic
+// dynamic-textures and window-composition parts are not ported, which
+// leaves a few helpers unused.
+#[allow(
+    dead_code,
+    clippy::assign_op_pattern,
+    clippy::empty_line_after_doc_comments,
+    clippy::large_enum_variant
+)]
+mod fast;
 mod platform_scheduler;
 pub(crate) use platform_scheduler::PlatformScheduler;
 mod geometry;
@@ -220,6 +233,11 @@ macro_rules! bench_main {
         $crate::bench_main!(allocator = ::std::alloc::System; $($groups)*);
     };
 }
+pub use fast::layers::scene::{
+    LAYER_TILE_TEXTURE_BASE, LayerContent, LayerFrame, LayerKey, SceneLayers, TileCoord,
+    decode_layer_tile, layer_tile_id, layer_tile_texture_id, set_tile_layers_supported,
+};
+pub use fast::stats::LayoutStats;
 pub use gpui_shared_string::*;
 pub use gpui_util::arc_cow::ArcCow;
 pub use http_client;
