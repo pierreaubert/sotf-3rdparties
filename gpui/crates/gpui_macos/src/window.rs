@@ -138,6 +138,10 @@ unsafe fn build_classes() {
                 handle_key_equivalent as extern "C" fn(&Object, Sel, id) -> BOOL,
             );
             decl.add_method(
+                sel!(gpuiHandleVolumeKey:),
+                handle_volume_key as extern "C" fn(&Object, Sel, id) -> BOOL,
+            );
+            decl.add_method(
                 sel!(keyDown:),
                 handle_key_down as extern "C" fn(&Object, Sel, id),
             );
@@ -2643,6 +2647,33 @@ unsafe fn is_ime_input_source_active() -> bool {
 
         is_input_mode && !is_ascii_capable
     }
+}
+
+extern "C" fn handle_volume_key(this: &Object, _: Sel, native_event: id) -> BOOL {
+    // SAFETY: our selector is registered only on GPUIView, whose ivar owns the
+    // window state. NSApplication keeps the view and NSEvent live during dispatch.
+    let (window_state, event) = unsafe {
+        let event_type: NSUInteger = msg_send![native_event, type];
+        if event_type != 14 {
+            // NSEventTypeSystemDefined
+            return NO;
+        }
+        (
+            get_window_state(this),
+            platform_input_from_native(native_event, None),
+        )
+    };
+    let Some(event) = event else {
+        return NO;
+    };
+    // Auxiliary keys bypass text composition: NSEvent's keyboard-only accessors
+    // cannot be used on system-defined events. Release the lock across dispatch.
+    let mut callback = window_state.lock().event_callback.take();
+    let handled = callback
+        .as_mut()
+        .is_some_and(|callback| !callback(event).propagate);
+    window_state.lock().event_callback = callback;
+    if handled { YES } else { NO }
 }
 
 extern "C" fn handle_key_event(this: &Object, native_event: id, key_equivalent: bool) -> BOOL {

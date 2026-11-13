@@ -75,12 +75,39 @@ const MAC_PLATFORM_IVAR: &str = "platform";
 static mut APP_CLASS: *const Class = ptr::null();
 static mut APP_DELEGATE_CLASS: *const Class = ptr::null();
 
+extern "C" fn send_event(this: &Object, _: Sel, event: id) {
+    // SAFETY: registered as GPUIApplication's sendEvent: override. AppKit owns
+    // both objects throughout this main-thread call. Probe the responder before
+    // invoking our private selector; all other events retain NSApplication routing.
+    unsafe {
+        let event_type: NSUInteger = msg_send![event, type];
+        if event_type == 14 {
+            // NSEventTypeSystemDefined
+            let window: id = msg_send![this, keyWindow];
+            let responder: id = msg_send![window, firstResponder];
+            let accepts: BOOL =
+                msg_send![responder, respondsToSelector: sel!(gpuiHandleVolumeKey:)];
+            if accepts == YES {
+                let handled: BOOL = msg_send![responder, gpuiHandleVolumeKey: event];
+                if handled == YES {
+                    return;
+                }
+            }
+        }
+        let _: () = msg_send![super(this, class!(NSApplication)), sendEvent: event];
+    }
+}
+
 #[ctor(unsafe)]
 unsafe fn build_classes() {
     unsafe {
         APP_CLASS = {
             let mut decl = ClassDecl::new("GPUIApplication", class!(NSApplication)).unwrap();
             decl.add_ivar::<*mut c_void>(MAC_PLATFORM_IVAR);
+            decl.add_method(
+                sel!(sendEvent:),
+                send_event as extern "C" fn(&Object, Sel, id),
+            );
             decl.register()
         }
     };
