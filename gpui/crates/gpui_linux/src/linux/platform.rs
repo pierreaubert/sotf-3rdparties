@@ -316,6 +316,7 @@ impl LinuxPlatform {
         };
         let event_loop = EventLoop::try_new().expect("failed to create Linux event loop");
         let (common, main_receiver, power_receiver) = LinuxCommon::new(event_loop.get_signal());
+        let signal = common.signal.clone();
         let common = Rc::new(RefCell::new(common));
         let loop_handle = event_loop.handle();
         LinuxCommon::register_sources(&common, &loop_handle, main_receiver, power_receiver)
@@ -324,7 +325,7 @@ impl LinuxPlatform {
             common,
             event_loop: RefCell::new(Some(event_loop)),
             loop_handle,
-            connection: RefCell::new(DisplayConnection::Headless(HeadlessConnection::new())),
+            connection: RefCell::new(DisplayConnection::Headless(HeadlessConnection::new(signal))),
             allowed_modes,
             initial_windowing: RefCell::new(None),
             startup_environment: RefCell::new(Some(startup)),
@@ -469,7 +470,10 @@ impl LinuxPlatform {
         } else {
             match mode {
                 WindowingRequest::Headless => {
-                    self.replace_connection(DisplayConnection::Headless(HeadlessConnection::new()));
+                    let signal = self.common.borrow().signal.clone();
+                    self.replace_connection(DisplayConnection::Headless(HeadlessConnection::new(
+                        signal,
+                    )));
                     Ok(())
                 }
                 WindowingRequest::Windowed(environment) => {
@@ -541,7 +545,8 @@ impl LinuxPlatform {
 
 impl Drop for LinuxPlatform {
     fn drop(&mut self) {
-        self.replace_connection(DisplayConnection::Headless(HeadlessConnection::new()));
+        let signal = self.common.borrow().signal.clone();
+        self.replace_connection(DisplayConnection::Headless(HeadlessConnection::new(signal)));
         #[cfg(feature = "x11")]
         crate::linux::wait_for_clipboard_handovers();
     }
@@ -614,8 +619,32 @@ impl Platform for LinuxPlatform {
             .borrow_mut()
             .take()
             .expect("App is already running");
+        // Headless windows have no compositor to pace frames: drive
+        // them from a vsync-like timer (the per-iteration call below
+        // covers mode switches into headless after run() started).
+        // Registered only when starting headless so windowed sessions
+        // never pay a 60 Hz wakeup.
+        if let Some(windows) = self.connection.borrow().headless_windows() {
+            self.loop_handle
+                .insert_source(
+                    calloop::timer::Timer::immediate(),
+                    move |mut instant, (), _| {
+                        super::headless::drive_headless_windows(&windows);
+                        let now = std::time::Instant::now();
+                        while instant < now {
+                            instant += std::time::Duration::from_millis(16);
+                        }
+                        calloop::timer::TimeoutAction::ToInstant(instant)
+                    },
+                )
+                .expect("failed to register headless vsync timer");
+        }
+
         event_loop
-            .run(None, &mut (), |_| self.apply_pending_mode())
+            .run(None, &mut (), |_| {
+                self.apply_pending_mode();
+                self.connection.borrow().drive_headless_frames();
+            })
             .log_err();
 
         let quit = self.with_common(|common| common.callbacks.quit.take());
@@ -2025,6 +2054,128 @@ mod display_mode_tests {
                         ))
                     });
                     assert_error_contains(attach.await, "failed to connect to Wayland compositor");
+                })
+            },
+        );
+    }
+
+    /// View whose render count tells whether redraws keep happening.
+    struct Counting {
+        renders: std::rc::Rc<std::cell::Cell<usize>>,
+    }
+
+    impl Render for Counting {
+        fn render(&mut self, _: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
+            self.renders.set(self.renders.get() + 1);
+            gpui::Empty
+        }
+    }
+
+    #[test]
+    fn headless_windows_redraw_after_entity_updates() {
+        // Regression: the headless window used to drop the frame
+        // callback, so after the first frame nothing ever repainted
+        // and UI state appeared frozen to automation.
+        run_scenario(
+            "headless_windows_redraw_after_entity_updates",
+            WindowingModes::HEADLESS,
+            |cx| {
+                Box::pin(async move {
+                    let renders = std::rc::Rc::new(std::cell::Cell::new(0_usize));
+                    let renders_for_view = renders.clone();
+                    let window = cx
+                        .update(|cx| {
+                            cx.open_window(WindowOptions::default(), |_, cx| {
+                                cx.new(|_| Counting {
+                                    renders: renders_for_view,
+                                })
+                            })
+                        })
+                        .expect("headless mode opens headless windows");
+                    cx.update(|cx| cx.background_executor().clone())
+                        .timer(std::time::Duration::from_millis(100))
+                        .await;
+                    let initial = renders.get();
+                    assert!(initial >= 1, "expected an initial render, got {initial}");
+                    // A state change must produce another frame
+                    // without any compositor.
+                    cx.update(|cx| {
+                        window
+                            .update(cx, |_, _, cx| cx.notify())
+                            .expect("notify view");
+                    });
+                    cx.update(|cx| cx.background_executor().clone())
+                        .timer(std::time::Duration::from_millis(200))
+                        .await;
+                    assert!(
+                        renders.get() > initial,
+                        "expected a redraw after notify, still at {initial}"
+                    );
+                })
+            },
+        );
+    }
+
+    /// View that records the viewport size it last rendered at.
+    struct SizeRecording {
+        sizes: std::rc::Rc<std::cell::RefCell<Vec<gpui::Size<gpui::Pixels>>>>,
+    }
+
+    impl Render for SizeRecording {
+        fn render(&mut self, window: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
+            self.sizes.borrow_mut().push(window.viewport_size());
+            gpui::Empty
+        }
+    }
+
+    #[test]
+    fn headless_windows_propagate_resize() {
+        // Regression: the headless window dropped the resize
+        // callback, so programmatic resizes (e.g. the dev API) never
+        // reached layout and the app kept its old window size.
+        run_scenario(
+            "headless_windows_propagate_resize",
+            WindowingModes::HEADLESS,
+            |cx| {
+                Box::pin(async move {
+                    let sizes = std::rc::Rc::new(std::cell::RefCell::new(Vec::<
+                        gpui::Size<gpui::Pixels>,
+                    >::new(
+                    )));
+                    let sizes_for_view = sizes.clone();
+                    let window = cx
+                        .update(|cx| {
+                            cx.open_window(WindowOptions::default(), |_, cx| {
+                                cx.new(|_| SizeRecording {
+                                    sizes: sizes_for_view,
+                                })
+                            })
+                        })
+                        .expect("headless mode opens headless windows");
+                    cx.update(|cx| cx.background_executor().clone())
+                        .timer(std::time::Duration::from_millis(100))
+                        .await;
+                    let initial = sizes.borrow().last().copied();
+                    assert!(initial.is_some(), "expected an initial render");
+
+                    let target = gpui::Size {
+                        width: gpui::px(700.0),
+                        height: gpui::px(600.0),
+                    };
+                    assert_ne!(initial, Some(target));
+                    cx.update(|cx| {
+                        window
+                            .update(cx, |_, window, _| window.resize(target))
+                            .expect("resize window");
+                    });
+                    cx.update(|cx| cx.background_executor().clone())
+                        .timer(std::time::Duration::from_millis(200))
+                        .await;
+                    assert_eq!(
+                        sizes.borrow().last().copied(),
+                        Some(target),
+                        "expected a render at the resized viewport"
+                    );
                 })
             },
         );

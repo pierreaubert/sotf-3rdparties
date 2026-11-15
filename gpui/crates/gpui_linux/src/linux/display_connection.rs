@@ -100,6 +100,23 @@ impl DisplayConnection {
         matches!(self, DisplayConnection::Headless(_))
     }
 
+    /// Deliver pending headless frames (no-op while windowed).
+    pub(crate) fn drive_headless_frames(&self) {
+        dispatch!(self, _connection => {}, headless(connection) => connection.drive_frames())
+    }
+
+    /// The headless window registry, for the platform's vsync timer
+    /// (`None` while windowed).
+    pub(crate) fn headless_windows(&self) -> Option<super::headless::HeadlessWindows> {
+        match self {
+            Self::Headless(connection) => Some(connection.windows()),
+            #[cfg(feature = "wayland")]
+            Self::Wayland(_) => None,
+            #[cfg(feature = "x11")]
+            Self::X11(_) => None,
+        }
+    }
+
     pub(crate) fn compositor_name(&self) -> &'static str {
         dispatch!(self, connection => connection.compositor_name(), headless => "headless")
     }

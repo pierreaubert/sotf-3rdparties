@@ -1407,7 +1407,10 @@ pub trait PlatformWindow: HasWindowHandle + HasDisplayHandle {
 }
 
 /// A renderer for headless windows that can produce real rendered output.
-#[cfg(any(test, feature = "test-support", feature = "bench-support"))]
+///
+/// Available outside test builds so production headless platforms
+/// (e.g. the Linux no-display fallback) can serve `render_to_image`
+/// for QA tooling; implementations remain feature-gated per backend.
 pub trait PlatformHeadlessRenderer {
     /// Render a scene and return the result as an RGBA image.
     fn render_scene_to_image(
