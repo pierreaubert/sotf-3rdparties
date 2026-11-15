@@ -101,6 +101,35 @@ unsafe fn read_modifiers(native_event: id) -> Modifiers {
     }
 }
 
+/// Decode NX_SUBTYPE_AUX_CONTROL_BUTTONS without treating media commands as keys.
+fn volume_key_input(subtype: i16, data: isize, modifiers: Modifiers) -> Option<PlatformInput> {
+    // IOKit ev_keymap.h: auxiliary controls subtype 8; sound up/down/mute 0/1/7.
+    if subtype != 8 {
+        return None;
+    }
+    let key = match (data >> 16) & 0xffff {
+        0 => "audiovolumeup",
+        1 => "audiovolumedown",
+        7 => "audiovolumemute",
+        _ => return None,
+    };
+    let keystroke = Keystroke {
+        modifiers,
+        key: key.into(),
+        key_char: None,
+    };
+    // The high byte of the flags contains NX_KEYDOWN (10) or NX_KEYUP (11).
+    match (data >> 8) & 0xff {
+        10 => Some(PlatformInput::KeyDown(KeyDownEvent {
+            keystroke,
+            is_held: data & 1 != 0,
+            prefer_character_input: false,
+        })),
+        11 => Some(PlatformInput::KeyUp(KeyUpEvent { keystroke })),
+        _ => None,
+    }
+}
+
 pub(crate) unsafe fn platform_input_from_native(
     native_event: id,
     window_height: Option<Pixels>,
@@ -118,6 +147,14 @@ pub(crate) unsafe fn platform_input_from_native(
         }
 
         match event_type {
+            NSEventType::NSSystemDefined => {
+                // SAFETY: AppKit supplied a live NSEvent; subtype/data1 are read only
+                // after checking its system-defined type. No keyboard-only selectors
+                // (characters, keyCode, isARepeat) are valid for this event family.
+                let subtype: i16 = msg_send![native_event, subtype];
+                let data: isize = msg_send![native_event, data1];
+                volume_key_input(subtype, data, read_modifiers(native_event))
+            }
             NSEventType::NSFlagsChanged => {
                 Some(PlatformInput::ModifiersChanged(ModifiersChangedEvent {
                     modifiers: read_modifiers(native_event),
@@ -571,4 +608,87 @@ fn chars_for_modified_key(code: CGKeyCode, modifiers: u32) -> String {
         let _: () = msg_send![keyboard, release];
     }
     String::from_utf16(&buffer[..buffer_size]).unwrap_or_default()
+}
+
+#[cfg(test)]
+mod volume_key_tests {
+    use super::*;
+
+    #[test]
+    fn volume_keys_decode_press_release_and_repeat() {
+        for (code, name) in [
+            (0, "audiovolumeup"),
+            (1, "audiovolumedown"),
+            (7, "audiovolumemute"),
+        ] {
+            for repeat in [0, 1] {
+                let modifiers = Modifiers {
+                    shift: true,
+                    ..Modifiers::default()
+                };
+                let Some(PlatformInput::KeyDown(event)) =
+                    volume_key_input(8, (code << 16) | 0x0a00 | repeat, modifiers)
+                else {
+                    panic!("expected a volume key press");
+                };
+                assert_eq!(event.keystroke.key, name);
+                assert_eq!(event.keystroke.modifiers, modifiers);
+                assert_eq!(event.is_held, repeat == 1);
+                assert_eq!(event.keystroke.key_char, None);
+                assert!(!event.prefer_character_input);
+            }
+            let Some(PlatformInput::KeyUp(event)) =
+                volume_key_input(8, (code << 16) | 0x0b00, Modifiers::default())
+            else {
+                panic!("expected a volume key release");
+            };
+            assert_eq!(event.keystroke.key, name);
+        }
+    }
+
+    #[test]
+    fn native_auxiliary_event_uses_system_event_accessors() {
+        use cocoa::{base::nil, foundation::NSPoint};
+        use objc::class;
+
+        objc::rc::autoreleasepool(|| {
+            // SAFETY: NSEvent's factory returns an autoreleased event retained by
+            // this pool. The selector arguments match AppKit's declared ABI.
+            let event: id = unsafe {
+                msg_send![class!(NSEvent),
+                    otherEventWithType: NSEventType::NSSystemDefined
+                    location: NSPoint::new(0.0, 0.0)
+                    modifierFlags: 0u64
+                    timestamp: 0f64
+                    windowNumber: 0isize
+                    context: nil
+                    subtype: 8i16
+                    data1: 0x00070a00isize
+                    data2: 0isize]
+            };
+            assert!(!event.is_null());
+            // SAFETY: the live NSEvent above remains in this autorelease pool.
+            let Some(PlatformInput::KeyDown(decoded)) =
+                (unsafe { platform_input_from_native(event, None) })
+            else {
+                panic!("expected a native mute key press");
+            };
+            assert_eq!(decoded.keystroke.key, "audiovolumemute");
+            assert!(!decoded.is_held);
+        });
+    }
+
+    #[test]
+    fn unrelated_system_events_remain_with_appkit() {
+        for subtype in [-1, 0, 7, 9] {
+            assert!(volume_key_input(subtype, 0x0a00, Modifiers::default()).is_none());
+        }
+        // Brightness, playback, next/previous, and unknown controls are not volume keys.
+        for code in [2, 3, 16, 17, 18, 0xffff] {
+            assert!(volume_key_input(8, (code << 16) | 0x0a00, Modifiers::default()).is_none());
+        }
+        for flags in [0, 0x0900, 0x0c00, 0xffff] {
+            assert!(volume_key_input(8, flags, Modifiers::default()).is_none());
+        }
+    }
 }

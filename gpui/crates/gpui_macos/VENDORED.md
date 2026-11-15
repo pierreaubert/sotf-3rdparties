@@ -68,3 +68,16 @@ Added at the top of `src/gpui_macos.rs` (Task 6, `just lint-host` gate with `-D 
   `src/platform.rs:173,174` and `src/window.rs:487`.
 - `#![allow(clippy::new_without_default)]` — `MetalHeadlessRenderer::new()` in
   `src/metal_renderer.rs:1775`.
+
+### Forward focused volume keys (SOTF #250)
+
+`GPUIApplication.sendEvent:` routes system-defined auxiliary volume events to
+the focused GPUI view. The backend decodes volume up/down/mute into the existing
+`audiovolumeup`, `audiovolumedown`, and `audiovolumemute` key names, including
+key-up and repeat state. These events bypass AppKit text composition because
+keyboard-only NSEvent accessors are invalid for system-defined events.
+
+Only a handled GPUI event stops native propagation. Other auxiliary controls,
+non-GPUI responders, and unbound volume keys retain NSApplication handling.
+Play/pause and track commands remain with the application's media-session
+integration; this patch installs no global keyboard monitor.
