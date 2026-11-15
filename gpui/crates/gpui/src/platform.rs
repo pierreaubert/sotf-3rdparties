@@ -1417,7 +1417,7 @@ pub trait PlatformHeadlessRenderer {
         &mut self,
         scene: &Scene,
         size: Size<DevicePixels>,
-    ) -> Result<RgbaImage>;
+    ) -> Result<image::RgbaImage>;
 
     /// Render a scene to an offscreen target without reading the result back.
     ///
