@@ -426,8 +426,12 @@ impl WgpuRenderer {
                 };
                 (
                     surface_format,
+                    // Metal offers PostMultiplied (not PreMultiplied) for
+                    // CAMetalLayer surfaces; without it, transparent
+                    // windows on iOS/macOS fall back to an opaque mode.
                     pick_alpha_mode(&[
                         wgpu::CompositeAlphaMode::PreMultiplied,
+                        wgpu::CompositeAlphaMode::PostMultiplied,
                         wgpu::CompositeAlphaMode::Inherit,
                     ])?,
                     pick_alpha_mode(&[
